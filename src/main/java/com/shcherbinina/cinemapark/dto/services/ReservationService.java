@@ -27,6 +27,8 @@ public class ReservationService implements IReservationService {
     private ReservationRepository reservationRepository;
     @Autowired
     private RowRepository rowRepository;
+    @Autowired
+    private DTOConverter dtoConverter;
 
     @Override
     public List<RowDTO> getHallLayout(int sessionId) {
@@ -73,7 +75,7 @@ public class ReservationService implements IReservationService {
 
     @Override
     public void addNewReservation(ReservationDTO dto) {
-        reservationRepository.addReservation(DTOConverter.convertToReservation(dto));
+        reservationRepository.addReservation(dtoConverter.convertToReservation(dto));
     }
 
     @Override
@@ -83,7 +85,12 @@ public class ReservationService implements IReservationService {
 
     @Override
     public void updateReservation(ReservationDTO dto) {
-        reservationRepository.updateReservation(DTOConverter.convertToReservation(dto));
+        reservationRepository.updateReservation(dtoConverter.convertToReservation(dto));
+    }
+
+    @Override
+    public ReservationDTO getReservationById(int id) {
+        return dtoConverter.convertToReservationDTO(reservationRepository.getReservationById(id));
     }
 
     public Map<Integer, Integer> getPlaceAmountForRow(List<Integer> rowTypesIds) {

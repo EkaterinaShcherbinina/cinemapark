@@ -6,16 +6,20 @@ import com.shcherbinina.cinemapark.dao.repository.MovieSessionRepository;
 import com.shcherbinina.cinemapark.dao.repository.UserRepository;
 import com.shcherbinina.cinemapark.dto.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DTOConverter {
     @Autowired
-    private static UserRepository userRepository;
+    private UserRepository userRepository;
     @Autowired
-    private static MovieSessionRepository movieSessionRepository;
+    private MovieSessionRepository movieSessionRepository;
     @Autowired
-    private static CinemaHallRepository cinemaHallRepository;
+    private CinemaHallRepository cinemaHallRepository;
 
-    public static ReservationDTO convertToReservationDTO(Reservation reservation) {
+    public ReservationDTO convertToReservationDTO(Reservation reservation) {
+        if(reservation == null) return null;
+
         ReservationDTO dto = new ReservationDTO();
         dto.setId(reservation.getId());
         dto.setPlace(reservation.getPlace());
@@ -26,7 +30,9 @@ public class DTOConverter {
         return dto;
     }
 
-    public static Reservation convertToReservation(ReservationDTO dto) {
+    public Reservation convertToReservation(ReservationDTO dto) {
+        if(dto == null) return null;
+
         User user = userRepository.getUserById(dto.getUserId());
         MovieSession movieSession = movieSessionRepository.getMovieSessionById(dto.getSessionId());
 
@@ -39,7 +45,9 @@ public class DTOConverter {
         return reservation;
     }
 
-    public static User convertToUser(UserDTO dto) {
+    public User convertToUser(UserDTO dto) {
+        if(dto == null) return null;
+
         User user = new User();
         user.setFirstName(dto.getFirstName());
         user.setLastName(dto.getLastName());
@@ -50,7 +58,9 @@ public class DTOConverter {
         return user;
     }
 
-    public static UserDTO convertToUserDTO(User user) {
+    public UserDTO convertToUserDTO(User user) {
+        if(user == null) return null;
+
         UserDTO dto = new UserDTO();
         dto.setFirstName(user.getFirstName());
         dto.setLastName(user.getLastName());
@@ -61,7 +71,9 @@ public class DTOConverter {
         return dto;
     }
 
-    public static MovieDTO convertToMovieDTO(Movie movie) {
+    public MovieDTO convertToMovieDTO(Movie movie) {
+        if(movie == null) return null;
+
         MovieDTO dto = new MovieDTO();
         dto.setId(movie.getId());
         dto.setName(movie.getName());
@@ -78,7 +90,9 @@ public class DTOConverter {
         return dto;
     }
 
-    public static Movie convertToMovie(MovieDTO dto) {
+    public Movie convertToMovie(MovieDTO dto) {
+        if(dto == null) return null;
+
         Movie movie = new Movie();
         movie.setId(dto.getId());
         movie.setName(dto.getName());
@@ -95,7 +109,9 @@ public class DTOConverter {
         return movie;
     }
 
-    public static MovieSession convertToMovieSession(MovieSessionDTO dto) {
+    public MovieSession convertToMovieSession(MovieSessionDTO dto) {
+        if(dto == null) return null;
+
         CinemaHall hall = cinemaHallRepository.getCinemaHallById(dto.getCinemaHallId());
 
         MovieSession session = new MovieSession();
@@ -109,7 +125,9 @@ public class DTOConverter {
         return session;
     }
 
-    public static MovieSessionDTO convertToMovieSessionDTO(MovieSession session) {
+    public MovieSessionDTO convertToMovieSessionDTO(MovieSession session) {
+        if(session == null) return null;
+
         MovieSessionDTO dto = new MovieSessionDTO();
         dto.setId(session.getId());
         dto.setMovieId(session.getMovieId());
@@ -121,14 +139,18 @@ public class DTOConverter {
         return dto;
     }
 
-    public static CinemaHall convertToCinemaHall(CinemaHallDTO dto) {
+    public CinemaHall convertToCinemaHall(CinemaHallDTO dto) {
+        if(dto == null) return null;
+
         CinemaHall cinemaHall = new CinemaHall();
         cinemaHall.setRows(dto.getRows());
         cinemaHall.setRowsAmount(dto.getRowsAmount());
         return cinemaHall;
     }
 
-    public static CinemaHallDTO convertToCinemaHallDto(CinemaHall hall) {
+    public CinemaHallDTO convertToCinemaHallDto(CinemaHall hall) {
+        if(hall == null) return null;
+
         CinemaHallDTO dto = new CinemaHallDTO();
         dto.setRows(hall.getRows());
         dto.setRowsAmount(hall.getRowsAmount());

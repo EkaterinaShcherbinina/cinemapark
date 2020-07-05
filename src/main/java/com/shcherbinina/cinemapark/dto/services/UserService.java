@@ -11,12 +11,14 @@ import org.springframework.stereotype.Service;
 public class UserService implements IUserService {
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    private DTOConverter dtoConverter;
 
     public void addNewUser(UserDTO userDTO) {
-        userRepository.addUser(DTOConverter.convertToUser(userDTO));
+        userRepository.addUser(dtoConverter.convertToUser(userDTO));
     }
 
     public void updateUser(UserDTO userDTO) {
-        userRepository.updateUser(DTOConverter.convertToUser(userDTO));
+        userRepository.updateUser(dtoConverter.convertToUser(userDTO));
     }
 }

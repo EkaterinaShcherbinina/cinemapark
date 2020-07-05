@@ -19,8 +19,10 @@ INSERT INTO movie (secondaryKey,name,image_url,actors,duration,description,ratin
 '8.6', 'Adventure, Drama', 'Christopher Nolan', '2014','2020-06-14');
 
 INSERT INTO cinemaHall (id, rowsAmount, rowsTypes) VALUES ('1','10','1,3,3,3,3,3,3,3,3,3');
+INSERT INTO cinemaHall (id, rowsAmount, rowsTypes) VALUES ('2','10','1,1,1,3,3,3,3,3,3,3');
 
 INSERT INTO movieSession (movieId,dateSession,timeSession,cost,cinemaHallId) VALUES ('1','2020-06-23','11:30','50.0','1'),
+('1','2020-06-30','18:00','50.0','2'),
 ('2','2020-06-23','15:00','50.0','1'),
 ('2','2020-06-23','17:30','50.0','1');
 
@@ -28,8 +30,8 @@ INSERT INTO reservation (userId, rowId, place, sessionId) VALUES ('1','1','6','2
 INSERT INTO reservation (userId, rowId, place, sessionId) VALUES ('2','1','7','2');
 INSERT INTO reservation (userId, rowId, place, sessionId) VALUES ('3','2','6','2');
 INSERT INTO reservation (userId, rowId, place, sessionId) VALUES ('4','5','2','2');
-INSERT INTO reservation (userId, rowId, place, sessionId) VALUES ('5','5','3','2');
-INSERT INTO reservation (userId, rowId, place, sessionId) VALUES ('6','5','4','2');
+INSERT INTO reservation (userId, rowId, place, sessionId) VALUES ('5','5','3','3');
+INSERT INTO reservation (userId, rowId, place, sessionId) VALUES ('6','5','4','4');
 
 INSERT INTO rowCinemaHall (id, seatsAmount) VALUES ('1','7');
 INSERT INTO rowCinemaHall (id, seatsAmount) VALUES ('2','8');

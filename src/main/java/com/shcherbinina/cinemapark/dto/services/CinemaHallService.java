@@ -10,16 +10,17 @@ import org.springframework.stereotype.Service;
 public class CinemaHallService implements ICinemaHallService {
     @Autowired
     private CinemaHallRepository cinemaHallRepository;
-
+    @Autowired
+    private DTOConverter dtoConverter;
 
     @Override
     public void addNewCinemaHall(CinemaHallDTO cinemaHallDTO) {
-        cinemaHallRepository.addCinemaHall(DTOConverter.convertToCinemaHall(cinemaHallDTO));
+        cinemaHallRepository.addCinemaHall(dtoConverter.convertToCinemaHall(cinemaHallDTO));
     }
 
     @Override
     public void updateCinemaHall(CinemaHallDTO cinemaHallDTO) {
-        cinemaHallRepository.updateCinemaHall(DTOConverter.convertToCinemaHall(cinemaHallDTO));
+        cinemaHallRepository.updateCinemaHall(dtoConverter.convertToCinemaHall(cinemaHallDTO));
     }
 
     @Override
