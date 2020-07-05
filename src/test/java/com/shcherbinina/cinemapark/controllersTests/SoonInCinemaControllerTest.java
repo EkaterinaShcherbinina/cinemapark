@@ -1,9 +1,7 @@
 package com.shcherbinina.cinemapark.controllersTests;
 
 import com.shcherbinina.cinemapark.controllers.SoonInCinemaController;
-import com.shcherbinina.cinemapark.dao.repository.MovieRepository;
 import com.shcherbinina.cinemapark.dto.entity.MovieDTO;
-import com.shcherbinina.cinemapark.dto.entity.MovieSessionDTO;
 import com.shcherbinina.cinemapark.dto.services.MovieService;
 import org.junit.Assert;
 import org.junit.Before;

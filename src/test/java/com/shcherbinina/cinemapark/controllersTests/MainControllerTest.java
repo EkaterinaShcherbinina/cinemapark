@@ -2,7 +2,6 @@ package com.shcherbinina.cinemapark.controllersTests;
 
 import com.shcherbinina.cinemapark.controllers.MainController;
 import com.shcherbinina.cinemapark.dto.entity.MovieDTO;
-import com.shcherbinina.cinemapark.dto.services.IMovieService;
 import com.shcherbinina.cinemapark.dto.services.MovieService;
 import org.junit.Assert;
 import org.junit.Before;

@@ -11,4 +11,5 @@ public interface IReservationService {
     void addNewReservation(ReservationDTO dto);
     void deleteReservation(int id);
     void updateReservation(ReservationDTO dto);
+    ReservationDTO getReservationById(int id);
 }

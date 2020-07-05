@@ -1,6 +1,8 @@
 package com.shcherbinina.cinemapark.exceptions.advices;
 
 import com.shcherbinina.cinemapark.exceptions.errors.ApiError;
+import com.shcherbinina.cinemapark.exceptions.errors.BadRequestError;
+import com.shcherbinina.cinemapark.exceptions.errors.PageNotFoundError;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,32 +26,29 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
                                                                   HttpHeaders headers, HttpStatus status, WebRequest request) {
-        ApiError apiError = new ApiError(status, "Malformed JSON request", ex.getMessage());
-        return new ResponseEntity(apiError, status);
+        BadRequestError badRequestError = new BadRequestError();
+        return new ResponseEntity(badRequestError, badRequestError.getStatus());
     }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers, HttpStatus status, WebRequest request) {
-        ApiError apiError = new ApiError(status, "Method arg not valid", ex.getMessage());
-        return new ResponseEntity<Object>(apiError, HttpStatus.BAD_REQUEST);
+        BadRequestError badRequestError = new BadRequestError();
+        return new ResponseEntity(badRequestError, badRequestError.getStatus());
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     protected ResponseEntity<Object> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex,
                                                                       WebRequest request) {
-        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST);
-        apiError.setMessage(String.format("The parameter '%s' of value '%s' is wrong",
-                ex.getName(), ex.getValue()));
-        apiError.setDebugMessage(ex.getMessage());
-        return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
+        PageNotFoundError error = new PageNotFoundError();
+        return new ResponseEntity<>(error, error.getStatus());
     }
 
     @Override
     protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers,
                                                                    HttpStatus status, WebRequest request) {
-        return new ResponseEntity<Object>(new ApiError(status, "No handler found", ex.getMessage()),
-                HttpStatus.NOT_FOUND);
+        PageNotFoundError error = new PageNotFoundError();
+        return new ResponseEntity<>(error, error.getStatus());
     }
 
     @ExceptionHandler(Exception.class)

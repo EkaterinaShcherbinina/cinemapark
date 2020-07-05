@@ -15,23 +15,25 @@ import java.util.stream.Collectors;
 public class MovieService implements IMovieService {
     @Autowired
     private MovieRepository movieRepository;
+    @Autowired
+    private DTOConverter dtoConverter;
 
     @Override
     public List<MovieDTO> getMoviesNowInCinema() {
         List<Movie> movies = movieRepository.findInCinemaByDate(LocalDate.now().toString());
-        return movies.stream().map(res -> DTOConverter.convertToMovieDTO(res)).collect(Collectors.toList());
+        return movies.stream().map(res -> dtoConverter.convertToMovieDTO(res)).collect(Collectors.toList());
     }
 
     @Override
     public MovieDTO getMovieByKey(String key) {
         Movie movie = movieRepository.getBySecondaryKey(key);
-        return DTOConverter.convertToMovieDTO(movie);
+        return dtoConverter.convertToMovieDTO(movie);
     }
 
     @Override
     public List<MovieDTO> getMoviesSoonInCinema() {
         List<Movie> movies = movieRepository.getMoviesAfterDate(LocalDate.now());
-        return movies.stream().map(movie -> DTOConverter.convertToMovieDTO(movie))
+        return movies.stream().map(movie -> dtoConverter.convertToMovieDTO(movie))
                 .collect(Collectors.toList());
     }
 

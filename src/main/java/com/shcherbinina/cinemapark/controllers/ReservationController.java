@@ -13,21 +13,25 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/reservation")
     public class ReservationController {
 
     @Autowired
     ReservationService reservationService;
 
-    @ResponseBody
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/session{id}", method = RequestMethod.GET)
     public List<RowDTO> getHallPlan(@PathVariable String id) {
         List<RowDTO> rowDTOs = reservationService.getHallLayout(Integer.valueOf(id));
         return rowDTOs;
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ReservationDTO getReservation(@PathVariable String id) {
+        return reservationService.getReservationById(Integer.valueOf(id));
+    }
+
+    @RequestMapping(value = "/new", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> postReservation(@RequestBody ReservationDTO reservationDTO)
     {
         reservationService.addNewReservation(reservationDTO);

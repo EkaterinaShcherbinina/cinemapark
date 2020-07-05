@@ -14,11 +14,13 @@ import java.util.stream.Collectors;
 public class MovieSessionService implements IMovieSessionService {
     @Autowired
     MovieSessionRepository sessionRepository;
+    @Autowired
+    private DTOConverter dtoConverter;
 
     @Override
     public List<MovieSessionDTO> getAllMovieSessionsByDate(String date) {
         List<MovieSession> sessions = sessionRepository.getSessionsByDate(date);
-        return sessions.stream().map(session -> DTOConverter.convertToMovieSessionDTO(session))
+        return sessions.stream().map(session -> dtoConverter.convertToMovieSessionDTO(session))
                 .collect(Collectors.toList());
     }
 }

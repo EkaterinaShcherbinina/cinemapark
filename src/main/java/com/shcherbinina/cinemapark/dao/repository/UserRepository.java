@@ -6,6 +6,7 @@ import com.shcherbinina.cinemapark.dto.entity.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class UserRepository implements IUserRepository {
@@ -18,16 +19,19 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
+    @Transactional
     public void addUser(User user) {
         userDAO.save(user);
     }
 
     @Override
+    @Transactional
     public void deleteUser(int userId) {
         userDAO.deleteById(userId);
     }
 
     @Override
+    @Transactional
     public void updateUser(User user) {
         addUser(user);
     }
