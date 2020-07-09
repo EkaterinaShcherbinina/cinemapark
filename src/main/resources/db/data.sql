@@ -9,22 +9,27 @@ INSERT INTO user (firstName,lastName,password,email,account) VALUES ('Evan','Tyr
 ('Basil','Kirk','kljilj9io','sapien@lectusNullam.co.uk','0'),
 ('Josiah','Steel','mghjft54ty5y','Cum.sociis@adipiscinglacusUt.org','0');
 
-INSERT INTO movie (secondaryKey,name,image_url,actors,duration,description,rating,genre,producer,productionYear,premiereDate) VALUES ('inception','Inception', 'fdfd',
+INSERT INTO movie (secondaryKey,name,imageUrl,actors,duration,description,rating,genre,producer,productionYear,premiereDate) VALUES ('inception','Inception',
+'http://localhost:8080/resources/image-Interstellar.jpg',
 'Leonardo DiCaprio, Joseph Gordon-Levitt, Ellen Page', '148',
 'A thief who steals corporate secrets through the use of dream-sharing technology is given the inverse task of planting an idea into the mind of a C.E.O.',
 '8.8', 'Action, Adventure', 'Christopher Nolan', '2010','2020-06-13'),
-('interstellar','Interstellar', 'dgdvvd',
+('interstellar','Interstellar','http://localhost:8080/resources/image-Inception.jpg',
 'Matthew McConaughey, Anne Hathaway, Jessica Chastain', '169',
 'A team of explorers travel through a wormhole in space in an attempt to ensure humanity survival.',
-'8.6', 'Adventure, Drama', 'Christopher Nolan', '2014','2020-06-14');
+'8.6', 'Adventure, Drama', 'Christopher Nolan', '2014','2020-06-14'),
+('martian','The Martian','http://localhost:8080/resources/image-Martian.jpg',
+'Matt Damon, Jessica Chastain, Kristen Wiig', '144',
+'An astronaut becomes stranded on Mars after his team assume him dead, and must rely on his ingenuity to find a way to signal to Earth that he is alive..',
+'8.0', ' Adventure, Drama, Sci-Fi', ' Ridley Scott', '2015','2020-07-14');
 
 INSERT INTO cinemaHall (id, rowsAmount, rowsTypes) VALUES ('1','10','1,3,3,3,3,3,3,3,3,3');
 INSERT INTO cinemaHall (id, rowsAmount, rowsTypes) VALUES ('2','10','1,1,1,3,3,3,3,3,3,3');
 
-INSERT INTO movieSession (movieId,dateSession,timeSession,cost,cinemaHallId) VALUES ('1','2020-06-23','11:30','50.0','1'),
-('1','2020-06-30','18:00','50.0','2'),
-('2','2020-06-23','15:00','50.0','1'),
-('2','2020-06-23','17:30','50.0','1');
+INSERT INTO movieSession (dateSession,timeSession,cost,cinemaHallId,movieId) VALUES ('2020-07-09','11:30','50.0','1','1'),
+('2020-07-09','18:00','50.0','2','1'),
+('2020-07-09','15:00','50.0','1','2'),
+('2020-07-09','17:30','50.0','1','2');
 
 INSERT INTO reservation (userId, rowId, place, sessionId) VALUES ('1','1','6','2');
 INSERT INTO reservation (userId, rowId, place, sessionId) VALUES ('2','1','7','2');

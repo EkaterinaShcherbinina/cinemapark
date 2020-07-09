@@ -2,6 +2,7 @@ package com.shcherbinina.cinemapark.dto;
 
 import com.shcherbinina.cinemapark.dao.entity.*;
 import com.shcherbinina.cinemapark.dao.repository.CinemaHallRepository;
+import com.shcherbinina.cinemapark.dao.repository.MovieRepository;
 import com.shcherbinina.cinemapark.dao.repository.MovieSessionRepository;
 import com.shcherbinina.cinemapark.dao.repository.UserRepository;
 import com.shcherbinina.cinemapark.dto.entity.*;
@@ -16,6 +17,8 @@ public class DTOConverter {
     private MovieSessionRepository movieSessionRepository;
     @Autowired
     private CinemaHallRepository cinemaHallRepository;
+    @Autowired
+    private MovieRepository movieRepository;
 
     public ReservationDTO convertToReservationDTO(Reservation reservation) {
         if(reservation == null) return null;
@@ -90,6 +93,22 @@ public class DTOConverter {
         return dto;
     }
 
+    public MovieThumbnailDTO convertToMovieThumbnailDTO(Movie movie) {
+        if(movie == null) return null;
+
+        MovieThumbnailDTO dto = new MovieThumbnailDTO();
+        dto.setId(movie.getId());
+        dto.setSecondaryKey(movie.getSecondaryKey());
+        dto.setName(movie.getName());
+        dto.setImageUrl(movie.getImageUrl());
+        dto.setDuration(movie.getDuration());
+        dto.setDescription(movie.getDescription());
+        dto.setRating(movie.getRating());
+        dto.setGenre(movie.getGenre());
+
+        return dto;
+    }
+
     public Movie convertToMovie(MovieDTO dto) {
         if(dto == null) return null;
 
@@ -113,14 +132,15 @@ public class DTOConverter {
         if(dto == null) return null;
 
         CinemaHall hall = cinemaHallRepository.getCinemaHallById(dto.getCinemaHallId());
+        Movie movie = movieRepository.getMovieById(dto.getMovie().getId());
 
         MovieSession session = new MovieSession();
         session.setId(dto.getId());
-        session.setMovieId(dto.getMovieId());
         session.setCost(dto.getCost());
         session.setTime(dto.getTime());
         session.setDate(dto.getDate());
         session.assignCinemaHall(hall);
+        session.assignMovie(movie);
 
         return session;
     }
@@ -130,11 +150,11 @@ public class DTOConverter {
 
         MovieSessionDTO dto = new MovieSessionDTO();
         dto.setId(session.getId());
-        dto.setMovieId(session.getMovieId());
         dto.setCost(session.getCost());
         dto.setDate(session.getDate());
         dto.setTime(session.getTime());
         dto.setCinemaHallId(session.getCinemaHall().getId());
+        dto.setMovie(convertToMovieDTO(session.getMovie()));
 
         return dto;
     }

@@ -1,12 +1,12 @@
 package com.shcherbinina.cinemapark.dto.entity;
 
+import com.shcherbinina.cinemapark.dao.entity.Movie;
+
 import java.sql.Time;
 import java.util.Date;
 
 public class MovieSessionDTO {
     private int id;
-
-    private int movieId;
 
     private Date date;
 
@@ -15,6 +15,8 @@ public class MovieSessionDTO {
     private double cost;
 
     private int cinemaHallId;
+
+    private MovieDTO movie;
 
     public MovieSessionDTO() {
     }
@@ -27,22 +29,22 @@ public class MovieSessionDTO {
         MovieSessionDTO dto = (MovieSessionDTO) obj;
 
         return dto.id == id &&
-                dto.movieId == movieId &&
                 dto.date.equals(date) &&
                 dto.time.equals(time) &&
                 Double.compare(dto.cost, cost) == 0 &&
-                dto.cinemaHallId == cinemaHallId;
+                dto.cinemaHallId == cinemaHallId &&
+                dto.movie.equals(this.movie);
     }
 
     @Override
     public int hashCode() {
         int result = 17;
         result = 31 * result + ((Integer)id).hashCode();
-        result = 31 * result + ((Integer)movieId).hashCode();
         result = 31 * result + date.hashCode();
         result = 31 * result + time.hashCode();
         result = 31 * result + ((Double)cost).hashCode();
         result = 31 * result + ((Integer)cinemaHallId).hashCode();
+        result = 31 * result + movie.hashCode();
         return result;
     }
 
@@ -52,14 +54,6 @@ public class MovieSessionDTO {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getMovieId() {
-        return movieId;
-    }
-
-    public void setMovieId(int movieId) {
-        this.movieId = movieId;
     }
 
     public Date getDate() {
@@ -92,5 +86,13 @@ public class MovieSessionDTO {
 
     public void setCinemaHallId(int cinemaHallId) {
         this.cinemaHallId = cinemaHallId;
+    }
+
+    public MovieDTO getMovie() {
+        return movie;
+    }
+
+    public void setMovie(MovieDTO movie) {
+        this.movie = movie;
     }
 }

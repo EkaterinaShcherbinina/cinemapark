@@ -63,7 +63,7 @@ public class ReservationServiceTest {
         }
 
         movieSession = new MovieSession();
-        movieSession.setMovieId(1);
+        movieSession.setMovie(new Movie());
         movieSession.setCinemaHall(new CinemaHall(2));
 
         rows = new ArrayList<>();

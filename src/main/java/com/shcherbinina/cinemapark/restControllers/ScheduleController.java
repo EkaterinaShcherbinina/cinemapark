@@ -1,7 +1,5 @@
-package com.shcherbinina.cinemapark.controllers;
+package com.shcherbinina.cinemapark.restControllers;
 
-import com.shcherbinina.cinemapark.dao.entity.MovieSession;
-import com.shcherbinina.cinemapark.dao.repository.MovieSessionRepository;
 import com.shcherbinina.cinemapark.dto.entity.MovieSessionDTO;
 import com.shcherbinina.cinemapark.dto.services.MovieSessionService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -12,7 +12,7 @@ CREATE TABLE user (
     id mediumint(8) unsigned NOT NULL auto_increment,
     secondaryKey varchar(255) default NULL,
     name varchar(255) default NULL,
-    image_url varchar(100) default NULL,
+    imageUrl varchar(100) default NULL,
     actors varchar(255) default NULL,
     duration mediumint default NULL,
     description varchar(255) default NULL,
@@ -33,13 +33,14 @@ CREATE TABLE user (
 
    CREATE TABLE movieSession (
       id mediumint(8) unsigned NOT NULL auto_increment,
-      movieId mediumint default NULL,
       dateSession DATE default NULL,
       timeSession TIME default null,
       cost double default NULL,
       cinemaHallId mediumint default NULL,
+      movieId mediumint default NULL,
       PRIMARY KEY (id),
-      CONSTRAINT cinemaHallForeignKey FOREIGN KEY (cinemaHallId) REFERENCES cinemaHall (id)
+      CONSTRAINT cinemaHallForeignKey FOREIGN KEY (cinemaHallId) REFERENCES cinemaHall (id),
+      CONSTRAINT movieForeignKey FOREIGN KEY (movieId) REFERENCES movie (id)
    );
 
    CREATE TABLE reservation (

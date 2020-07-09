@@ -1,6 +1,5 @@
-package com.shcherbinina.cinemapark.controllers;
+package com.shcherbinina.cinemapark.restControllers;
 
-import com.shcherbinina.cinemapark.dao.repository.ReservationRepository;
 import com.shcherbinina.cinemapark.dto.entity.ReservationDTO;
 import com.shcherbinina.cinemapark.dto.entity.RowDTO;
 import com.shcherbinina.cinemapark.dto.services.ReservationService;
