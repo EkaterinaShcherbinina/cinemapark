@@ -2,31 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Cinemapark</title>
+    <#include "materializedConfig.ftl">
 </head>
 <body>
-<div class="header">
-  <h5 class="Title">Cinemapark</h5>
-  <nav class="navigation">
-    <a class="option" href="#">Movies</a>
-    <a class="option" href="#">Soon in the cinema</a>
-    <a class="option" href="#">Schedule</a>
-  </nav>
-  <a class="sign-up-button" href="#">Sign up</a>
-</div>
+    <script type="text/javascript" src="/js/materialize.min.js"></script>
+    <#include "header.ftl">
     <#if sessions?has_content>
     <ul>
+    <table class="highlight">
         <#list sessions as session>
-            <table>
+            <tbody>
                 <tr>
-                    <img src=${session.movie.imageUrl} width="125" height="200" class="card-img-top">
-                    <td>${session.movie.name}</td>
-                    <td>${session.time}</td>
-                    <td>${session.cost}</td>
-                    <td>${session.cinemaHallId}</td>
+                        <td>
+                            <img src=${session.movie.imageUrl} width="125" height="200" class="card-img-top">
+                            <p>${session.movie.name}</p>
+                            <a href="/booking/session${session.id}">
+                             <button class="btn waves-effect waves-light" type="submit" name="session">To book
+                            </button>
+                            </a>
+                        </td>
+                        <td>${session.time}</td>
+                        <td>${session.cost}</td>
+                        <td>${session.cinemaHall.hallName}</td>
                 </tr>
-            </table>
+                </tbody>
+              </form>
         </#list>
+         </table>
     </ul>
     <#else>
         <p>No sessions available at this time</p>

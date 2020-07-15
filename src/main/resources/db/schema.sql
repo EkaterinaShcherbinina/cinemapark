@@ -28,6 +28,7 @@ CREATE TABLE user (
      id mediumint(8) unsigned NOT NULL,
      rowsAmount mediumint default NULL,
      rowsTypes varchar(255) default NULL,
+     hallName varchar(255) default NULL,
      PRIMARY KEY (id)
   );
 
@@ -48,6 +49,7 @@ CREATE TABLE user (
        userId mediumint default NULL,
        rowId mediumint default NULL,
        place mediumint default NULL,
+       isPaid boolean default NULL,
        sessionId mediumint default NULL,
        PRIMARY KEY (id),
        CONSTRAINT movieSessionForeignKey FOREIGN KEY (sessionId) REFERENCES movieSession (id),

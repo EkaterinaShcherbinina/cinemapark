@@ -6,6 +6,7 @@ import com.shcherbinina.cinemapark.dao.repository.MovieSessionRepository;
 import com.shcherbinina.cinemapark.dao.repository.ReservationRepository;
 import com.shcherbinina.cinemapark.dao.repository.RowRepository;
 import com.shcherbinina.cinemapark.dto.DTOConverter;
+import com.shcherbinina.cinemapark.dto.entity.BookedDTO;
 import com.shcherbinina.cinemapark.dto.entity.ReservationDTO;
 import com.shcherbinina.cinemapark.dto.entity.RowDTO;
 import com.shcherbinina.cinemapark.utility.Utility;
@@ -91,6 +92,24 @@ public class ReservationService implements IReservationService {
     @Override
     public ReservationDTO getReservationById(int id) {
         return dtoConverter.convertToReservationDTO(reservationRepository.getReservationById(id));
+    }
+
+    @Override
+    public BookedDTO getBookedPlace(ReservationDTO reservationDTO) {
+        Reservation reservation = reservationRepository.getReservation(reservationDTO);
+        MovieSession session = reservation.getMovieSession();
+
+        BookedDTO booked = new BookedDTO();
+        booked.setReservationId(reservation.getId());
+        booked.setRowId(reservation.getRowId());
+        booked.setPlace(reservation.getPlace());
+        booked.setMovieName(session.getMovie().getName());
+        booked.setHallName(session.getCinemaHall().getHallName());
+        booked.setDate(session.getDate());
+        booked.setTime(session.getTime());
+        booked.setStatus(reservation.getIsPaid());
+
+        return booked;
     }
 
     public Map<Integer, Integer> getPlaceAmountForRow(List<Integer> rowTypesIds) {

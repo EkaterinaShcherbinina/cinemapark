@@ -7,6 +7,7 @@ import com.shcherbinina.cinemapark.dto.entity.MovieSessionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,9 +19,20 @@ public class MovieSessionService implements IMovieSessionService {
     @Autowired
     private DTOConverter dtoConverter;
 
+    private final String today = "today";
+
     @Override
     public List<MovieSessionDTO> getAllMovieSessionsByDate(String date) {
+        if(today.equals(date)) date = LocalDate.now().toString();
         List<MovieSession> sessions = sessionRepository.getSessionsByDate(date);
+        return sessions.stream().map(session -> dtoConverter.convertToMovieSessionDTO(session))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<MovieSessionDTO> getSessionsByDateAndMovieName(String date, int movieId) {
+        if(today.equals(date)) date = LocalDate.now().toString();
+        List<MovieSession> sessions = sessionRepository.getSessionsByDateAndMovie(date, movieId);
         return sessions.stream().map(session -> dtoConverter.convertToMovieSessionDTO(session))
                 .collect(Collectors.toList());
     }

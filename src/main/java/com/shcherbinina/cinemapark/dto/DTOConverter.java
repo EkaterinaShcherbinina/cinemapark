@@ -27,6 +27,7 @@ public class DTOConverter {
         dto.setId(reservation.getId());
         dto.setPlace(reservation.getPlace());
         dto.setRowId(reservation.getRowId());
+        dto.setIsPaid(reservation.getIsPaid());
         dto.setSessionId(reservation.getMovieSession().getId());
         dto.setUserId(reservation.getUser().getId());
 
@@ -42,6 +43,7 @@ public class DTOConverter {
         Reservation reservation = new Reservation();
         reservation.setPlace(dto.getPlace());
         reservation.setRowId(dto.getRowId());
+        reservation.setIsPaid(dto.getIsPaid());
         reservation.assignToUser(user);
         reservation.assignToMovieSession(movieSession);
 
@@ -131,7 +133,7 @@ public class DTOConverter {
     public MovieSession convertToMovieSession(MovieSessionDTO dto) {
         if(dto == null) return null;
 
-        CinemaHall hall = cinemaHallRepository.getCinemaHallById(dto.getCinemaHallId());
+        CinemaHall hall = cinemaHallRepository.getCinemaHallById(dto.getCinemaHall().getId());
         Movie movie = movieRepository.getMovieById(dto.getMovie().getId());
 
         MovieSession session = new MovieSession();
@@ -153,7 +155,7 @@ public class DTOConverter {
         dto.setCost(session.getCost());
         dto.setDate(session.getDate());
         dto.setTime(session.getTime());
-        dto.setCinemaHallId(session.getCinemaHall().getId());
+        dto.setCinemaHall(session.getCinemaHall());
         dto.setMovie(convertToMovieDTO(session.getMovie()));
 
         return dto;
@@ -165,6 +167,7 @@ public class DTOConverter {
         CinemaHall cinemaHall = new CinemaHall();
         cinemaHall.setRows(dto.getRows());
         cinemaHall.setRowsAmount(dto.getRowsAmount());
+        cinemaHall.setHallName(dto.getHallName());
         return cinemaHall;
     }
 
@@ -174,6 +177,7 @@ public class DTOConverter {
         CinemaHallDTO dto = new CinemaHallDTO();
         dto.setRows(hall.getRows());
         dto.setRowsAmount(hall.getRowsAmount());
+        dto.setHallName(hall.getHallName());
         return dto;
     }
 }

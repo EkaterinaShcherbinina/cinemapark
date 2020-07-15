@@ -1,5 +1,6 @@
 package com.shcherbinina.cinemapark.dto.services;
 
+import com.shcherbinina.cinemapark.dto.entity.BookedDTO;
 import com.shcherbinina.cinemapark.dto.entity.ReservationDTO;
 import com.shcherbinina.cinemapark.dto.entity.RowDTO;
 
@@ -12,4 +13,5 @@ public interface IReservationService {
     void deleteReservation(int id);
     void updateReservation(ReservationDTO dto);
     ReservationDTO getReservationById(int id);
+    BookedDTO getBookedPlace(ReservationDTO reservationDTO);
 }

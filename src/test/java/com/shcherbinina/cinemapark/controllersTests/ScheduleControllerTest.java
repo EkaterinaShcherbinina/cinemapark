@@ -1,5 +1,6 @@
 package com.shcherbinina.cinemapark.controllersTests;
 
+import com.shcherbinina.cinemapark.dao.entity.CinemaHall;
 import com.shcherbinina.cinemapark.dto.entity.MovieDTO;
 import com.shcherbinina.cinemapark.restControllers.ScheduleController;
 import com.shcherbinina.cinemapark.dto.entity.MovieSessionDTO;
@@ -36,7 +37,7 @@ public class ScheduleControllerTest {
         dto1.setId(1);
         dto1.setCost(25.00);
         dto1.setDate(new Date());
-        dto1.setCinemaHallId(1);
+        dto1.setCinemaHall(new CinemaHall());
         dto1.setTime(new Time(1));
         dto1.setMovie(new MovieDTO());
 
@@ -44,7 +45,7 @@ public class ScheduleControllerTest {
         dto2.setId(2);
         dto2.setCost(25.00);
         dto2.setDate(new Date());
-        dto2.setCinemaHallId(2);
+        dto2.setCinemaHall(new CinemaHall());
         dto2.setTime(new Time(1));
         dto1.setMovie(new MovieDTO());
     }

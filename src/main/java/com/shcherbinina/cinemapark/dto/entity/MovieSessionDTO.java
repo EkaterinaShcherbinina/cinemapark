@@ -1,5 +1,6 @@
 package com.shcherbinina.cinemapark.dto.entity;
 
+import com.shcherbinina.cinemapark.dao.entity.CinemaHall;
 import com.shcherbinina.cinemapark.dao.entity.Movie;
 
 import java.sql.Time;
@@ -14,7 +15,7 @@ public class MovieSessionDTO {
 
     private double cost;
 
-    private int cinemaHallId;
+    private CinemaHall cinemaHall;
 
     private MovieDTO movie;
 
@@ -32,7 +33,7 @@ public class MovieSessionDTO {
                 dto.date.equals(date) &&
                 dto.time.equals(time) &&
                 Double.compare(dto.cost, cost) == 0 &&
-                dto.cinemaHallId == cinemaHallId &&
+                dto.cinemaHall.equals(cinemaHall) &&
                 dto.movie.equals(this.movie);
     }
 
@@ -43,7 +44,7 @@ public class MovieSessionDTO {
         result = 31 * result + date.hashCode();
         result = 31 * result + time.hashCode();
         result = 31 * result + ((Double)cost).hashCode();
-        result = 31 * result + ((Integer)cinemaHallId).hashCode();
+        result = 31 * result + cinemaHall.hashCode();
         result = 31 * result + movie.hashCode();
         return result;
     }
@@ -80,12 +81,12 @@ public class MovieSessionDTO {
         this.cost = cost;
     }
 
-    public int getCinemaHallId() {
-        return cinemaHallId;
+    public CinemaHall getCinemaHall() {
+        return cinemaHall;
     }
 
-    public void setCinemaHallId(int cinemaHallId) {
-        this.cinemaHallId = cinemaHallId;
+    public void setCinemaHall(CinemaHall cinemaHall) {
+        this.cinemaHall = cinemaHall;
     }
 
     public MovieDTO getMovie() {

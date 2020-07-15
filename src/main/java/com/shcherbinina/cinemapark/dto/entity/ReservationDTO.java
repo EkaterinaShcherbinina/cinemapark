@@ -1,11 +1,12 @@
 package com.shcherbinina.cinemapark.dto.entity;
 
 public class ReservationDTO {
-    private  int id;
+    private int id;
     private int userId;
     private int rowId;
     private int place;
     private int sessionId;
+    private boolean isPaid;
 
     public ReservationDTO() {
     }
@@ -21,7 +22,8 @@ public class ReservationDTO {
                 dto.rowId == rowId &&
                 dto.place == place &&
                 dto.userId == userId &&
-                dto.sessionId == sessionId;
+                dto.sessionId == sessionId &&
+                dto.isPaid == isPaid;
     }
 
     @Override
@@ -32,6 +34,7 @@ public class ReservationDTO {
         result = 31 * result + ((Integer)place).hashCode();
         result = 31 * result + ((Integer)userId).hashCode();
         result = 31 * result + ((Integer)sessionId).hashCode();
+        result = 31 * result + ((Boolean)isPaid).hashCode();
         return result;
     }
 
@@ -73,5 +76,13 @@ public class ReservationDTO {
 
     public void setSessionId(int sessionId) {
         this.sessionId = sessionId;
+    }
+
+    public boolean getIsPaid() {
+        return isPaid;
+    }
+
+    public void setIsPaid(boolean paid) {
+        isPaid = paid;
     }
 }

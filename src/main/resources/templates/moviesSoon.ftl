@@ -5,35 +5,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cinemapark</title>
-    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <title>Cinemapark</title
+    <#include "materializedConfig.ftl">
 </head>
 <body>
-<div class="header">
-  <h5 class="Title">Cinemapark</h5>
-  <nav class="navigation">
-    <a class="option" href="#">Movies</a>
-    <a class="option" href="#">Soon in the cinema</a>
-    <a class="option" href="#">Schedule</a>
-  </nav>
-  <a class="sign-up-button" href="#">Sign up</a>
-</div>
-<div class="row">
-    <ul>
-        <#list movies as movie>
-            <div class="column">
-                <a href="http://localhost:8080/movie/${movie.secondaryKey}">
-                    <div class="card">
-                        <img src=${movie.imageUrl} width="125" height="200" class="card-img-top">
-                        <div class="card-body">
-                            <h5 class="card-title">${movie.name}</h5>
-                            <p class="card-text">${movie.description}</p>
-                        </div>
+      <script type="text/javascript" src="/js/materialize.min.js"></script>
+      <#include "header.ftl">
+      <h1>Soon in the cinema</h1>
+    <div class="row">
+     <#list movies as movie>
+        <div class="col s12 m2">
+                <div class="card">
+                    <div class="card-image" width="50%" height="70%">
+                        <img src="${movie.imageUrl}">
                     </div>
-                </a>
-            </div>
-        </#list>
-    </ul>
-</div>
+                    <div class="card-content">
+                        <span class="card-title">${movie.name}</span>
+                        <p>${movie.genre}</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="#">This is a link</a>
+                    </div>
+                </div>
+        </div>
+         </#list>
+    </div>
 </body>
 </html>
