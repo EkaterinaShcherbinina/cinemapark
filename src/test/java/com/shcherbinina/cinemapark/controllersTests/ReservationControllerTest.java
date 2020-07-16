@@ -1,6 +1,7 @@
 package com.shcherbinina.cinemapark.controllersTests;
 
-import com.shcherbinina.cinemapark.controllers.ReservationController;
+import com.shcherbinina.cinemapark.dto.entity.MovieSessionDTO;
+import com.shcherbinina.cinemapark.restControllers.ReservationController;
 import com.shcherbinina.cinemapark.dto.entity.ReservationDTO;
 import com.shcherbinina.cinemapark.dto.entity.RowDTO;
 import com.shcherbinina.cinemapark.dto.services.ReservationService;
@@ -55,7 +56,7 @@ public class ReservationControllerTest {
         reservationDTO.setId(1);
         reservationDTO.setRowId(2);
         reservationDTO.setPlace(1);
-        reservationDTO.setSessionId(1);
+        reservationDTO.setSessionId(2);
         reservationDTO.setUserId(1);
     }
 

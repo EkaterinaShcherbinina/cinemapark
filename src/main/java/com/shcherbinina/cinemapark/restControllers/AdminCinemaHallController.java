@@ -1,8 +1,6 @@
-package com.shcherbinina.cinemapark.controllers;
+package com.shcherbinina.cinemapark.restControllers;
 
-import com.shcherbinina.cinemapark.dao.repository.CinemaHallRepository;
 import com.shcherbinina.cinemapark.dto.entity.CinemaHallDTO;
-import com.shcherbinina.cinemapark.dto.services.CinemaHallService;
 import com.shcherbinina.cinemapark.dto.services.ICinemaHallService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

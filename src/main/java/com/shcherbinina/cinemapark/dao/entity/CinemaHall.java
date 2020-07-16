@@ -17,6 +17,9 @@ public class CinemaHall {
     @Column(name = "rowsTypes", nullable = false)
     private String rows;
 
+    @Column(name = "hallName", nullable = false)
+    private String hallName;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "cinemaHall")
     private List<MovieSession> movieSessions;
 
@@ -29,7 +32,8 @@ public class CinemaHall {
 
         return cinemaHall.id == id &&
                 cinemaHall.rowsAmount == rowsAmount &&
-                cinemaHall.rows.equals(this.rows);
+                cinemaHall.rows.equals(this.rows) &&
+                cinemaHall.hallName.equals(this.hallName);
     }
 
     @Override
@@ -38,6 +42,7 @@ public class CinemaHall {
         result = 31 * result + ((Integer)id).hashCode();
         result = 31 * result + ((Integer)rowsAmount).hashCode();
         result = 31 * result + rows.hashCode();
+        result = 31 * result + hallName.hashCode();
         return result;
     }
 
@@ -72,6 +77,14 @@ public class CinemaHall {
 
     public void setRows(String rows) {
         this.rows = rows;
+    }
+
+    public String getHallName() {
+        return hallName;
+    }
+
+    public void setHallName(String hallName) {
+        this.hallName = hallName;
     }
 
     public List<MovieSession> getMovieSessions() {

@@ -1,22 +1,42 @@
-package com.shcherbinina.cinemapark.controllers;
+package com.shcherbinina.cinemapark.restControllers;
 
-import com.shcherbinina.cinemapark.dao.repository.MovieRepository;
 import com.shcherbinina.cinemapark.dto.entity.MovieDTO;
+import com.shcherbinina.cinemapark.dto.entity.MovieThumbnailDTO;
 import com.shcherbinina.cinemapark.dto.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/admin/movie")
-public class AdminMovieController {
-    @Autowired
-    MovieService movieService;
+import java.util.List;
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+@RestController
+@RequestMapping("/movie-service")
+public class MovieController {
+
+    @Autowired
+    private MovieService movieService;
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public MovieDTO getMovie(@PathVariable String id) {
+
+        return movieService.getMovieBySecondaryKey(id);
+    }
+
+    @RequestMapping(value="/get-all-now", method = RequestMethod.GET)
+    public List<MovieThumbnailDTO> getMovies() {
+        List<MovieThumbnailDTO> movies = movieService.getMoviesNowInCinema();
+        return movies;
+    }
+
+    @RequestMapping(value="/get-all-soon", method = RequestMethod.GET)
+    public List<MovieThumbnailDTO> getMoviesSoon() {
+        List<MovieThumbnailDTO> movies = movieService.getMoviesSoonInCinema();
+        return movies;
+    }
+
+    @RequestMapping(value = "/new", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> postMovie(@RequestBody MovieDTO movieDTO)
     {
         movieService.addNewMovie(movieDTO);
@@ -30,7 +50,7 @@ public class AdminMovieController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> updateProduct(@RequestBody MovieDTO movieDTO) {
+    public ResponseEntity<Object> updateMovie(@RequestBody MovieDTO movieDTO) {
         movieService.updateMovie(movieDTO);
         return new ResponseEntity<>("Updated successfully", HttpStatus.OK);
     }

@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface IMovieSessionService {
     List<MovieSessionDTO> getAllMovieSessionsByDate(String date);
+    List<MovieSessionDTO> getSessionsByDateAndMovieName(String date, int movieId);
 }

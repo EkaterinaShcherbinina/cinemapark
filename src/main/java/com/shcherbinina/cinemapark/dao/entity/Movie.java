@@ -17,7 +17,7 @@ public class Movie {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "image_url", nullable = false)
+    @Column(name = "imageUrl", nullable = false)
     private String imageUrl;
 
     @Column(name = "actors", nullable = false)
@@ -89,6 +89,14 @@ public class Movie {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getSecondaryKey() {
+        return secondaryKey;
+    }
+
+    public void setSecondaryKey(String secondaryKey) {
+        this.secondaryKey = secondaryKey;
     }
 
     public String getName() {

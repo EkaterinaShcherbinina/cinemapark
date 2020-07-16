@@ -1,10 +1,7 @@
-package com.shcherbinina.cinemapark.controllers;
+package com.shcherbinina.cinemapark.restControllers;
 
-import com.shcherbinina.cinemapark.dao.repository.UserRepository;
-import com.shcherbinina.cinemapark.dto.DTOConverter;
 import com.shcherbinina.cinemapark.dto.entity.UserDTO;
 import com.shcherbinina.cinemapark.dto.services.IUserService;
-import com.shcherbinina.cinemapark.dto.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

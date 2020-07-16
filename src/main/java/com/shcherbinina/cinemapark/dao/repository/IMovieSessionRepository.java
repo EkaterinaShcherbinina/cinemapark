@@ -3,6 +3,7 @@ package com.shcherbinina.cinemapark.dao.repository;
 import com.shcherbinina.cinemapark.dao.entity.MovieSession;
 import com.shcherbinina.cinemapark.dto.entity.MovieSessionDTO;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface IMovieSessionRepository {
@@ -12,4 +13,5 @@ public interface IMovieSessionRepository {
     void updateMovieSession(MovieSessionDTO movieSessionDTO);
     void deleteMovieSession(int sessionId);
     List<MovieSession> getSessionsByDate(String date);
+    List<MovieSession> getSessionsByDateAndMovie(String date, int movieId);
 }

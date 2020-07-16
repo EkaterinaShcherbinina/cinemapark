@@ -16,6 +16,9 @@ public class Reservation {
     @Column(name = "place", nullable = false)
     private int place;
 
+    @Column(name = "isPaid", nullable = false)
+    private boolean isPaid;
+
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "sessionId", nullable = false)
     private MovieSession movieSession;
@@ -35,6 +38,7 @@ public class Reservation {
         return reservation.id == id &&
                 reservation.rowId == rowId &&
                 reservation.place == place &&
+                reservation.isPaid == isPaid &&
                 reservation.movieSession.equals(this.movieSession) &&
                 reservation.user.equals(this.user);
     }
@@ -45,6 +49,7 @@ public class Reservation {
         result = 31 * result + ((Integer)id).hashCode();
         result = 31 * result + ((Integer)rowId).hashCode();
         result = 31 * result + ((Integer)place).hashCode();
+        result = 31 * result + ((Boolean)isPaid).hashCode();
         result = 31 * result + movieSession.hashCode();
         result = 31 * result + user.hashCode();
         return result;
@@ -75,6 +80,14 @@ public class Reservation {
 
     public void setPlace(int place) {
         this.place = place;
+    }
+
+    public boolean getIsPaid() {
+        return isPaid;
+    }
+
+    public void setIsPaid(boolean isPaid) {
+        this.isPaid = isPaid;
     }
 
     public MovieSession getMovieSession() {

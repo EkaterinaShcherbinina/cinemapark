@@ -1,5 +1,6 @@
 package com.shcherbinina.cinemapark.dao.repository;
 
+import com.shcherbinina.cinemapark.dao.MovieSessionDAO;
 import com.shcherbinina.cinemapark.dao.ReservationDAO;
 import com.shcherbinina.cinemapark.dao.entity.*;
 import com.shcherbinina.cinemapark.dto.entity.ReservationDTO;
@@ -27,6 +28,8 @@ public class ReservationRepository implements IReservationRepository {
 
     @Autowired
     private ReservationDAO reservationDAO;
+    @Autowired
+    private MovieSessionDAO sessionDAO;
 
     @Override
     public List<Reservation> getReservationsBySessionId(int sessionId) {
@@ -59,6 +62,21 @@ public class ReservationRepository implements IReservationRepository {
     @Override
     public Reservation getReservationById(int reservationId) {
         Reservation reservation = reservationDAO.findById(reservationId);
+        return reservation;
+    }
+
+    @Override
+    public Reservation getReservation(ReservationDTO dto) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Reservation> q = cb.createQuery(Reservation.class);
+        Root<Reservation> root = q.from(Reservation.class);
+        Predicate sessionPredicate = cb.equal(root.get("movieSession").get("id"), dto.getSessionId());
+        Predicate rowPredicate = cb.equal(root.get("rowId"), dto.getRowId());
+        Predicate placePredicate = cb.equal(root.get("place"), dto.getPlace());
+        Predicate userPredicate = cb.equal(root.get("user").get("id"), dto.getUserId());
+        q.where(sessionPredicate, rowPredicate, placePredicate, userPredicate);
+        Reservation reservation = entityManager.createQuery(q).getSingleResult();
+
         return reservation;
     }
 }

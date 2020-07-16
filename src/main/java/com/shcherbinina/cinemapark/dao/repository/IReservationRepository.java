@@ -13,4 +13,5 @@ public interface IReservationRepository {
     void updateReservation(Reservation reservation);
     void deleteReservation(int reservationId);
     Reservation getReservationById(int reservationId);
+    Reservation getReservation(ReservationDTO dto);
 }
