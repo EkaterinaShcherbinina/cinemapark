@@ -1,7 +1,5 @@
 package com.shcherbinina.cinemapark.dto.entity;
 
-import java.sql.Date;
-
 public class MovieThumbnailDTO {
     private int id;
 
@@ -9,7 +7,7 @@ public class MovieThumbnailDTO {
 
     private String name;
 
-    private String imageUrl;
+    private int imageId;
 
     private int duration;
 
@@ -46,12 +44,12 @@ public class MovieThumbnailDTO {
         this.name = name;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public int getImageId() {
+        return imageId;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
     }
 
     public int getDuration() {

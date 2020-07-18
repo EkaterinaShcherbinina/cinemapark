@@ -1,28 +1,43 @@
 package com.shcherbinina.cinemapark.dto.entity;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 
 public class MovieDTO {
+
     private int id;
-
+    @NotBlank
+    @NotNull
     private String name;
-
-    private String imageUrl;
-
+    @NotBlank
+    @NotNull
+    private int imageId;
+    @NotBlank
+    @NotNull
     private String actors;
-
+    @NotBlank
     private int duration;
-
+    @NotBlank
+    @NotNull
     private String description;
-
+    @NotBlank
+    @Min(value=1)
+    @Max(value=10)
     private double rating;
-
+    @NotBlank
+    @NotNull
     private String genre;
-
+    @NotBlank
+    @NotNull
     private String producer;
-
+    @NotBlank
+    @NotNull
     private String productionYear;
-
+    @NotBlank
+    @NotNull
     private Date premiereDate;
 
     public MovieDTO() {
@@ -44,12 +59,12 @@ public class MovieDTO {
         this.name = name;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public int getImageId() {
+        return imageId;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
     }
 
     public String getActors() {

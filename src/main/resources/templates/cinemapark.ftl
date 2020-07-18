@@ -18,7 +18,7 @@
         <a href="/movie/${movie.secondaryKey}">
                 <div class="card">
                     <div class="card-image" width="50%" height="70%">
-                        <img src="${movie.imageUrl}">
+                        <img src="/resources/getMovieImage/${movie.imageId}">
                     </div>
                     <div class="card-content">
                         <span class="card-title">${movie.name}</span>

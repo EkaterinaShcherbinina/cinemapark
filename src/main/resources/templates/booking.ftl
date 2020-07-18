@@ -13,8 +13,9 @@
         <h5>Please choose a place</h5>
         <form action="/booking/new" id="movieBooking" name="reservation" method="POST">
         <input type="hidden" name="sessionId" value="${sessionId}"/>
-        <input type="hidden" id="rowId" name="rowId"/>
-        <input type="hidden" id="placeId" name="place"/>
+        <input type="hidden" id="rowId" name="rowId" value="0"/>
+        <input type="hidden" id="placeId" name="place" value="0"/>
+        <div id="hallId" name="hall">
         <#list rows as row>
             <#assign rowNumber = row?index + 1>
             <div class="row">
@@ -27,7 +28,7 @@
                         <div class="placeContainer" onclick="imageClick(${placeNumber}, ${rowNumber})">
                                 <img src="/images/green.png" id="green${rowNumber}${placeNumber}" width="20" height="20" class="card-img-top">
                                 <div class="centered">${placeNumber}</div>
-                         </div>
+                        </div>
                         </div>
                     <#else>
                         <div class="col"><img src="/images/red.png" width="20" height="20" class="card-img-top"></div>
@@ -35,6 +36,7 @@
                 </#list>
             </div>
         </#list>
+        </div>
         <h5>Do you want to deduct money from your account?</h5>
         <p>
         <label>
@@ -48,14 +50,12 @@
             <span>no</span>
         </label>
         </p>
-        <div style="display: inline;">
         <button class="btn waves-effect waves-light" type="submit" name="action">Submit
             <i class="material-icons right">send</i>
         </button>
         <#if errorMessage?has_content>
             <div class="error">${errorMessage}</div>
         </#if>
-        </div>
         </form>
     </div>
 </body>

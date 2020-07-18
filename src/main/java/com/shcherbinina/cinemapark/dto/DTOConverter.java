@@ -82,7 +82,7 @@ public class DTOConverter {
         MovieDTO dto = new MovieDTO();
         dto.setId(movie.getId());
         dto.setName(movie.getName());
-        dto.setImageUrl(movie.getImageUrl());
+        dto.setImageId(movie.getImageId());
         dto.setActors(movie.getActors());
         dto.setDuration(movie.getDuration());
         dto.setDescription(movie.getDescription());
@@ -102,7 +102,7 @@ public class DTOConverter {
         dto.setId(movie.getId());
         dto.setSecondaryKey(movie.getSecondaryKey());
         dto.setName(movie.getName());
-        dto.setImageUrl(movie.getImageUrl());
+        dto.setImageId(movie.getImageId());
         dto.setDuration(movie.getDuration());
         dto.setDescription(movie.getDescription());
         dto.setRating(movie.getRating());
@@ -117,7 +117,6 @@ public class DTOConverter {
         Movie movie = new Movie();
         movie.setId(dto.getId());
         movie.setName(dto.getName());
-        movie.setImageUrl(dto.getImageUrl());
         movie.setActors(dto.getActors());
         movie.setDuration(dto.getDuration());
         movie.setDescription(dto.getDescription());
@@ -178,6 +177,14 @@ public class DTOConverter {
         dto.setRows(hall.getRows());
         dto.setRowsAmount(hall.getRowsAmount());
         dto.setHallName(hall.getHallName());
+        return dto;
+    }
+
+    public MovieImageDTO convertToMovieImageDTO(MovieImage image) {
+        MovieImageDTO dto = new MovieImageDTO();
+        dto.setId(image.getId());
+        dto.setImage(image.getImage());
+
         return dto;
     }
 }

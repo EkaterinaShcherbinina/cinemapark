@@ -5,6 +5,8 @@ import javax.validation.constraints.NotBlank;
 
 public class UserDTO {
     @NotBlank
+    private int id;
+    @NotBlank
     private String firstName;
     @NotBlank
     private String lastName;
@@ -16,6 +18,14 @@ public class UserDTO {
     private double account;
 
     public UserDTO() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {

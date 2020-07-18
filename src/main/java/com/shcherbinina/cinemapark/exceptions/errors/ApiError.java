@@ -7,28 +7,10 @@ import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ApiError {
-
-    private HttpStatus status;
     private String message;
 
-    private String debugMessage;
-
-    public ApiError(HttpStatus status, String message, String debugMessage) {
-        this.status = status;
+    public ApiError(String message) {
         this.message = message;
-        this.debugMessage = debugMessage;
-    }
-
-    public ApiError(HttpStatus status) {
-        this.status = status;
-    }
-
-    public HttpStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(HttpStatus status) {
-        this.status = status;
     }
 
     public String getMessage() {
@@ -37,13 +19,5 @@ public class ApiError {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-
-    public String getDebugMessage() {
-        return debugMessage;
-    }
-
-    public void setDebugMessage(String debugMessage) {
-        this.debugMessage = debugMessage;
     }
 }

@@ -33,7 +33,7 @@ public class MovieControllerTest {
         movieExpected = new MovieDTO();
         movieExpected.setId(1);
         movieExpected.setName("Before we go");
-        movieExpected.setImageUrl("bbbb");
+        movieExpected.setImageId(1);
         movieExpected.setActors("Chris Evans, Alice Eve");
         movieExpected.setDuration(95);
         movieExpected.setDescription("Chris Evans and Alice Eve star as two strangers whose chance encounter in Grand Central Terminal sparks a nighttime adventure through New York City that will change their lives forever.");
@@ -47,7 +47,7 @@ public class MovieControllerTest {
         MovieThumbnailDTO dto1 = new MovieThumbnailDTO();
         dto1.setId(1);
         dto1.setName("Before we go");
-        dto1.setImageUrl("bbbb");
+        dto1.setImageId(1);
         dto1.setDuration(95);
         dto1.setDescription("Chris Evans and Alice Eve star as two strangers whose chance encounter in Grand Central Terminal sparks a nighttime adventure through New York City that will change their lives forever.");
         dto1.setRating(6.5);
@@ -56,7 +56,7 @@ public class MovieControllerTest {
         MovieThumbnailDTO dto2 = new MovieThumbnailDTO();
         dto1.setId(2);
         dto1.setName("Grace of Monaco");
-        dto1.setImageUrl("vvvv");
+        dto1.setImageId(1);
         dto1.setDuration(102);
         dto1.setDescription("Academy Award®-winner Nicole Kidman captures the beauty and elegance of Grace Kelly in this true story of her transition from Hollywood starlet to Princess of Monaco. During a political dispute between Monaco's Prince Rainier III (Academy Award®-nominee Tim Roth) and France's Charles De Gaulle, Kelly's identity and marriage hang in the balance.");
         dto1.setRating(6.5);
