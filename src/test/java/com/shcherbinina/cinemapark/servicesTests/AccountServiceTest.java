@@ -7,9 +7,14 @@ import com.shcherbinina.cinemapark.dao.repository.UserRepository;
 import com.shcherbinina.cinemapark.dto.entity.AccountDTO;
 import com.shcherbinina.cinemapark.dto.entity.MovieSessionDTO;
 import com.shcherbinina.cinemapark.dto.entity.ReservationDTO;
+import com.shcherbinina.cinemapark.dto.entity.UserDTO;
 import com.shcherbinina.cinemapark.dto.services.AccountService;
-import com.shcherbinina.cinemapark.exceptions.businessExceptions.InsufficientFundsException;
-import com.shcherbinina.cinemapark.exceptions.businessExceptions.InvalidWithdrawalAmountException;
+import com.shcherbinina.cinemapark.dto.services.MovieSessionService;
+import com.shcherbinina.cinemapark.dto.services.UserService;
+import com.shcherbinina.cinemapark.exceptions.validationExceptions.BusinessValidationException;
+import com.shcherbinina.cinemapark.exceptions.validationExceptions.PayloadValidationException;
+import com.shcherbinina.cinemapark.validation.businessValidation.WithdrawingMoneyValidator;
+import com.shcherbinina.cinemapark.validation.payloadValidation.AccountValidator;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,14 +24,20 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 @RunWith(MockitoJUnitRunner.class)
 public class AccountServiceTest {
     @Mock
     private UserRepository userRepository;
     @Mock
     private MovieSessionRepository sessionRepository;
+    @Mock
+    private MovieSessionService sessionService;
+    @Mock
+    private UserService userService;
+    @Mock
+    private WithdrawingMoneyValidator validator;
+    @Mock
+    private AccountValidator accountValidator;
 
     @InjectMocks
     private AccountService accountService;
@@ -37,10 +48,13 @@ public class AccountServiceTest {
     private User user1;
     private User user2;
     private MovieSession session;
+    private MovieSessionDTO sessionDTO;
+    private UserDTO userDTO;
 
     @Before
     public void setUp() {
         accountDTO1 = new AccountDTO(4, 20.0);
+
         reservationDTO1 = new ReservationDTO();
         reservationDTO1.setUserId(4);
         reservationDTO1.setSessionId(2);
@@ -65,10 +79,15 @@ public class AccountServiceTest {
         user2.setEmail("fsdsfd.com");
 
         accountDTO2 = new AccountDTO(4, -20.0);
+
+        sessionDTO = new MovieSessionDTO();
+        userDTO = new UserDTO();
+        sessionDTO.setCost(50.0);
+        userDTO.setAccount(10.0);
     }
 
     @Test
-    public void sendMoneyTest_invalidAmount_happy() throws InvalidWithdrawalAmountException {
+    public void sendMoneyTest_validAmount_happy() throws PayloadValidationException {
         Mockito.when(userRepository.getUserById(4)).thenReturn(user1);
 
         accountService.sendMoney(accountDTO1);
@@ -78,15 +97,7 @@ public class AccountServiceTest {
     }
 
     @Test
-    public void sendMoneyTest_unhappy() throws InvalidWithdrawalAmountException {
-        Throwable thrown = assertThrows(InvalidWithdrawalAmountException.class, () -> {
-            accountService.sendMoney(accountDTO2);
-        });
-        Assert.assertNotNull(thrown.getMessage());
-    }
-
-    @Test
-    public void getMoneyTest_happy() throws InsufficientFundsException {
+    public void getMoneyTest_happy() throws BusinessValidationException {
         Mockito.when(userRepository.getUserById(4)).thenReturn(user2);
         Mockito.when(sessionRepository.getMovieSessionById(2)).thenReturn(session);
 
@@ -94,16 +105,5 @@ public class AccountServiceTest {
 
         Mockito.verify(userRepository).getUserById(4);
         Mockito.verify(userRepository).updateUser(user2);
-    }
-
-    @Test
-    public void getMoneyTest_unhappy() throws InsufficientFundsException {
-        Mockito.when(userRepository.getUserById(reservationDTO1.getUserId())).thenReturn(user1);
-        Mockito.when(sessionRepository.getMovieSessionById(2)).thenReturn(session);
-
-        Throwable thrown = assertThrows(InsufficientFundsException.class, () -> {
-            accountService.getMoney(reservationDTO1);
-        });
-        Assert.assertNotNull(thrown.getMessage());
     }
 }

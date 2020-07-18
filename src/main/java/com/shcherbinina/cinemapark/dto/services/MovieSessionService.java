@@ -22,6 +22,11 @@ public class MovieSessionService implements IMovieSessionService {
     private final String today = "today";
 
     @Override
+    public MovieSessionDTO getById(int sessionId) {
+        return dtoConverter.convertToMovieSessionDTO(sessionRepository.getMovieSessionById(sessionId));
+    }
+
+    @Override
     public List<MovieSessionDTO> getAllMovieSessionsByDate(String date) {
         if(today.equals(date)) date = LocalDate.now().toString();
         List<MovieSession> sessions = sessionRepository.getSessionsByDate(date);

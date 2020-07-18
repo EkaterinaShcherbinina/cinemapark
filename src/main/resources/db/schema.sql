@@ -8,11 +8,17 @@ CREATE TABLE user (
     PRIMARY KEY (id)
   );
 
+  CREATE TABLE movieImage (
+      id mediumint(8) unsigned NOT NULL auto_increment,
+      image LONGBLOB default NULL,
+      PRIMARY KEY (id)
+    );
+
   CREATE TABLE movie (
     id mediumint(8) unsigned NOT NULL auto_increment,
     secondaryKey varchar(255) default NULL,
     name varchar(255) default NULL,
-    imageUrl varchar(100) default NULL,
+    imageId mediumint default NULL UNIQUE,
     actors varchar(255) default NULL,
     duration mediumint default NULL,
     description varchar(255) default NULL,

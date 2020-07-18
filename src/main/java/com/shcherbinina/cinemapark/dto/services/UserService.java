@@ -14,6 +14,11 @@ public class UserService implements IUserService {
     @Autowired
     private DTOConverter dtoConverter;
 
+    @Override
+    public UserDTO getById(int userId) {
+        return dtoConverter.convertToUserDTO(userRepository.getUserById(userId));
+    }
+
     public void addNewUser(UserDTO userDTO) {
         userRepository.addUser(dtoConverter.convertToUser(userDTO));
     }

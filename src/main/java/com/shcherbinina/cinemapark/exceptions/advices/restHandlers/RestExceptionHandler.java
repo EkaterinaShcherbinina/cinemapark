@@ -1,8 +1,6 @@
-package com.shcherbinina.cinemapark.exceptions.advices;
+package com.shcherbinina.cinemapark.exceptions.advices.restHandlers;
 
 import com.shcherbinina.cinemapark.exceptions.errors.ApiError;
-import com.shcherbinina.cinemapark.exceptions.errors.BadRequestError;
-import com.shcherbinina.cinemapark.exceptions.errors.PageNotFoundError;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,45 +13,41 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-@ControllerAdvice
+@ControllerAdvice("com.shcherbinina.cinemapark.restControllers")
 public class RestExceptionHandler extends ResponseEntityExceptionHandler {
+    private String pageNotFound = "We can't find the page you looking for";
+    private String badRequest = "The bad request";
 
     @ExceptionHandler({RuntimeException.class})
     public ResponseEntity<Object> handleRunTimeException(RuntimeException e) {
-        return new ResponseEntity<>(new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, "", e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new ApiError(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
                                                                   HttpHeaders headers, HttpStatus status, WebRequest request) {
-        BadRequestError badRequestError = new BadRequestError();
-        return new ResponseEntity(badRequestError, badRequestError.getStatus());
+        ApiError badRequestError = new ApiError(badRequest);
+        return new ResponseEntity(badRequestError, status);
     }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers, HttpStatus status, WebRequest request) {
-        BadRequestError badRequestError = new BadRequestError();
-        return new ResponseEntity(badRequestError, badRequestError.getStatus());
+        ApiError badRequestError = new ApiError(badRequest);
+        return new ResponseEntity(badRequestError, status);
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     protected ResponseEntity<Object> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex,
                                                                       WebRequest request) {
-        PageNotFoundError error = new PageNotFoundError();
-        return new ResponseEntity<>(error, error.getStatus());
+        ApiError error = new ApiError(pageNotFound);
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
     @Override
     protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers,
                                                                    HttpStatus status, WebRequest request) {
-        PageNotFoundError error = new PageNotFoundError();
-        return new ResponseEntity<>(error, error.getStatus());
-    }
-
-    @ExceptionHandler(Exception.class)
-    protected ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
-        ApiError apiError = new ApiError(HttpStatus.INTERNAL_SERVER_ERROR, "Exception", ex.getMessage());
-        return new ResponseEntity<>(apiError, HttpStatus.INTERNAL_SERVER_ERROR);
+        ApiError error = new ApiError(pageNotFound);
+        return new ResponseEntity<>(error, status);
     }
 }

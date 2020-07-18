@@ -8,7 +8,7 @@
 <body>
 <script type="text/javascript" src="/js/materialize.min.js"></script>
   <#include "header.ftl">
-    <img src=${movie.imageUrl} width="225" height="400" class="card-img-top">
+    <img src="/resources/getMovieImage/${movie.imageId}" width="225" height="400" class="card-img-top">
         <div class="card-body">
             <td><br>${movie.name}</td>
             <td><br>${movie.description}</td>

@@ -2,7 +2,11 @@ package com.shcherbinina.cinemapark.restControllers;
 
 import com.shcherbinina.cinemapark.dto.entity.ReservationDTO;
 import com.shcherbinina.cinemapark.dto.entity.RowDTO;
+import com.shcherbinina.cinemapark.dto.services.AccountService;
 import com.shcherbinina.cinemapark.dto.services.ReservationService;
+import com.shcherbinina.cinemapark.exceptions.validationExceptions.BusinessValidationException;
+import com.shcherbinina.cinemapark.exceptions.validationExceptions.PayloadValidationException;
+import com.shcherbinina.cinemapark.validation.payloadValidation.ReservationDTOValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -18,6 +22,10 @@ import java.util.List;
 
     @Autowired
     ReservationService reservationService;
+    @Autowired
+    AccountService accountService;
+    @Autowired
+    ReservationDTOValidator reservationDTOValidator;
 
     @RequestMapping(value = "/session{id}", method = RequestMethod.GET)
     public List<RowDTO> getHallPlan(@PathVariable String id) {
@@ -31,9 +39,14 @@ import java.util.List;
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> postReservation(@RequestBody ReservationDTO reservationDTO)
-    {
-        reservationService.addNewReservation(reservationDTO);
+    public ResponseEntity<Object> postReservation(@RequestBody ReservationDTO reservationDTO) throws PayloadValidationException, BusinessValidationException {
+        reservationDTOValidator.validate(reservationDTO);
+
+        if(reservationDTO.getIsPaid())
+            accountService.getMoney(reservationDTO);
+
+        if(reservationDTO.getId() == 0)
+            reservationService.addNewReservation(reservationDTO);
         return new ResponseEntity<>("Saved successfully", HttpStatus.CREATED);
     }
 

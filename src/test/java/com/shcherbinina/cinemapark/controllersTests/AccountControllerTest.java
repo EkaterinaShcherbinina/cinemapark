@@ -2,7 +2,7 @@ package com.shcherbinina.cinemapark.controllersTests;
 
 import com.shcherbinina.cinemapark.dto.entity.AccountDTO;
 import com.shcherbinina.cinemapark.dto.services.AccountService;
-import com.shcherbinina.cinemapark.exceptions.businessExceptions.InvalidWithdrawalAmountException;
+import com.shcherbinina.cinemapark.exceptions.validationExceptions.PayloadValidationException;
 import com.shcherbinina.cinemapark.restControllers.AccountController;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,6 +27,6 @@ public class AccountControllerTest {
     }
 
     @Test
-    public void sendMoneyTest_unhappy() throws InvalidWithdrawalAmountException {
+    public void sendMoneyTest_unhappy() throws PayloadValidationException {
     }
 }

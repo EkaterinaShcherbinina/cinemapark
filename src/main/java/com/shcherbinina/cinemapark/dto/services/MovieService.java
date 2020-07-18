@@ -47,7 +47,6 @@ public class MovieService implements IMovieService {
         movie.setDuration(movieDTO.getDuration());
         movie.setGenre(movieDTO.getGenre());
         movie.setName(movieDTO.getName());
-        movie.setImageUrl(movieDTO.getImageUrl());
         movie.setPremiereDate(movieDTO.getPremiereDate());
         movie.setProducer(movieDTO.getProducer());
         movie.setProductionYear(movieDTO.getProductionYear());

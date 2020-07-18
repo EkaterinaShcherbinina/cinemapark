@@ -15,7 +15,7 @@
             <tbody>
                 <tr>
                         <td>
-                            <img src=${session.movie.imageUrl} width="125" height="200" class="card-img-top">
+                            <img src="/resources/getMovieImage/${session.movie.imageId}" width="125" height="200" class="card-img-top">
                             <p>${session.movie.name}</p>
                             <a href="/booking/session${session.id}">
                              <button class="btn waves-effect waves-light" type="submit" name="session">To book

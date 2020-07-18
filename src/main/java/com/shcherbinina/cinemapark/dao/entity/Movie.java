@@ -17,8 +17,8 @@ public class Movie {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "imageUrl", nullable = false)
-    private String imageUrl;
+    @Column(name = "imageId", nullable = false)
+    private int imageId;
 
     @Column(name = "actors", nullable = false)
     private String actors;
@@ -54,7 +54,7 @@ public class Movie {
         return movie.id == id &&
                 movie.secondaryKey.equals(this.secondaryKey) &&
                 movie.name.equals(this.name) &&
-                movie.imageUrl.equals(this.imageUrl) &&
+                movie.imageId == this.imageId &&
                 movie.actors.equals(this.actors) &&
                 movie.duration == duration &&
                 movie.description.equals(this.description) &&
@@ -71,7 +71,7 @@ public class Movie {
         result = 31 * result + ((Integer)id).hashCode();
         result = 31 * result + secondaryKey.hashCode();
         result = 31 * result + name.hashCode();
-        result = 31 * result + imageUrl.hashCode();
+        result = 31 * result + ((Integer)imageId).hashCode();
         result = 31 * result + actors.hashCode();
         result = 31 * result + ((Integer)duration).hashCode();
         result = 31 * result + description.hashCode();
@@ -107,12 +107,12 @@ public class Movie {
         this.name = name;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public int getImageId() {
+        return imageId;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageId(int imageId) {
+        this.imageId = imageId;
     }
 
     public String getActors() {
