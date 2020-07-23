@@ -6,7 +6,6 @@
     <#include "materializedConfig.ftl">
 </head>
 <body>
-    <script type="text/javascript" src="/js/materialize.min.js"></script>
     <link rel="stylesheet" type="text/css" href="/css/placeCenter.css">
     <#include "header.ftl">
     <div class="container">

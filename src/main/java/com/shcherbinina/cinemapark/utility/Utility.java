@@ -1,9 +1,16 @@
 package com.shcherbinina.cinemapark.utility;
 
+import com.shcherbinina.cinemapark.dto.entity.UserDTO;
+import com.shcherbinina.cinemapark.dto.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Utility {
+
     public static List<Integer> getIntArrayFromString(String str) {
         return Arrays.stream(str.split(","))
                 .map(String::trim).mapToInt(Integer::parseInt)
@@ -22,5 +29,16 @@ public class Utility {
             list.add(val);
         }
         return  list;
+    }
+
+    public static String getCurrentUserName() {
+        String res;
+        try {
+            UserDTO userDTO = (UserDTO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            res = userDTO.getFirstName();
+        } catch (ClassCastException ex) {
+            res = null;
+        }
+        return res;
     }
 }

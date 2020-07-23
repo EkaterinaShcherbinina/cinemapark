@@ -6,7 +6,6 @@
     <#include "materializedConfig.ftl">
 </head>
 <body>
-    <script type="text/javascript" src="/js/materialize.min.js"></script>
     <#include "header.ftl">
     <#if sessions?has_content>
     <ul>

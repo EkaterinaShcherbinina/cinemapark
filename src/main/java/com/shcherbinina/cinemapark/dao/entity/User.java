@@ -2,13 +2,14 @@ package com.shcherbinina.cinemapark.dao.entity;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
 
@@ -29,6 +30,12 @@ public class User {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Reservation> reservations;
+
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "userRole", joinColumns = @JoinColumn(name = "userId"))
+    @Enumerated(EnumType.STRING)
+    @Column(name = "roles")
+    private Set<Role> roles;
 
     public User() {
     }
@@ -123,5 +130,13 @@ public class User {
 
     public void setAccount(double account) {
         this.account = account;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

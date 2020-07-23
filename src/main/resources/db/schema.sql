@@ -8,6 +8,13 @@ CREATE TABLE user (
     PRIMARY KEY (id)
   );
 
+  CREATE TABLE userRole (
+     userId mediumint(8) unsigned NOT NULL,
+     roles varchar(45) NOT NULL,
+     PRIMARY KEY (userId, roles),
+     CONSTRAINT userRoleForeignKey FOREIGN KEY (userId) REFERENCES user (id)
+  );
+
   CREATE TABLE movieImage (
       id mediumint(8) unsigned NOT NULL auto_increment,
       image LONGBLOB default NULL,

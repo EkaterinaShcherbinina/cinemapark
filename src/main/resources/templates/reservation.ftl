@@ -6,7 +6,6 @@
     <#include "materializedConfig.ftl">
 </head>
 <body>
-    <script type="text/javascript" src="/js/materialize.min.js"></script>
     <#include "header.ftl">
     <h5>Your reservation:</h5>
     <div>

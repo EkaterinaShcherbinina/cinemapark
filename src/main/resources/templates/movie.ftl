@@ -6,7 +6,6 @@
     <#include "materializedConfig.ftl">
 </head>
 <body>
-<script type="text/javascript" src="/js/materialize.min.js"></script>
   <#include "header.ftl">
     <img src="/resources/getMovieImage/${movie.imageId}" width="225" height="400" class="card-img-top">
         <div class="card-body">

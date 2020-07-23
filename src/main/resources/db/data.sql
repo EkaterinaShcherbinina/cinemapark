@@ -9,6 +9,10 @@ INSERT INTO user (firstName,lastName,password,email,account) VALUES ('Evan','Tyr
 ('Basil','Kirk','kljilj9io','sapien@lectusNullam.co.uk','0'),
 ('Josiah','Steel','mghjft54ty5y','Cum.sociis@adipiscinglacusUt.org','0');
 
+INSERT INTO userRole (userId, roles) VALUES ('1','USER'), ('2','USER'),
+  ('3','USER'), ('4','USER'), ('5','USER'), ('6','USER'), ('7','USER'),
+  ('8','USER'), ('9','USER'), ('10','USER');
+
 INSERT INTO movieImage(image) VALUES(FILE_READ('classpath:\images\inception.jpg')),
 (FILE_READ('classpath:\images\interstellar.jpg')),
 (FILE_READ('classpath:\images\martian.jpg'));
@@ -27,10 +31,10 @@ INSERT INTO movie (secondaryKey,name,imageId,actors,duration,description,rating,
 INSERT INTO cinemaHall (id, rowsAmount, rowsTypes, hallName) VALUES ('1','10','1,3,3,3,3,3,3,3,3,3','2D');
 INSERT INTO cinemaHall (id, rowsAmount, rowsTypes, hallName) VALUES ('2','10','1,1,1,3,3,3,3,3,3,3','Relax');
 
-INSERT INTO movieSession (dateSession,timeSession,cost,cinemaHallId,movieId) VALUES ('2020-07-17','11:30','50.0','1','1'),
-('2020-07-17','18:00','50.0','2','1'),
-('2020-07-17','15:00','50.0','1','2'),
-('2020-07-17','17:30','50.0','1','2');
+INSERT INTO movieSession (dateSession,timeSession,cost,cinemaHallId,movieId) VALUES ('2020-07-22','11:30','50.0','1','1'),
+('2020-07-22','18:00','50.0','2','1'),
+('2020-07-22','15:00','50.0','1','2'),
+('2020-07-22','17:30','50.0','1','2');
 
 INSERT INTO reservation (userId, rowId, place, isPaid, sessionId) VALUES ('1','1','6','false','2');
 INSERT INTO reservation (userId, rowId, place, isPaid, sessionId) VALUES ('2','1','7','false','2');

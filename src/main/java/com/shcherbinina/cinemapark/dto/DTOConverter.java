@@ -7,6 +7,7 @@ import com.shcherbinina.cinemapark.dao.repository.MovieSessionRepository;
 import com.shcherbinina.cinemapark.dao.repository.UserRepository;
 import com.shcherbinina.cinemapark.dto.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,6 +20,8 @@ public class DTOConverter {
     private CinemaHallRepository cinemaHallRepository;
     @Autowired
     private MovieRepository movieRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     public ReservationDTO convertToReservationDTO(Reservation reservation) {
         if(reservation == null) return null;
@@ -56,7 +59,7 @@ public class DTOConverter {
         User user = new User();
         user.setFirstName(dto.getFirstName());
         user.setLastName(dto.getLastName());
-        user.setPassword(dto.getPassword());
+        user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setEmail(dto.getEmail());
         user.setAccount(dto.getAccount());
 
@@ -72,6 +75,7 @@ public class DTOConverter {
         dto.setPassword(user.getPassword());
         dto.setEmail(user.getEmail());
         dto.setAccount(user.getAccount());
+        dto.setRoles(user.getRoles());
 
         return dto;
     }

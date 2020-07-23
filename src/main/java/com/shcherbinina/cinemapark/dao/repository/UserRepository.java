@@ -19,6 +19,11 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
+    public User getUserByEmail(String email) {
+        return userDAO.findByEmail(email);
+    }
+
+    @Override
     @Transactional
     public void addUser(User user) {
         userDAO.save(user);

@@ -7,6 +7,7 @@ import com.shcherbinina.cinemapark.dto.services.AccountService;
 import com.shcherbinina.cinemapark.dto.services.ReservationService;
 import com.shcherbinina.cinemapark.exceptions.validationExceptions.BusinessValidationException;
 import com.shcherbinina.cinemapark.exceptions.validationExceptions.PayloadValidationException;
+import com.shcherbinina.cinemapark.utility.Utility;
 import com.shcherbinina.cinemapark.validation.payloadValidation.ReservationDTOValidator;
 //import com.shcherbinina.cinemapark.validation.validationErrors.ReservationErrors;
 //import com.shcherbinina.cinemapark.validation.validationErrors.ValidationError;
@@ -40,6 +41,7 @@ public class BookingController {
         List<RowDTO> rowDTOs = reservationService.getHallLayout(Integer.valueOf(id));
         model.addAttribute("rows", rowDTOs);
         model.addAttribute("sessionId", id);
+        model.addAttribute("userInfo", Utility.getCurrentUserName());
         return "booking";
     }
 
@@ -59,6 +61,7 @@ public class BookingController {
 
         BookedDTO booked = reservationService.getBookedPlace(reservationDTO);
         model.addAttribute("booked", booked);
+        model.addAttribute("userInfo", Utility.getCurrentUserName());
 
         return "reservation";
     }
@@ -67,6 +70,7 @@ public class BookingController {
     public ModelAndView handlePayloadValidationException(HttpServletRequest req, Exception ex) {
         ModelAndView mav = new ModelAndView();
         mav.addObject("exception", ex.getMessage());
+        mav.addObject("userInfo", Utility.getCurrentUserName());
         mav.setViewName("controllerError");
         return mav;
     }

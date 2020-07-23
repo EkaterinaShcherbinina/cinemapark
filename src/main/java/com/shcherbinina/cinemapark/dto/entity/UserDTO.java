@@ -1,10 +1,12 @@
 package com.shcherbinina.cinemapark.dto.entity;
 
+import com.shcherbinina.cinemapark.dao.entity.Role;
+
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.Set;
 
 public class UserDTO {
-    @NotBlank
     private int id;
     @NotBlank
     private String firstName;
@@ -16,6 +18,7 @@ public class UserDTO {
     @Email
     private String email;
     private double account;
+    private Set<Role> roles;
 
     public UserDTO() {
     }
@@ -66,5 +69,13 @@ public class UserDTO {
 
     public void setAccount(double account) {
         this.account = account;
+    }
+
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }

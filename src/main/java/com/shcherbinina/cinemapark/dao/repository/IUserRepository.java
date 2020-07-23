@@ -5,6 +5,7 @@ import com.shcherbinina.cinemapark.dto.entity.UserDTO;
 
 public interface IUserRepository {
     User getUserById(int userId);
+    User getUserByEmail(String email);
     void addUser(User user);
     void deleteUser(int userId);
     void updateUser(User user);
