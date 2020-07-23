@@ -36,7 +36,6 @@ public class MovieSessionService implements IMovieSessionService {
 
     @Override
     public List<MovieSessionDTO> getSessionsByDateAndMovieName(String date, int movieId) {
-        if(today.equals(date)) date = LocalDate.now().toString();
         List<MovieSession> sessions = sessionRepository.getSessionsByDateAndMovie(date, movieId);
         return sessions.stream().map(session -> dtoConverter.convertToMovieSessionDTO(session))
                 .collect(Collectors.toList());

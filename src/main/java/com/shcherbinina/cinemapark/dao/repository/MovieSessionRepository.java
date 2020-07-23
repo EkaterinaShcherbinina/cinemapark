@@ -1,28 +1,20 @@
 package com.shcherbinina.cinemapark.dao.repository;
 
 import com.shcherbinina.cinemapark.dao.MovieSessionDAO;
-import com.shcherbinina.cinemapark.dao.entity.CinemaHall;
-import com.shcherbinina.cinemapark.dao.entity.Movie;
 import com.shcherbinina.cinemapark.dao.entity.MovieSession;
-import com.shcherbinina.cinemapark.dao.entity.Reservation;
-import com.shcherbinina.cinemapark.dto.entity.MovieSessionDTO;
+import com.shcherbinina.cinemapark.utility.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Repository
 public class MovieSessionRepository implements IMovieSessionRepository {
@@ -48,24 +40,13 @@ public class MovieSessionRepository implements IMovieSessionRepository {
     }
 
     @Override
-    @Transactional
-    public void addMovieSession(MovieSessionDTO movieSessionDTO) {
-        CinemaHall hall = cinemaHallService.getCinemaHallById(movieSessionDTO.getCinemaHall().getId());
-        Movie movie = movieRepository.getMovieById(movieSessionDTO.getMovie().getId());
-
-        MovieSession movieSession = new MovieSession();
-        movieSession.setDate(movieSessionDTO.getDate());
-        movieSession.setTime(movieSessionDTO.getTime());
-        movieSession.setCinemaHall(hall);
-        movieSession.setMovie(movie);
-        movieSession.setCost(movieSessionDTO.getCost());
-
+    public void addMovieSession(MovieSession movieSession) {
         sessionDAO.save(movieSession);
     }
 
     @Override
-    public void updateMovieSession(MovieSessionDTO movieSessionDTO) {
-        addMovieSession(movieSessionDTO);
+    public void updateMovieSession(MovieSession movieSession) {
+        addMovieSession(movieSession);
     }
 
     @Override
@@ -85,9 +66,8 @@ public class MovieSessionRepository implements IMovieSessionRepository {
         Root<MovieSession> root = q.from(MovieSession.class);
 
         try {
-            java.util.Date d = new SimpleDateFormat("yyyy-MM-dd").parse(date);
             Predicate sessionPredicate = cb.equal(root.get("date"),
-                    new SimpleDateFormat("yyyy-MM-dd").parse(date));
+                    new SimpleDateFormat(Constants.dateFormat).parse(date));
             Predicate moviePredicate = cb.equal(root.get("movie").get("id"), movieId);
             q.where(sessionPredicate, moviePredicate);
         } catch(ParseException ex) {

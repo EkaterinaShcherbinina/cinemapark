@@ -11,6 +11,9 @@ public class MovieDTO {
     private int id;
     @NotBlank
     @NotNull
+    private String secondaryKey;
+    @NotBlank
+    @NotNull
     private String name;
     @NotBlank
     @NotNull
@@ -49,6 +52,14 @@ public class MovieDTO {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getSecondaryKey() {
+        return secondaryKey;
+    }
+
+    public void setSecondaryKey(String secondaryKey) {
+        this.secondaryKey = secondaryKey;
     }
 
     public String getName() {
