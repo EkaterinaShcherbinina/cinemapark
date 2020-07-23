@@ -6,6 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -40,5 +45,28 @@ public class Utility {
             res = null;
         }
         return res;
+    }
+
+    public static String getFormattedDate(String date) {
+        SimpleDateFormat format = new SimpleDateFormat();
+        format.applyPattern(Constants.dateFormat);
+        Date formattedDate = new Date();
+        try {
+            formattedDate= format.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return formattedDate.toString();
+    }
+
+    public static String getNowFormattedDate() {
+        ZoneId defaultZoneId = ZoneId.systemDefault();
+        LocalDate localDate = LocalDate.now();
+        Date date = Date.from(localDate.atStartOfDay(defaultZoneId).toInstant());
+        return date.toString();
+    }
+
+    public static String getNowDate() {
+        return LocalDate.now().format(DateTimeFormatter.ofPattern(Constants.dateFormat));
     }
 }

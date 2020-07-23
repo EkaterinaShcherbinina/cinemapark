@@ -85,6 +85,7 @@ public class DTOConverter {
 
         MovieDTO dto = new MovieDTO();
         dto.setId(movie.getId());
+        dto.setSecondaryKey(movie.getSecondaryKey());
         dto.setName(movie.getName());
         dto.setImageId(movie.getImageId());
         dto.setActors(movie.getActors());
@@ -120,6 +121,7 @@ public class DTOConverter {
 
         Movie movie = new Movie();
         movie.setId(dto.getId());
+        movie.setSecondaryKey(dto.getSecondaryKey());
         movie.setName(dto.getName());
         movie.setActors(dto.getActors());
         movie.setDuration(dto.getDuration());
