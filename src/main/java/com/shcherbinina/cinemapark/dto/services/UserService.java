@@ -1,11 +1,13 @@
 package com.shcherbinina.cinemapark.dto.services;
 
-import com.shcherbinina.cinemapark.dao.UserDAO;
+import com.shcherbinina.cinemapark.dao.entity.Role;
 import com.shcherbinina.cinemapark.dao.repository.UserRepository;
 import com.shcherbinina.cinemapark.dto.DTOConverter;
 import com.shcherbinina.cinemapark.dto.entity.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
 
 @Service
 public class UserService implements IUserService {
@@ -19,7 +21,13 @@ public class UserService implements IUserService {
         return dtoConverter.convertToUserDTO(userRepository.getUserById(userId));
     }
 
+    @Override
+    public UserDTO getByEmail(String email) {
+        return dtoConverter.convertToUserDTO(userRepository.getUserByEmail(email));
+    }
+
     public void addNewUser(UserDTO userDTO) {
+        userDTO.setRoles(Collections.singleton(Role.USER));
         userRepository.addUser(dtoConverter.convertToUser(userDTO));
     }
 

@@ -3,8 +3,10 @@ package com.shcherbinina.cinemapark.mvcControllers;
 import com.shcherbinina.cinemapark.dao.repository.MovieImageRepository;
 import com.shcherbinina.cinemapark.dto.entity.MovieImageDTO;
 import com.shcherbinina.cinemapark.dto.entity.MovieThumbnailDTO;
+import com.shcherbinina.cinemapark.dto.entity.UserDTO;
 import com.shcherbinina.cinemapark.dto.services.MovieImageService;
 import com.shcherbinina.cinemapark.dto.services.MovieService;
+import com.shcherbinina.cinemapark.utility.Utility;
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,13 +31,20 @@ public class CinemaparkController {
     public String getCinemaparkPage(Model model) {
         List<MovieThumbnailDTO> movies = movieService.getMoviesNowInCinema();
         model.addAttribute("movies", movies);
+        model.addAttribute("userInfo", Utility.getCurrentUserName());
         return "cinemapark";
+    }
+
+    @RequestMapping(method= RequestMethod.POST)
+    public String forwardCinemaparkPage(Model model) {
+        return "redirect:/cinemapark";
     }
 
     @RequestMapping(value="/soon", method= RequestMethod.GET)
     public String getMoviesSoonPage(Model model) {
         List<MovieThumbnailDTO> movies = movieService.getMoviesSoonInCinema();
         model.addAttribute("movies", movies);
+        model.addAttribute("userInfo", Utility.getCurrentUserName());
         return "moviesSoon";
     }
 }

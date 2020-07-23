@@ -1,7 +1,4 @@
-<!-- FreeMarker Macros -->
-
-<#import "/spring.ftl" as spring/>
-
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,7 +6,8 @@
     <#include "materializedConfig.ftl">
 </head>
 <body>
-      <#include "header.ftl">
-      <h5>${exception}!</h5>
+<h1>Something went wrong! </h1>
+<h2>Our Engineers are on it</h2>
+<a href="/cinemapark">Home page</a>
 </body>
 </html>
