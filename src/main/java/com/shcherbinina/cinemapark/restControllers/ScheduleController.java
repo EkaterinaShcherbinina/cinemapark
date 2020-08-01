@@ -1,9 +1,8 @@
 package com.shcherbinina.cinemapark.restControllers;
 
-import com.shcherbinina.cinemapark.dto.entity.MovieSessionDTO;
-import com.shcherbinina.cinemapark.dto.services.MovieSessionService;
+import com.shcherbinina.cinemapark.dto.entity.AdminSessionDTO;
+import com.shcherbinina.cinemapark.dto.services.AdminMovieSessionService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,11 +12,11 @@ import java.util.List;
 public class ScheduleController {
 
     @Autowired
-    private MovieSessionService movieSessionService;
+    private AdminMovieSessionService adminMovieSessionService;
 
     @RequestMapping(value = "/{date}", method = RequestMethod.GET)
-    public List<MovieSessionDTO> getSchedule(@PathVariable String date) {
-        List<MovieSessionDTO> sessions = movieSessionService.getAllMovieSessionsByDate(date);
+    public List<AdminSessionDTO> getSchedule(@PathVariable String date) {
+        List<AdminSessionDTO> sessions = adminMovieSessionService.getAllMovieSessionsByDate(date);
         return sessions;
     }
 }

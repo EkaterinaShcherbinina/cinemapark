@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CinemaHallDAO extends CrudRepository<CinemaHall, Integer> {
     CinemaHall findById(int hallId);
+    CinemaHall findByHallName(String hallName);
 }

@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MovieImageDAO extends CrudRepository<MovieImage, Integer> {
-
+    MovieImage findById(int id);
 }

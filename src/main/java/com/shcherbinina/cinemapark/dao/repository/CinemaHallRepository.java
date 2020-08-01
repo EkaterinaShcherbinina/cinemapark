@@ -2,6 +2,7 @@ package com.shcherbinina.cinemapark.dao.repository;
 
 import com.shcherbinina.cinemapark.dao.CinemaHallDAO;
 import com.shcherbinina.cinemapark.dao.entity.CinemaHall;
+import com.shcherbinina.cinemapark.dao.entity.Movie;
 import com.shcherbinina.cinemapark.dto.entity.CinemaHallDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -12,6 +13,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import java.util.ArrayList;
+import java.util.List;
 
 @Repository
 public class CinemaHallRepository implements ICinemaHallRepository {
@@ -23,6 +26,18 @@ public class CinemaHallRepository implements ICinemaHallRepository {
     @Override
     public CinemaHall getCinemaHallById(int hallId) {
         return cinemaHallDAO.findById(hallId);
+    }
+
+    @Override
+    public CinemaHall getCinemaHallByName(String name) {
+        return cinemaHallDAO.findByHallName(name);
+    }
+
+    @Override
+    public List<CinemaHall> getAllCinemaHalls() {
+        List<CinemaHall> list = new ArrayList<>();
+        cinemaHallDAO.findAll().forEach(e -> list.add(e));
+        return list;
     }
 
     @Override

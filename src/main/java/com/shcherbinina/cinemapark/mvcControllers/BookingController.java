@@ -41,7 +41,6 @@ public class BookingController {
         List<RowDTO> rowDTOs = reservationService.getHallLayout(Integer.valueOf(id));
         model.addAttribute("rows", rowDTOs);
         model.addAttribute("sessionId", id);
-        model.addAttribute("userInfo", Utility.getCurrentUserName());
         return "booking";
     }
 
@@ -61,7 +60,6 @@ public class BookingController {
 
         BookedDTO booked = reservationService.getBookedPlace(reservationDTO);
         model.addAttribute("booked", booked);
-        model.addAttribute("userInfo", Utility.getCurrentUserName());
 
         return "reservation";
     }
@@ -70,7 +68,6 @@ public class BookingController {
     public ModelAndView handlePayloadValidationException(HttpServletRequest req, Exception ex) {
         ModelAndView mav = new ModelAndView();
         mav.addObject("exception", ex.getMessage());
-        mav.addObject("userInfo", Utility.getCurrentUserName());
         mav.setViewName("controllerError");
         return mav;
     }

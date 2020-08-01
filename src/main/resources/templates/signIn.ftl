@@ -12,6 +12,7 @@
           <div><label> Password: <input type="password" name="password"/> </label></div>
           <div><input type="submit" value="Sign In"/></div>
       </form>
+      <li><a href="/sign-up">Create your new account</a></li>
        <div>
             <#if error ??>
                 <p>Invalid username or password.</p>

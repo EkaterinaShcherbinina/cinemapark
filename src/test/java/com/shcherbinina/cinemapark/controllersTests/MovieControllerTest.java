@@ -1,5 +1,6 @@
 package com.shcherbinina.cinemapark.controllersTests;
 
+import com.shcherbinina.cinemapark.dto.entity.MovieImageDTO;
 import com.shcherbinina.cinemapark.dto.entity.MovieThumbnailDTO;
 import com.shcherbinina.cinemapark.restControllers.MovieController;
 import com.shcherbinina.cinemapark.dto.entity.MovieDTO;
@@ -41,7 +42,7 @@ public class MovieControllerTest {
         movieExpected.setGenre("drama");
         movieExpected.setProducer("Chris Evans");
         movieExpected.setProductionYear("2015");
-        movieExpected.setPremiereDate(new Date(1));
+        movieExpected.setPremiereDate("2020-02-12");
 
         moviesDTOExpected = new ArrayList<>();
         MovieThumbnailDTO dto1 = new MovieThumbnailDTO();

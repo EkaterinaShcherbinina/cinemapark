@@ -9,9 +9,6 @@ import java.util.List;
 
 @Repository
 public interface MovieSessionDAO extends CrudRepository<MovieSession, Integer> {
-    @Query(nativeQuery = true, value = "select * from movieSession where dateSession = :date")
-    List<MovieSession> getSessionsByDate(@Param("date")java.sql.Date date);
-
     @Query(nativeQuery = true, value = "select movieId from movieSession where dateSession = :date group by movieId")
     List<Integer> getNonRepeatingMovieIdForSessionsByDate(@Param("date")java.sql.Date date);
 }

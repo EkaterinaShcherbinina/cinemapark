@@ -12,6 +12,7 @@ import java.util.List;
 public interface MovieDAO extends CrudRepository<Movie, Integer> {
     Movie findByName(String name);
     Movie findBySecondaryKey(String id);
+    Movie findById(int id);
 
     @Query(nativeQuery = true, value = "select * from movie where premiereDate > :date")
     List<Movie> getMoviesMoreThanDate(@Param("date")java.sql.Date date);

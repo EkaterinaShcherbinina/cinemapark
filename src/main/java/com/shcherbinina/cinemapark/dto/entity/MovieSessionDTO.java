@@ -1,21 +1,15 @@
 package com.shcherbinina.cinemapark.dto.entity;
 
-import com.shcherbinina.cinemapark.dao.entity.CinemaHall;
-import com.shcherbinina.cinemapark.dao.entity.Movie;
-
-import java.sql.Time;
-import java.util.Date;
-
 public class MovieSessionDTO {
     private int id;
 
-    private Date date;
+    private String movieDate;
 
-    private Time time;
+    private String time;
 
     private double cost;
 
-    private CinemaHall cinemaHall;
+    private CinemaHallDTO cinemaHall;
 
     private MovieDTO movie;
 
@@ -25,12 +19,12 @@ public class MovieSessionDTO {
     @Override
     public boolean equals(Object obj) {
         if (obj == this) return true;
-        if(obj == null || obj.getClass()!= this.getClass()) return false;
+        if (obj == null || obj.getClass() != this.getClass()) return false;
 
         MovieSessionDTO dto = (MovieSessionDTO) obj;
 
         return dto.id == id &&
-                dto.date.equals(date) &&
+                dto.movieDate.equals(movieDate) &&
                 dto.time.equals(time) &&
                 Double.compare(dto.cost, cost) == 0 &&
                 dto.cinemaHall.equals(cinemaHall) &&
@@ -40,10 +34,10 @@ public class MovieSessionDTO {
     @Override
     public int hashCode() {
         int result = 17;
-        result = 31 * result + ((Integer)id).hashCode();
-        result = 31 * result + date.hashCode();
+        result = 31 * result + ((Integer) id).hashCode();
+        result = 31 * result + movieDate.hashCode();
         result = 31 * result + time.hashCode();
-        result = 31 * result + ((Double)cost).hashCode();
+        result = 31 * result + ((Double) cost).hashCode();
         result = 31 * result + cinemaHall.hashCode();
         result = 31 * result + movie.hashCode();
         return result;
@@ -57,19 +51,19 @@ public class MovieSessionDTO {
         this.id = id;
     }
 
-    public Date getDate() {
-        return date;
+    public String getMovieDate() {
+        return movieDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setMovieDate(String movieDate) {
+        this.movieDate = movieDate;
     }
 
-    public Time getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Time time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
@@ -81,11 +75,11 @@ public class MovieSessionDTO {
         this.cost = cost;
     }
 
-    public CinemaHall getCinemaHall() {
+    public CinemaHallDTO getCinemaHall() {
         return cinemaHall;
     }
 
-    public void setCinemaHall(CinemaHall cinemaHall) {
+    public void setCinemaHall(CinemaHallDTO cinemaHall) {
         this.cinemaHall = cinemaHall;
     }
 

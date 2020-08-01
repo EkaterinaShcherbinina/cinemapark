@@ -12,7 +12,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class AccountControllerTest {
+public class UserAccountControllerTest {
     @Mock
     private AccountService accountService;
 

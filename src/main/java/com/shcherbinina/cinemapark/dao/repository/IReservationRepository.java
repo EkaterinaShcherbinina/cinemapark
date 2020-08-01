@@ -14,4 +14,5 @@ public interface IReservationRepository {
     void deleteReservation(int reservationId);
     Reservation getReservationById(int reservationId);
     Reservation getReservation(ReservationDTO dto);
+    List<Reservation> getAllByUserId(int userId);
 }

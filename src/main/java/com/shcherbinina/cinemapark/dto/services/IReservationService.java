@@ -13,5 +13,6 @@ public interface IReservationService {
     void deleteReservation(int id);
     void updateReservation(ReservationDTO dto);
     ReservationDTO getReservationById(int id);
+    List<ReservationDTO> getAllByUserId(int id);
     BookedDTO getBookedPlace(ReservationDTO reservationDTO);
 }

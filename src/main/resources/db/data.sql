@@ -1,4 +1,5 @@
-INSERT INTO user (firstName,lastName,password,email,account) VALUES ('Evan','Tyrone','123','sagittis@sed.org','125'),
+INSERT INTO user (firstName,lastName,password,email,account) VALUES ('admin','admin','$2a$10$fLid2WgU8jwFH66u5C5ou.9naduK1XgNnz/tDQGgKyBLsDjpI65Mq','admin','0'),
+('Evan','Tyrone','$2a$10$MzddbGndDcdVz.uxxRAg4OcdRJfWgRF9Wv.ha0ARIJkFs2gHF3PyS','sagittis@sed.org','125'),
 ('Brian','Barclay','hrtrgs5','a.purus@auctorvelit.org','54'),
 ('Jelani','Tanek','fch65yhr6','imperdiet.dictum.magna@Suspendisseeleifend.ca','0'),
 ('Alexander','Drew','t5ytryg56y','non.nisi@facilisisnon.co.uk','0'),
@@ -9,9 +10,9 @@ INSERT INTO user (firstName,lastName,password,email,account) VALUES ('Evan','Tyr
 ('Basil','Kirk','kljilj9io','sapien@lectusNullam.co.uk','0'),
 ('Josiah','Steel','mghjft54ty5y','Cum.sociis@adipiscinglacusUt.org','0');
 
-INSERT INTO userRole (userId, roles) VALUES ('1','USER'), ('2','USER'),
+INSERT INTO userRole (userId, roles) VALUES ('1','ADMIN'), ('2','USER'),
   ('3','USER'), ('4','USER'), ('5','USER'), ('6','USER'), ('7','USER'),
-  ('8','USER'), ('9','USER'), ('10','USER');
+  ('8','USER'), ('9','USER'), ('10','USER'), ('11','USER');
 
 INSERT INTO movieImage(image) VALUES(FILE_READ('classpath:\images\inception.jpg')),
 (FILE_READ('classpath:\images\interstellar.jpg')),
@@ -26,23 +27,32 @@ INSERT INTO movie (secondaryKey,name,imageId,actors,duration,description,rating,
 '8.6', 'Adventure, Drama', 'Christopher Nolan', '2014','2020-06-14'),
 ('martian','The Martian','3','Matt Damon, Jessica Chastain, Kristen Wiig', '144',
 'An astronaut becomes stranded on Mars after his team assume him dead, and must rely on his ingenuity to find a way to signal to Earth that he is alive..',
-'8.0', ' Adventure, Drama, Sci-Fi', ' Ridley Scott', '2015','2020-07-25');
+'8.0', ' Adventure, Drama, Sci-Fi', ' Ridley Scott', '2015','2020-07-30');
 
-INSERT INTO cinemaHall (id, rowsAmount, rowsTypes, hallName) VALUES ('1','10','1,3,3,3,3,3,3,3,3,3','2D');
-INSERT INTO cinemaHall (id, rowsAmount, rowsTypes, hallName) VALUES ('2','10','1,1,1,3,3,3,3,3,3,3','Relax');
+INSERT INTO cinemaHall (id, rowsAmount, rowsTypes, hallName) VALUES ('1','10','7,10,10,10,10,10,10,10,10,10','2D');
+INSERT INTO cinemaHall (id, rowsAmount, rowsTypes, hallName) VALUES ('2','10','7,7,7,10,10,10,10,10,10,10','Relax');
 
-INSERT INTO movieSession (dateSession,timeSession,cost,cinemaHallId,movieId) VALUES ('2020-07-22','11:30','50.0','1','1'),
-('2020-07-22','18:00','50.0','2','1'),
-('2020-07-22','15:00','50.0','1','2'),
-('2020-07-22','17:30','50.0','1','2');
+INSERT INTO movieSession (dateSession,timeSession,cost,cinemaHallId,movieId) VALUES ('2020-07-30','11:30','50.0','1','1'),
+('2020-07-30','18:00','50.0','2','1'),
+('2020-07-30','15:00','50.0','1','2'),
+('2020-07-30','17:30','50.0','1','2');
 
-INSERT INTO reservation (userId, rowId, place, isPaid, sessionId) VALUES ('1','1','6','false','2');
-INSERT INTO reservation (userId, rowId, place, isPaid, sessionId) VALUES ('2','1','7','false','2');
+INSERT INTO reservation (userId, rowId, place, isPaid, sessionId) VALUES ('2','6','5','false','1');
+INSERT INTO reservation (userId, rowId, place, isPaid, sessionId) VALUES ('2','1','6','false','3');
+INSERT INTO reservation (userId, rowId, place, isPaid, sessionId) VALUES ('2','3','6','false','3');
+INSERT INTO reservation (userId, rowId, place, isPaid, sessionId) VALUES ('1','1','7','false','2');
 INSERT INTO reservation (userId, rowId, place, isPaid, sessionId) VALUES ('3','2','6','false','2');
 INSERT INTO reservation (userId, rowId, place, isPaid, sessionId) VALUES ('4','5','2','false','2');
 INSERT INTO reservation (userId, rowId, place, isPaid, sessionId) VALUES ('5','5','3','false','2');
 INSERT INTO reservation (userId, rowId, place, isPaid, sessionId) VALUES ('6','5','4','false','2');
 
-INSERT INTO rowCinemaHall (id, seatsAmount) VALUES ('1','7');
-INSERT INTO rowCinemaHall (id, seatsAmount) VALUES ('2','8');
-INSERT INTO rowCinemaHall (id, seatsAmount) VALUES ('3','10');
+INSERT INTO rowCinemaHall (id, seatsAmount) VALUES ('1','1');
+INSERT INTO rowCinemaHall (id, seatsAmount) VALUES ('2','2');
+INSERT INTO rowCinemaHall (id, seatsAmount) VALUES ('3','3');
+INSERT INTO rowCinemaHall (id, seatsAmount) VALUES ('4','4');
+INSERT INTO rowCinemaHall (id, seatsAmount) VALUES ('5','5');
+INSERT INTO rowCinemaHall (id, seatsAmount) VALUES ('6','6');
+INSERT INTO rowCinemaHall (id, seatsAmount) VALUES ('7','7');
+INSERT INTO rowCinemaHall (id, seatsAmount) VALUES ('8','8');
+INSERT INTO rowCinemaHall (id, seatsAmount) VALUES ('9','9');
+INSERT INTO rowCinemaHall (id, seatsAmount) VALUES ('10','10');
