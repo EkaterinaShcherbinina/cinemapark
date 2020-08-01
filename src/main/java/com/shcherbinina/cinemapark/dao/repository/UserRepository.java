@@ -38,6 +38,6 @@ public class UserRepository implements IUserRepository {
     @Override
     @Transactional
     public void updateUser(User user) {
-        addUser(user);
+        userDAO.save(user);
     }
 }

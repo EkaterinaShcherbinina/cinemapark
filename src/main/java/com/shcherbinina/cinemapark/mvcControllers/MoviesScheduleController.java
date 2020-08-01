@@ -1,5 +1,7 @@
 package com.shcherbinina.cinemapark.mvcControllers;
 
+import com.shcherbinina.cinemapark.dto.entity.AdminSessionDTO;
+import com.shcherbinina.cinemapark.dto.entity.MovieDTO;
 import com.shcherbinina.cinemapark.dto.entity.MovieSessionDTO;
 import com.shcherbinina.cinemapark.dto.services.MovieSessionService;
 import com.shcherbinina.cinemapark.utility.Utility;
@@ -14,13 +16,21 @@ import java.util.List;
 @RequestMapping("/movie-schedule")
 public class MoviesScheduleController {
     @Autowired
-    MovieSessionService movieSessionService;
+    private MovieSessionService sessionService;
 
-    @RequestMapping(value="/{date}", method=RequestMethod.GET)
-    public String getMovie(@PathVariable String date, Model model) {
-        List<MovieSessionDTO> sessions = movieSessionService.getAllMovieSessionsByDate(date);
+    @RequestMapping(method=RequestMethod.GET)
+    public String getScheduleToday(Model model) {
+        List<MovieSessionDTO> sessions = sessionService.getAllMovieSessionsByDate(Utility.getNowOnlyDate());
         model.addAttribute("sessions", sessions);
-        model.addAttribute("userInfo", Utility.getCurrentUserName());
+        model.addAttribute("date", Utility.getNowFormattedDateWithTimeZone());
+        return "movieSchedule";
+    }
+
+    @RequestMapping(value = "/schedule", method= RequestMethod.POST)
+    public String getScheduleByDate(@RequestParam("date") String date, Model model) {
+        List<MovieSessionDTO> sessions = sessionService.getAllMovieSessionsByDate(date);
+        model.addAttribute("sessions", sessions);
+        model.addAttribute("date", Utility.getFormattedDate(date).toString());
         return "movieSchedule";
     }
 }

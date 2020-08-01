@@ -3,10 +3,12 @@ package com.shcherbinina.cinemapark.dao.repository;
 import com.shcherbinina.cinemapark.dao.MovieDAO;
 import com.shcherbinina.cinemapark.dao.MovieSessionDAO;
 import com.shcherbinina.cinemapark.dao.entity.Movie;
+import com.shcherbinina.cinemapark.dao.entity.MovieImage;
 import com.shcherbinina.cinemapark.dto.entity.MovieDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Blob;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,23 +30,26 @@ public class MovieRepository implements IMovieRepository {
     }
 
     @Override
-    public Movie getMovieById(long articleId) {
-        return null;
+    public Movie getMovieById(int id) {
+        return movieDAO.findById(id);
     }
 
     @Override
-    public void addMovie(Movie movie) {
+    public Movie getMovieByName(String name) {
+        return movieDAO.findByName(name);
+    }
+
+    @Override
+    public void addMovie(Movie movie, Blob image) {
+        MovieImage movieImage = new MovieImage();
+        movieImage.setImage(image);
+        movie.assignToImage(movieImage);
         movieDAO.save(movie);
     }
 
     @Override
     public void updateMovie(Movie movie) {
-        addMovie(movie);
-    }
-
-    @Override
-    public void deleteMovie(int movieId) {
-        movieDAO.deleteById(movieId);
+        movieDAO.save(movie);
     }
 
     @Override

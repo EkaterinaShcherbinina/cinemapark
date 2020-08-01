@@ -15,6 +15,9 @@ public class MovieImage {
     @Lob
     private Blob image;
 
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "image")
+    private Movie movie;
+
     public int getId() {
         return id;
     }
@@ -29,5 +32,13 @@ public class MovieImage {
 
     public void setImage(Blob image) {
         this.image = image;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
 }

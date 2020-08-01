@@ -13,6 +13,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -56,7 +57,19 @@ public class MovieSessionRepository implements IMovieSessionRepository {
 
     @Override
     public List<MovieSession> getSessionsByDate(String date) {
-        return sessionDAO.getSessionsByDate(java.sql.Date.valueOf(date));
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<MovieSession> q = cb.createQuery(MovieSession.class);
+        Root<MovieSession> root = q.from(MovieSession.class);
+
+        try {
+            Predicate sessionPredicate = cb.equal(root.get("date"),
+                    new SimpleDateFormat(Constants.dateFormat).parse(date));
+            q.where(sessionPredicate);
+        } catch(ParseException ex) {
+            return new LinkedList<>();
+        }
+
+        return entityManager.createQuery(q).getResultList();
     }
 
     @Override

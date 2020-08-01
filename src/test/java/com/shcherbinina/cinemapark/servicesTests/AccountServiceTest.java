@@ -5,17 +5,16 @@ import com.shcherbinina.cinemapark.dao.entity.User;
 import com.shcherbinina.cinemapark.dao.repository.MovieSessionRepository;
 import com.shcherbinina.cinemapark.dao.repository.UserRepository;
 import com.shcherbinina.cinemapark.dto.entity.AccountDTO;
-import com.shcherbinina.cinemapark.dto.entity.MovieSessionDTO;
+import com.shcherbinina.cinemapark.dto.entity.AdminSessionDTO;
 import com.shcherbinina.cinemapark.dto.entity.ReservationDTO;
 import com.shcherbinina.cinemapark.dto.entity.UserDTO;
 import com.shcherbinina.cinemapark.dto.services.AccountService;
-import com.shcherbinina.cinemapark.dto.services.MovieSessionService;
+import com.shcherbinina.cinemapark.dto.services.AdminMovieSessionService;
 import com.shcherbinina.cinemapark.dto.services.UserService;
 import com.shcherbinina.cinemapark.exceptions.validationExceptions.BusinessValidationException;
 import com.shcherbinina.cinemapark.exceptions.validationExceptions.PayloadValidationException;
 import com.shcherbinina.cinemapark.validation.businessValidation.WithdrawingMoneyValidator;
 import com.shcherbinina.cinemapark.validation.payloadValidation.AccountValidator;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,7 +30,7 @@ public class AccountServiceTest {
     @Mock
     private MovieSessionRepository sessionRepository;
     @Mock
-    private MovieSessionService sessionService;
+    private AdminMovieSessionService sessionService;
     @Mock
     private UserService userService;
     @Mock
@@ -48,7 +47,7 @@ public class AccountServiceTest {
     private User user1;
     private User user2;
     private MovieSession session;
-    private MovieSessionDTO sessionDTO;
+    private AdminSessionDTO sessionDTO;
     private UserDTO userDTO;
 
     @Before
@@ -80,7 +79,7 @@ public class AccountServiceTest {
 
         accountDTO2 = new AccountDTO(4, -20.0);
 
-        sessionDTO = new MovieSessionDTO();
+        sessionDTO = new AdminSessionDTO();
         userDTO = new UserDTO();
         sessionDTO.setCost(50.0);
         userDTO.setAccount(10.0);

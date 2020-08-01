@@ -1,10 +1,14 @@
 package com.shcherbinina.cinemapark.dto.services;
 
+import com.shcherbinina.cinemapark.dao.entity.CinemaHall;
 import com.shcherbinina.cinemapark.dao.repository.CinemaHallRepository;
 import com.shcherbinina.cinemapark.dto.DTOConverter;
 import com.shcherbinina.cinemapark.dto.entity.CinemaHallDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CinemaHallService implements ICinemaHallService {
@@ -26,5 +30,16 @@ public class CinemaHallService implements ICinemaHallService {
     @Override
     public void deleteCinemaHall(int hallId) {
         cinemaHallRepository.deleteCinemaHall(hallId);
+    }
+
+    @Override
+    public List<CinemaHallDTO> getAllCinemaHalls() {
+        List<CinemaHall> dtos = cinemaHallRepository.getAllCinemaHalls();
+        return dtos.stream().map(hall -> dtoConverter.convertToCinemaHallDto(hall)).collect(Collectors.toList());
+    }
+
+    @Override
+    public CinemaHallDTO getHallById(int hallId) {
+        return dtoConverter.convertToCinemaHallDto(cinemaHallRepository.getCinemaHallById(hallId));
     }
 }

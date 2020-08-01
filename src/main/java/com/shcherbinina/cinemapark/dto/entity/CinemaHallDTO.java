@@ -1,11 +1,20 @@
 package com.shcherbinina.cinemapark.dto.entity;
 
 public class CinemaHallDTO {
-    private int rowsAmount;
-    private String rows;
+    private int id;
     private String hallName;
+    private int rowsAmount;
+    private int[] placesAmountInRow;
 
     public CinemaHallDTO() {
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getRowsAmount() {
@@ -16,12 +25,12 @@ public class CinemaHallDTO {
         this.rowsAmount = rowsAmount;
     }
 
-    public String getRows() {
-        return rows;
+    public int[] getPlacesAmountInRow() {
+        return placesAmountInRow;
     }
 
-    public void setRows(String rows) {
-        this.rows = rows;
+    public void setPlacesAmountInRow(int[] placesAmountInRow) {
+        this.placesAmountInRow = placesAmountInRow;
     }
 
     public String getHallName() {

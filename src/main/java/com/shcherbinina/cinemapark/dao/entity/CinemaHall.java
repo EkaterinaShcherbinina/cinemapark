@@ -8,6 +8,7 @@ import java.util.Set;
 @Table(name = "cinemaHall")
 public class CinemaHall {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
 
@@ -61,6 +62,10 @@ public class CinemaHall {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getRowsAmount() {

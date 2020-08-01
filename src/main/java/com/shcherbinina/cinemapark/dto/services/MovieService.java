@@ -8,6 +8,7 @@ import com.shcherbinina.cinemapark.dto.entity.MovieThumbnailDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Blob;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -18,6 +19,8 @@ public class MovieService implements IMovieService {
     private MovieRepository movieRepository;
     @Autowired
     private DTOConverter dtoConverter;
+    @Autowired
+    private MovieImageService imageService;
 
     @Override
     public List<MovieThumbnailDTO> getMoviesNowInCinema() {
@@ -39,29 +42,27 @@ public class MovieService implements IMovieService {
     }
 
     @Override
-    public void addNewMovie(MovieDTO movieDTO) {
-        Movie movie = new Movie();
-
-        movie.setActors(movieDTO.getActors());
-        movie.setDescription(movieDTO. getDescription());
-        movie.setDuration(movieDTO.getDuration());
-        movie.setGenre(movieDTO.getGenre());
-        movie.setName(movieDTO.getName());
-        movie.setPremiereDate(movieDTO.getPremiereDate());
-        movie.setProducer(movieDTO.getProducer());
-        movie.setProductionYear(movieDTO.getProductionYear());
-        movie.setRating(movieDTO.getRating());
-
-        movieRepository.addMovie(movie);
+    public List<MovieDTO> getAllMovies() {
+        List<Movie> movies = movieRepository.getAllMovies();
+        return movies.stream().map(movie -> dtoConverter.convertToMovieDTO(movie))
+                .collect(Collectors.toList());
     }
 
     @Override
-    public void updateMovie(MovieDTO movieDTO) {
-        addNewMovie(movieDTO);
+    public MovieDTO getMovieById(int id) {
+        return dtoConverter.convertToMovieDTO(movieRepository.getMovieById(id));
     }
 
     @Override
-    public void deleteMovie(int movieId) {
-        movieRepository.deleteMovie(movieId);
+    public void addNewMovie(MovieDTO movieDTO, Blob image) {
+        movieRepository.addMovie(dtoConverter.convertToMovie(movieDTO), image);
+    }
+
+    @Override
+    public void updateMovie(MovieDTO movieDTO, Blob image) {
+        if(image != null) {
+            imageService.updateMovieImage(movieDTO.getId(), image);
+        }
+        movieRepository.updateMovie(dtoConverter.convertToMovie(movieDTO));
     }
 }

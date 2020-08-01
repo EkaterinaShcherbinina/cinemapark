@@ -1,6 +1,7 @@
 package com.shcherbinina.cinemapark.dao;
 
 import com.shcherbinina.cinemapark.dao.entity.Reservation;
+import com.shcherbinina.cinemapark.dao.repository.ReservationRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

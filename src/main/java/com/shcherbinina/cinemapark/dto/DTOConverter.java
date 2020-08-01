@@ -6,9 +6,13 @@ import com.shcherbinina.cinemapark.dao.repository.MovieRepository;
 import com.shcherbinina.cinemapark.dao.repository.MovieSessionRepository;
 import com.shcherbinina.cinemapark.dao.repository.UserRepository;
 import com.shcherbinina.cinemapark.dto.entity.*;
+import com.shcherbinina.cinemapark.dto.services.MovieImageService;
+import com.shcherbinina.cinemapark.utility.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
 
 @Component
 public class DTOConverter {
@@ -22,6 +26,8 @@ public class DTOConverter {
     private MovieRepository movieRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private MovieImageService imageService;
 
     public ReservationDTO convertToReservationDTO(Reservation reservation) {
         if(reservation == null) return null;
@@ -62,6 +68,7 @@ public class DTOConverter {
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setEmail(dto.getEmail());
         user.setAccount(dto.getAccount());
+        user.setRoles(dto.getRoles());
 
         return user;
     }
@@ -70,6 +77,7 @@ public class DTOConverter {
         if(user == null) return null;
 
         UserDTO dto = new UserDTO();
+        dto.setId(user.getId());
         dto.setFirstName(user.getFirstName());
         dto.setLastName(user.getLastName());
         dto.setPassword(user.getPassword());
@@ -80,6 +88,37 @@ public class DTOConverter {
         return dto;
     }
 
+    public AccountEditDTO convertToUserAccountDTO(User user) {
+        if(user == null) return null;
+
+        AccountEditDTO dto = new AccountEditDTO();
+        dto.setId(user.getId());
+        dto.setFirstName(user.getFirstName());
+        dto.setLastName(user.getLastName());
+        dto.setEmail(user.getEmail());
+
+        return dto;
+    }
+
+    public User convertToUserAccount(AccountEditDTO dto) {
+        if(dto == null) return null;
+
+        User user = userRepository.getUserById(dto.getId());
+        if(dto.getFirstName() != null
+            && !dto.getFirstName().isEmpty())
+            user.setFirstName(dto.getFirstName());
+        if(dto.getLastName() != null
+            && !dto.getLastName().isEmpty())
+            user.setLastName(dto.getLastName());
+        if(dto.getEmail() != null
+            && !dto.getEmail().isEmpty())
+            user.setEmail(dto.getEmail());
+        if(dto.getNewPassword() != null
+            && !dto.getNewPassword().isEmpty())
+            user.setPassword(passwordEncoder.encode(dto.getNewPassword()));
+        return user;
+    }
+
     public MovieDTO convertToMovieDTO(Movie movie) {
         if(movie == null) return null;
 
@@ -87,7 +126,7 @@ public class DTOConverter {
         dto.setId(movie.getId());
         dto.setSecondaryKey(movie.getSecondaryKey());
         dto.setName(movie.getName());
-        dto.setImageId(movie.getImageId());
+        dto.setImageId(movie.getImage().getId());
         dto.setActors(movie.getActors());
         dto.setDuration(movie.getDuration());
         dto.setDescription(movie.getDescription());
@@ -95,7 +134,7 @@ public class DTOConverter {
         dto.setGenre(movie.getGenre());
         dto.setProducer(movie.getProducer());
         dto.setProductionYear(movie.getProductionYear());
-        dto.setPremiereDate(movie.getPremiereDate());
+        dto.setPremiereDate(movie.getPremiereDate().toString());
 
         return dto;
     }
@@ -107,7 +146,7 @@ public class DTOConverter {
         dto.setId(movie.getId());
         dto.setSecondaryKey(movie.getSecondaryKey());
         dto.setName(movie.getName());
-        dto.setImageId(movie.getImageId());
+        dto.setImageId(movie.getImage().getId());
         dto.setDuration(movie.getDuration());
         dto.setDescription(movie.getDescription());
         dto.setRating(movie.getRating());
@@ -119,9 +158,12 @@ public class DTOConverter {
     public Movie convertToMovie(MovieDTO dto) {
         if(dto == null) return null;
 
+        MovieImageDTO image = null;
+        if(dto.getImageId() != 0)
+            image = imageService.getMovieImageDTOByImageId(dto.getImageId());
+
         Movie movie = new Movie();
         movie.setId(dto.getId());
-        movie.setSecondaryKey(dto.getSecondaryKey());
         movie.setName(dto.getName());
         movie.setActors(dto.getActors());
         movie.setDuration(dto.getDuration());
@@ -130,26 +172,29 @@ public class DTOConverter {
         movie.setGenre(dto.getGenre());
         movie.setProducer(dto.getProducer());
         movie.setProductionYear(dto.getProductionYear());
-        movie.setPremiereDate(dto.getPremiereDate());
+        movie.setPremiereDate(Utility.getFormattedDate(dto.getPremiereDate()));
+        movie.assignToImage(convertToMovieImage(image));
+
+        if(dto.getSecondaryKey() != null)
+            movie.setSecondaryKey(dto.getSecondaryKey());
+        else movie.setSecondaryKey(createSecondaryKey(dto.getName()));
 
         return movie;
     }
 
-    public MovieSession convertToMovieSession(MovieSessionDTO dto) {
-        if(dto == null) return null;
+    public AdminSessionDTO convertToAdminSessionDTO(MovieSession session) {
+        if(session == null) return null;
 
-        CinemaHall hall = cinemaHallRepository.getCinemaHallById(dto.getCinemaHall().getId());
-        Movie movie = movieRepository.getMovieById(dto.getMovie().getId());
+        AdminSessionDTO dto = new AdminSessionDTO();
+        dto.setId(session.getId());
+        dto.setCost(session.getCost());
+        dto.setMovieDate(Utility.getFormattedOnlyDate(session.getDate()));
+        dto.setWishDate(session.getDate().toString());
+        dto.setTime(Utility.getFormattedTime(session.getTime()));
+        dto.setHallName(session.getCinemaHall().getHallName());
+        dto.setMovieName(session.getMovie().getName());
 
-        MovieSession session = new MovieSession();
-        session.setId(dto.getId());
-        session.setCost(dto.getCost());
-        session.setTime(dto.getTime());
-        session.setDate(dto.getDate());
-        session.assignCinemaHall(hall);
-        session.assignMovie(movie);
-
-        return session;
+        return dto;
     }
 
     public MovieSessionDTO convertToMovieSessionDTO(MovieSession session) {
@@ -158,19 +203,37 @@ public class DTOConverter {
         MovieSessionDTO dto = new MovieSessionDTO();
         dto.setId(session.getId());
         dto.setCost(session.getCost());
-        dto.setDate(session.getDate());
-        dto.setTime(session.getTime());
-        dto.setCinemaHall(session.getCinemaHall());
+        dto.setMovieDate(Utility.getFormattedOnlyDate(session.getDate()));
+        dto.setTime(Utility.get12FormattedTime(session.getTime()));
+        dto.setCinemaHall(convertToCinemaHallDto(session.getCinemaHall()));
         dto.setMovie(convertToMovieDTO(session.getMovie()));
 
         return dto;
+    }
+
+    public MovieSession convertToMovieSession(AdminSessionDTO dto) {
+        if(dto == null) return null;
+
+        CinemaHall hall = cinemaHallRepository.getCinemaHallByName(dto.getHallName());
+        Movie movie = movieRepository.getMovieByName(dto.getMovieName());
+
+        MovieSession session = new MovieSession();
+        session.setId(dto.getId());
+        session.setCost(dto.getCost());
+        session.setTime(Utility.getTimeFromString(dto.getTime()));
+        session.setDate(Utility.getFormattedDate(dto.getWishDate()));
+        session.assignCinemaHall(hall);
+        session.assignMovie(movie);
+
+        return session;
     }
 
     public CinemaHall convertToCinemaHall(CinemaHallDTO dto) {
         if(dto == null) return null;
 
         CinemaHall cinemaHall = new CinemaHall();
-        cinemaHall.setRows(dto.getRows());
+        cinemaHall.setId(dto.getId());
+        cinemaHall.setRows(Arrays.toString(dto.getPlacesAmountInRow()).replaceAll("\\[|\\]|\\s", ""));
         cinemaHall.setRowsAmount(dto.getRowsAmount());
         cinemaHall.setHallName(dto.getHallName());
         return cinemaHall;
@@ -180,17 +243,34 @@ public class DTOConverter {
         if(hall == null) return null;
 
         CinemaHallDTO dto = new CinemaHallDTO();
-        dto.setRows(hall.getRows());
+        dto.setId(hall.getId());
+        dto.setPlacesAmountInRow(Arrays.stream(hall.getRows().split(",")).mapToInt(Integer::parseInt).toArray());
         dto.setRowsAmount(hall.getRowsAmount());
         dto.setHallName(hall.getHallName());
         return dto;
     }
 
     public MovieImageDTO convertToMovieImageDTO(MovieImage image) {
+        if(image == null) return  null;
+
         MovieImageDTO dto = new MovieImageDTO();
         dto.setId(image.getId());
         dto.setImage(image.getImage());
 
         return dto;
+    }
+
+    public MovieImage convertToMovieImage(MovieImageDTO dto) {
+        if(dto == null) return null;
+
+        MovieImage image = new MovieImage();
+        image.setId(dto.getId());
+        image.setImage(dto.getImage());
+
+        return image;
+    }
+
+    private String createSecondaryKey(String name) {
+        return name.replaceAll("\\s+", "-").toLowerCase();
     }
 }

@@ -1,6 +1,5 @@
 package com.shcherbinina.cinemapark.controllersTests;
 
-import com.shcherbinina.cinemapark.dto.entity.MovieSessionDTO;
 import com.shcherbinina.cinemapark.restControllers.ReservationController;
 import com.shcherbinina.cinemapark.dto.entity.ReservationDTO;
 import com.shcherbinina.cinemapark.dto.entity.RowDTO;

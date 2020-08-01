@@ -79,4 +79,15 @@ public class ReservationRepository implements IReservationRepository {
 
         return reservation;
     }
+
+    @Override
+    public List<Reservation> getAllByUserId(int userId) {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Reservation> q = cb.createQuery(Reservation.class);
+        Root<Reservation> root = q.from(Reservation.class);
+        Predicate userPredicate = cb.equal(root.get("user").get("id"), userId);
+        q.where(userPredicate);
+        List<Reservation> result = entityManager.createQuery(q).getResultList();
+        return result;
+    }
 }

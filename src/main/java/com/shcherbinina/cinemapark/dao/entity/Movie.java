@@ -1,13 +1,14 @@
 package com.shcherbinina.cinemapark.dao.entity;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "movie")
 public class Movie {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private int id;
 
@@ -16,9 +17,6 @@ public class Movie {
 
     @Column(name = "name", nullable = false)
     private String name;
-
-    @Column(name = "imageId", nullable = false)
-    private int imageId;
 
     @Column(name = "actors", nullable = false)
     private String actors;
@@ -44,6 +42,13 @@ public class Movie {
     @Column(name = "premiereDate", nullable = false)
     private Date premiereDate;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "imageId", nullable = false)
+    private MovieImage image;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "movie")
+    private List<MovieSession> sessions;
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this) return true;
@@ -54,7 +59,6 @@ public class Movie {
         return movie.id == id &&
                 movie.secondaryKey.equals(this.secondaryKey) &&
                 movie.name.equals(this.name) &&
-                movie.imageId == this.imageId &&
                 movie.actors.equals(this.actors) &&
                 movie.duration == duration &&
                 movie.description.equals(this.description) &&
@@ -62,6 +66,7 @@ public class Movie {
                 movie.genre.equals(this.genre) &&
                 movie.producer.equals(this.producer) &&
                 movie.productionYear.equals(this.producer) &&
+                movie.image.equals(this.image) &&
                 movie.premiereDate.equals(this.premiereDate);
     }
 
@@ -71,7 +76,6 @@ public class Movie {
         result = 31 * result + ((Integer)id).hashCode();
         result = 31 * result + secondaryKey.hashCode();
         result = 31 * result + name.hashCode();
-        result = 31 * result + ((Integer)imageId).hashCode();
         result = 31 * result + actors.hashCode();
         result = 31 * result + ((Integer)duration).hashCode();
         result = 31 * result + description.hashCode();
@@ -80,6 +84,7 @@ public class Movie {
         result = 31 * result + producer.hashCode();
         result = 31 * result + productionYear.hashCode();
         result = 31 * result + premiereDate.hashCode();
+        result = 31 * result + image.hashCode();
         return result;
     }
 
@@ -105,14 +110,6 @@ public class Movie {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
     }
 
     public String getActors() {
@@ -177,5 +174,25 @@ public class Movie {
 
     public void setPremiereDate(Date premiereDate) {
         this.premiereDate = premiereDate;
+    }
+
+    public MovieImage getImage() {
+        return image;
+    }
+
+    public void setImage(MovieImage image) {
+        this.image = image;
+    }
+
+    public void assignToImage(MovieImage image) {
+        this.image = image;
+    }
+
+    public List<MovieSession> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(List<MovieSession> sessions) {
+        this.sessions = sessions;
     }
 }

@@ -95,6 +95,12 @@ public class ReservationService implements IReservationService {
     }
 
     @Override
+    public List<ReservationDTO> getAllByUserId(int id) {
+        List<Reservation> reservations = reservationRepository.getAllByUserId(id);
+        return null;
+    }
+
+    @Override
     public BookedDTO getBookedPlace(ReservationDTO reservationDTO) {
         Reservation reservation = reservationRepository.getReservation(reservationDTO);
         MovieSession session = reservation.getMovieSession();

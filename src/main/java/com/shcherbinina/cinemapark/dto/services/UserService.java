@@ -3,6 +3,7 @@ package com.shcherbinina.cinemapark.dto.services;
 import com.shcherbinina.cinemapark.dao.entity.Role;
 import com.shcherbinina.cinemapark.dao.repository.UserRepository;
 import com.shcherbinina.cinemapark.dto.DTOConverter;
+import com.shcherbinina.cinemapark.dto.entity.AccountEditDTO;
 import com.shcherbinina.cinemapark.dto.entity.UserDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,5 +34,15 @@ public class UserService implements IUserService {
 
     public void updateUser(UserDTO userDTO) {
         userRepository.updateUser(dtoConverter.convertToUser(userDTO));
+    }
+
+    @Override
+    public AccountEditDTO getUserAccountById(int userId) {
+        return dtoConverter.convertToUserAccountDTO(userRepository.getUserById(userId));
+    }
+
+    @Override
+    public void updateUserAccount(AccountEditDTO userDTO) {
+        userRepository.updateUser(dtoConverter.convertToUserAccount(userDTO));
     }
 }

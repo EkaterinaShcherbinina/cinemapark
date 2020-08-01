@@ -6,6 +6,8 @@ import com.shcherbinina.cinemapark.dto.entity.MovieImageDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Blob;
+
 @Service
 public class MovieImageService implements IMovieImageService{
     @Autowired
@@ -16,5 +18,10 @@ public class MovieImageService implements IMovieImageService{
     @Override
     public MovieImageDTO getMovieImageDTOByImageId(int imageId) {
         return dtoConverter.convertToMovieImageDTO(imageRepository.getMovieImageById(imageId));
+    }
+
+    @Override
+    public void updateMovieImage(int id, Blob image) {
+        imageRepository.updateMovieImage(id, image);
     }
 }

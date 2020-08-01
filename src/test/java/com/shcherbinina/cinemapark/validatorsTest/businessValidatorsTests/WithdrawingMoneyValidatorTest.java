@@ -1,9 +1,9 @@
 package com.shcherbinina.cinemapark.validatorsTest.businessValidatorsTests;
 
-import com.shcherbinina.cinemapark.dto.entity.MovieSessionDTO;
+import com.shcherbinina.cinemapark.dto.entity.AdminSessionDTO;
 import com.shcherbinina.cinemapark.dto.entity.ReservationDTO;
 import com.shcherbinina.cinemapark.dto.entity.UserDTO;
-import com.shcherbinina.cinemapark.dto.services.MovieSessionService;
+import com.shcherbinina.cinemapark.dto.services.AdminMovieSessionService;
 import com.shcherbinina.cinemapark.dto.services.UserService;
 import com.shcherbinina.cinemapark.exceptions.validationExceptions.BusinessValidationException;
 import com.shcherbinina.cinemapark.validation.businessValidation.WithdrawingMoneyValidator;
@@ -21,21 +21,21 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 @RunWith(MockitoJUnitRunner.class)
 public class WithdrawingMoneyValidatorTest {
     @Mock
-    private MovieSessionService sessionService;
+    private AdminMovieSessionService sessionService;
     @Mock
     private UserService userService;
 
     @InjectMocks
     private WithdrawingMoneyValidator validator;
 
-    private MovieSessionDTO sessionDTO1;
+    private AdminSessionDTO sessionDTO1;
     private UserDTO userDTO1;
     private UserDTO userDTO2;
     private ReservationDTO reservationDTO;
 
     @Before
     public void setUp() {
-        sessionDTO1 = new MovieSessionDTO();
+        sessionDTO1 = new AdminSessionDTO();
         sessionDTO1.setId(1);
         sessionDTO1.setCost(20.0);
 

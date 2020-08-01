@@ -1,10 +1,8 @@
 package com.shcherbinina.cinemapark.controllersTests;
 
-import com.shcherbinina.cinemapark.dao.entity.CinemaHall;
-import com.shcherbinina.cinemapark.dto.entity.MovieDTO;
 import com.shcherbinina.cinemapark.restControllers.ScheduleController;
-import com.shcherbinina.cinemapark.dto.entity.MovieSessionDTO;
-import com.shcherbinina.cinemapark.dto.services.MovieSessionService;
+import com.shcherbinina.cinemapark.dto.entity.AdminSessionDTO;
+import com.shcherbinina.cinemapark.dto.services.AdminMovieSessionService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -14,49 +12,49 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RunWith(MockitoJUnitRunner.class)
 public class ScheduleControllerTest {
     @Mock
-    private MovieSessionService movieSessionService;
+    private AdminMovieSessionService adminMovieSessionService;
 
     @InjectMocks
     ScheduleController scheduleController;
 
-    private List<MovieSessionDTO> sessionDTOSExpected;
+    private List<AdminSessionDTO> sessionDTOSExpected;
 
     @Before
     public void setUp() {
         sessionDTOSExpected = new ArrayList<>();
 
-        MovieSessionDTO dto1 = new MovieSessionDTO();
+        AdminSessionDTO dto1 = new AdminSessionDTO();
         dto1.setId(1);
         dto1.setCost(25.00);
-        dto1.setDate(new Date());
-        dto1.setCinemaHall(new CinemaHall());
-        dto1.setTime(new Time(1));
-        dto1.setMovie(new MovieDTO());
+        dto1.setMovieName("07-12-2020");
+        dto1.setWishDate("2020-11-14T14:05:00");
+        dto1.setHallName("Relax");
+        dto1.setTime("21:15:00");
+        dto1.setMovieName("Interstellar");
 
-        MovieSessionDTO dto2 = new MovieSessionDTO();
+        AdminSessionDTO dto2 = new AdminSessionDTO();
         dto2.setId(2);
         dto2.setCost(25.00);
-        dto2.setDate(new Date());
-        dto2.setCinemaHall(new CinemaHall());
-        dto2.setTime(new Time(1));
-        dto1.setMovie(new MovieDTO());
+        dto2.setMovieName("07-17-2020");
+        dto2.setWishDate("2020-08-14T14:05:00");
+        dto2.setHallName("3D");
+        dto2.setTime("21:20:00");
+        dto1.setMovieName("Inception");
     }
 
     @Test
     public void getScheduleTest_validHallId_happy() {
-        Mockito.when(movieSessionService.getAllMovieSessionsByDate("2020-06-29")).thenReturn(sessionDTOSExpected);
+        Mockito.when(adminMovieSessionService.getAllMovieSessionsByDate("2020-06-29")).thenReturn(sessionDTOSExpected);
 
-        List<MovieSessionDTO> actual = scheduleController.getSchedule("2020-06-29");
+        List<AdminSessionDTO> actual = scheduleController.getSchedule("2020-06-29");
 
-        Mockito.verify(movieSessionService).getAllMovieSessionsByDate("2020-06-29");
+        Mockito.verify(adminMovieSessionService).getAllMovieSessionsByDate("2020-06-29");
 
         Assert.assertEquals(sessionDTOSExpected, actual);
     }

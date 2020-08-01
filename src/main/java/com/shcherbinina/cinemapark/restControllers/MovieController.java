@@ -11,8 +11,13 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.sql.rowset.serial.SerialBlob;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -40,24 +45,28 @@ public class MovieController {
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> postMovie(@RequestBody @Valid MovieDTO movieDTO, BindingResult result) throws PayloadValidationException {
+    public ResponseEntity<Object> postMovie(@RequestBody @Valid MovieDTO movieDTO, @RequestParam("file") MultipartFile file,
+                                            BindingResult result) throws PayloadValidationException, IOException, SQLException {
         if(result.hasErrors()) throw new PayloadValidationException(Constants.payloadInvalidDataMessage);
 
-        movieService.addNewMovie(movieDTO);
+        Blob blob = null;
+        if (file != null) {
+            blob = new SerialBlob(file.getBytes());
+        }
+        movieService.addNewMovie(movieDTO, blob);
         return new ResponseEntity<>("Saved successfully", HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Object> delete(@PathVariable("id") String id) {
-        movieService.deleteMovie(Integer.valueOf(id));
-        return new ResponseEntity<>("Deleted successfully", HttpStatus.OK);
-    }
-
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> updateMovie(@RequestBody @Valid MovieDTO movieDTO, BindingResult result) throws PayloadValidationException {
+    public ResponseEntity<Object> updateMovie(@RequestBody @Valid MovieDTO movieDTO, @RequestParam("file") MultipartFile file,
+                                              BindingResult result) throws PayloadValidationException, IOException, SQLException {
         if(result.hasErrors()) throw new PayloadValidationException(Constants.payloadInvalidDataMessage);
 
-        movieService.updateMovie(movieDTO);
+        Blob blob = null;
+        if (file != null) {
+            blob = new SerialBlob(file.getBytes());
+        }
+        movieService.updateMovie(movieDTO, blob);
         return new ResponseEntity<>("Updated successfully", HttpStatus.OK);
     }
 }

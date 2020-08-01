@@ -1,6 +1,7 @@
 package com.shcherbinina.cinemapark.dto.entity;
 
 import com.shcherbinina.cinemapark.dao.entity.Role;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
