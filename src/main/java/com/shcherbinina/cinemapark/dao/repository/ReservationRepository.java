@@ -5,6 +5,7 @@ import com.shcherbinina.cinemapark.dao.ReservationDAO;
 import com.shcherbinina.cinemapark.dao.entity.*;
 import com.shcherbinina.cinemapark.dto.entity.ReservationDTO;
 import com.shcherbinina.cinemapark.dto.DTOConverter;
+import com.shcherbinina.cinemapark.utility.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -73,8 +74,7 @@ public class ReservationRepository implements IReservationRepository {
         Predicate sessionPredicate = cb.equal(root.get("movieSession").get("id"), dto.getSessionId());
         Predicate rowPredicate = cb.equal(root.get("rowId"), dto.getRowId());
         Predicate placePredicate = cb.equal(root.get("place"), dto.getPlace());
-        Predicate userPredicate = cb.equal(root.get("user").get("id"), dto.getUserId());
-        q.where(sessionPredicate, rowPredicate, placePredicate, userPredicate);
+        q.where(sessionPredicate, rowPredicate, placePredicate);
         Reservation reservation = entityManager.createQuery(q).getSingleResult();
 
         return reservation;

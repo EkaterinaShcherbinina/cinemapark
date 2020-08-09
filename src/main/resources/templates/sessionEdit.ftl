@@ -1,3 +1,5 @@
+<#assign form=JspTaglibs["http://www.springframework.org/tags/form"]>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,52 +9,57 @@
 </head>
 <body>
   <#include "header.ftl">
-<div class="row">
-    <form class="col s12" action="/admin-session/edit" id="sessionDTO" name="sessionDTO" method="POST">
-     <input type="hidden" id="id" name="id" value="${session.id}"/>
-     <input type="hidden" id="movieDate" name="movieDate" value="${session.movieDate}"/>
-      <div class="row" id="content">
-              <div class="col s12">
-                Movie name:
-                 <div class="input-field inline">
-                 <input value="${session.movieName}" id="movieName" name="movieName" type="text" class="validate">
-                  <label for="movieName">movie name</label>
-                   </div>
-              </div>
-              <div class="col s12">
-                 Hall name:
-                  <div class="input-field inline">
-                   <input value="${session.hallName}" id="hallName" name="hallName" type="text" class="validate">
-                   <label for="hallName">hall name</label>
-                    </div>
-                  </div>
-               <div class="col s12">
-                 Cost:
-                  <div class="input-field inline">
-                  <input value="${session.cost}" id="cost" name="cost" type="text" class="validate">
-                   <label for="cost">cost</label>
-                    </div>
-                  </div>
-                  <div class="col s12">
-                    Date:
-                    <div class="input-field inline">
-                     <label for="date">date</label>
-                      <input id="date" type="text" name="wishDate" class="datepicker">
-                        </div>
-                  </div>
-                   <div class="col s12">
-                     Time:
-                     <div class="input-field inline">
-                      <label for="time">time</label>
-                      <input id="time" type="text" name="time" class="timepicker">
-                      </div>
-                    </div>
-           </div>
-            <button class="btn waves-effect waves-light" type="submit" name="action">Update
-               <i class="material-icons right">send</i>
-             </button>
-      </form>
-   </div>
+    <@form.form action="/admin-session/edit" method="post" modelAttribute="session">
+      <input type="hidden" id="id" name="id" value="${session.id}"/>
+      <input type="hidden" id="movieDate" name="movieDate" value="${session.movieDate}"/>
+      <div class="container">
+        <div class="row" id="content">
+          <div class="col s12">
+            Movie name:
+            <div class="input-field inline">
+              <@form.label path="movieName">Movie name</@form.label>
+              <@form.input path="movieName" value="${session.movieName}"/>
+              <@form.errors path="movieName"/>
+            </div>
+          </div>
+          <div class="col s12">
+            Hall name:
+            <div class="input-field inline">
+              <@form.label path="hallName">Movie name</@form.label>
+              <@form.input path="hallName" value="${session.hallName}"/>
+              <@form.errors path="hallName"/>
+            </div>
+          </div>
+          <div class="col s12">
+            Cost:
+            <div class="input-field inline">
+              <@form.label path="cost">Cost</@form.label>
+              <@form.input path="cost" value="${session.cost}"/>
+              <@form.errors path="cost"/>
+            </div>
+          </div>
+          <div class="col s12">
+            Date:
+            <div class="input-field inline">
+              <@form.label path="wishDate">date</@form.label>
+              <@form.input class="datepicker" path="wishDate"/>
+              <@form.errors path="wishDate"/>
+            </div>
+          </div>
+          <div class="col s12">
+            Time:
+            <div class="input-field inline">
+              <@form.label path="time">time</@form.label>
+              <@form.input class="timepicker" path="time"/>
+              <@form.errors path="time"/>
+            </div>
+          </div>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit" name="action">Update
+            <i class="material-icons right">send</i>
+        </button>
+      </div>
+    </@form.form>
 </body>
 </html>
 

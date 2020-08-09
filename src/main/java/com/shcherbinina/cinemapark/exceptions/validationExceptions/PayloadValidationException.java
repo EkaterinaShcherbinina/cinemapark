@@ -1,10 +1,13 @@
 package com.shcherbinina.cinemapark.exceptions.validationExceptions;
 
-public class PayloadValidationException extends Exception{
-    private String message;
+import org.springframework.validation.Errors;
 
-    public PayloadValidationException(String message) {
-        this.message = message;
+public class PayloadValidationException extends Exception{
+    private final String message = "Invalid input data";
+    private Errors errors;
+
+    public PayloadValidationException(Errors errors) {
+        this.errors = errors;
     }
 
     @Override
@@ -12,7 +15,7 @@ public class PayloadValidationException extends Exception{
         return message;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public Errors getErrors() {
+        return errors;
     }
 }

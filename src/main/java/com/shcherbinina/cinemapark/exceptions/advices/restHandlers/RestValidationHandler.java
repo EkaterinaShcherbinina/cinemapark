@@ -1,5 +1,6 @@
 package com.shcherbinina.cinemapark.exceptions.advices.restHandlers;
 
+import com.shcherbinina.cinemapark.exceptions.errors.ValidationError;
 import com.shcherbinina.cinemapark.exceptions.validationExceptions.BusinessValidationException;
 import com.shcherbinina.cinemapark.exceptions.validationExceptions.PayloadValidationException;
 import org.springframework.http.HttpStatus;
@@ -9,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice("com.shcherbinina.cinemapark.restControllers")
-public class ValidationHandler extends ResponseEntityExceptionHandler {
+public class RestValidationHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(BusinessValidationException.class)
     public ResponseEntity<Object> handleBusinessValidationException(BusinessValidationException e) {
         return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
@@ -17,6 +18,6 @@ public class ValidationHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(PayloadValidationException.class)
     public ResponseEntity<Object> handlePayloadValidationException(PayloadValidationException e) {
-        return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ValidationError(e.getMessage(), e.getErrors()), HttpStatus.BAD_REQUEST);
     }
 }

@@ -7,4 +7,5 @@ public interface IAuthenticationFacade {
     Authentication getAuthentication();
     UserDTO getCurrentUser();
     int getCurrentUserId();
+    String getCurrentUserName();
 }

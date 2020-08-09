@@ -1,7 +1,5 @@
 package com.shcherbinina.cinemapark.dto.entity;
 
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotBlank;
 
 public class AccountDTO {
     private int userId;

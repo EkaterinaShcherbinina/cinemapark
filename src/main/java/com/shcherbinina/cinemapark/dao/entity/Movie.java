@@ -1,11 +1,15 @@
 package com.shcherbinina.cinemapark.dao.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
+import java.sql.Blob;
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "movie")
+@Data
 public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +26,7 @@ public class Movie {
     private String actors;
 
     @Column(name = "duration", nullable = false)
-    private int duration;
+    private String duration;
 
     @Column(name = "description", nullable = false)
     private String description;
@@ -42,157 +46,10 @@ public class Movie {
     @Column(name = "premiereDate", nullable = false)
     private Date premiereDate;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "imageId", nullable = false)
-    private MovieImage image;
+    @Column(name = "image")
+    @Lob
+    private Blob image;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "movie")
     private List<MovieSession> sessions;
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == this) return true;
-        if(obj == null || obj.getClass()!= this.getClass()) return false;
-
-        Movie movie = (Movie) obj;
-
-        return movie.id == id &&
-                movie.secondaryKey.equals(this.secondaryKey) &&
-                movie.name.equals(this.name) &&
-                movie.actors.equals(this.actors) &&
-                movie.duration == duration &&
-                movie.description.equals(this.description) &&
-                Double.compare(movie.rating, this.rating) == 0 &&
-                movie.genre.equals(this.genre) &&
-                movie.producer.equals(this.producer) &&
-                movie.productionYear.equals(this.producer) &&
-                movie.image.equals(this.image) &&
-                movie.premiereDate.equals(this.premiereDate);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = 17;
-        result = 31 * result + ((Integer)id).hashCode();
-        result = 31 * result + secondaryKey.hashCode();
-        result = 31 * result + name.hashCode();
-        result = 31 * result + actors.hashCode();
-        result = 31 * result + ((Integer)duration).hashCode();
-        result = 31 * result + description.hashCode();
-        result = 31 * result + ((Double)rating).hashCode();
-        result = 31 * result + genre.hashCode();
-        result = 31 * result + producer.hashCode();
-        result = 31 * result + productionYear.hashCode();
-        result = 31 * result + premiereDate.hashCode();
-        result = 31 * result + image.hashCode();
-        return result;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getSecondaryKey() {
-        return secondaryKey;
-    }
-
-    public void setSecondaryKey(String secondaryKey) {
-        this.secondaryKey = secondaryKey;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getActors() {
-        return actors;
-    }
-
-    public void setActors(String actors) {
-        this.actors = actors;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public double getRating() {
-        return rating;
-    }
-
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    public String getProducer() {
-        return producer;
-    }
-
-    public void setProducer(String producer) {
-        this.producer = producer;
-    }
-
-    public String getProductionYear() {
-        return productionYear;
-    }
-
-    public void setProductionYear(String productionYear) {
-        this.productionYear = productionYear;
-    }
-
-    public Date getPremiereDate() {
-        return premiereDate;
-    }
-
-    public void setPremiereDate(Date premiereDate) {
-        this.premiereDate = premiereDate;
-    }
-
-    public MovieImage getImage() {
-        return image;
-    }
-
-    public void setImage(MovieImage image) {
-        this.image = image;
-    }
-
-    public void assignToImage(MovieImage image) {
-        this.image = image;
-    }
-
-    public List<MovieSession> getSessions() {
-        return sessions;
-    }
-
-    public void setSessions(List<MovieSession> sessions) {
-        this.sessions = sessions;
-    }
 }

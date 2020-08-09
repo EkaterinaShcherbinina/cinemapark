@@ -20,8 +20,7 @@ public class LoginController {
     IUserService userService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> createAccount(@RequestBody @Valid UserDTO userDTO)
-    {
+    public ResponseEntity<Object> createAccount(@RequestBody @Valid UserDTO userDTO) {
         userService.addNewUser(userDTO);
         return new ResponseEntity<>("Saved successfully", HttpStatus.CREATED);
     }

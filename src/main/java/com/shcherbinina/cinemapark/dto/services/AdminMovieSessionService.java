@@ -4,6 +4,8 @@ import com.shcherbinina.cinemapark.dao.entity.MovieSession;
 import com.shcherbinina.cinemapark.dao.repository.MovieSessionRepository;
 import com.shcherbinina.cinemapark.dto.DTOConverter;
 import com.shcherbinina.cinemapark.dto.entity.AdminSessionDTO;
+import com.shcherbinina.cinemapark.exceptions.validationExceptions.BusinessValidationException;
+import com.shcherbinina.cinemapark.validation.businessValidation.MovieSessionValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ public class AdminMovieSessionService implements IAdminMovieSessionService {
     MovieSessionRepository sessionRepository;
     @Autowired
     private DTOConverter dtoConverter;
+    @Autowired
+    private MovieSessionValidator movieSessionValidator;
 
     @Override
     public void updateMovieSession(AdminSessionDTO sessionDTO) {
@@ -23,7 +27,8 @@ public class AdminMovieSessionService implements IAdminMovieSessionService {
     }
 
     @Override
-    public void addMovieSession(AdminSessionDTO sessionDTO) {
+    public void addMovieSession(AdminSessionDTO sessionDTO) throws BusinessValidationException {
+        movieSessionValidator.validate(sessionDTO);
         sessionRepository.addMovieSession(dtoConverter.convertToMovieSession(sessionDTO));
     }
 

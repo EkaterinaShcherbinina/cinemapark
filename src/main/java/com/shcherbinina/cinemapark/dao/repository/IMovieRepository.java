@@ -11,9 +11,10 @@ public interface IMovieRepository {
     List<Movie> getAllMovies();
     Movie getMovieById(int id);
     Movie getMovieByName(String name);
-    void addMovie(Movie movie, Blob image);
+    void addMovie(Movie movie);
     void updateMovie(Movie movie);
     List<Movie> getMoviesAfterDate(LocalDate date);
     List<Movie> findInCinemaByDate(String date);
     Movie getBySecondaryKey(String key);
+    Blob getImageByMovieId(int id);
 }

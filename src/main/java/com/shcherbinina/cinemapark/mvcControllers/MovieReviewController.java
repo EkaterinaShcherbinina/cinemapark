@@ -1,10 +1,8 @@
 package com.shcherbinina.cinemapark.mvcControllers;
 
 import com.shcherbinina.cinemapark.dto.entity.MovieDTO;
-import com.shcherbinina.cinemapark.dto.entity.AdminSessionDTO;
 import com.shcherbinina.cinemapark.dto.entity.MovieSessionDTO;
 import com.shcherbinina.cinemapark.dto.services.MovieService;
-import com.shcherbinina.cinemapark.dto.services.AdminMovieSessionService;
 import com.shcherbinina.cinemapark.dto.services.MovieSessionService;
 import com.shcherbinina.cinemapark.utility.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +32,8 @@ public class MovieReviewController {
 
     @RequestMapping(value = "/schedule", method= RequestMethod.POST)
     public String getMovieSchedule(@RequestParam("schedule") String date,
-                                   @RequestParam("movieId") String movieId, Model model) {
-        MovieDTO movie = movieService.getMovieBySecondaryKey(movieId);
+                                   @RequestParam("movieId") int movieId, Model model) {
+        MovieDTO movie = movieService.getMovieById(movieId);
         List<MovieSessionDTO> sessions = sessionService.getSessionsByDateAndMovieName(date, movie.getId());
         model.addAttribute("movie", movie);
         model.addAttribute("sessions", sessions);

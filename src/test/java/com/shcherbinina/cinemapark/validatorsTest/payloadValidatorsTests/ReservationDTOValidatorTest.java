@@ -8,7 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.validation.BindingResult;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -16,6 +18,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class ReservationDTOValidatorTest {
     @InjectMocks
     private ReservationDTOValidator reservationDTOValidator;
+
+    @Mock
+    private BindingResult bindingResult;
 
     private ReservationDTO reservationDTO1;
     private ReservationDTO reservationDTO2;
@@ -34,7 +39,7 @@ public class ReservationDTOValidatorTest {
     @Test
     public void validateTest_invalidRowId_unhappy() {
         Throwable thrown = assertThrows(PayloadValidationException.class, () -> {
-            reservationDTOValidator.validate(reservationDTO1);
+            reservationDTOValidator.validate(reservationDTO1, bindingResult);
         });
         Assert.assertNotNull(thrown.getMessage());
     }
@@ -42,7 +47,7 @@ public class ReservationDTOValidatorTest {
     @Test
     public void validateTest_invalidPlaceId_unhappy() {
         Throwable thrown = assertThrows(PayloadValidationException.class, () -> {
-            reservationDTOValidator.validate(reservationDTO2);
+            reservationDTOValidator.validate(reservationDTO2, bindingResult);
         });
         Assert.assertNotNull(thrown.getMessage());
     }

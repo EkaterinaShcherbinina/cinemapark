@@ -1,3 +1,5 @@
+
+<#assign form=JspTaglibs["http://www.springframework.org/tags/form"]>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,13 +12,17 @@
     <#include "header.ftl">
     <div class="container">
         <h5>Please choose a place</h5>
-        <form action="/booking/new" id="movieBooking" name="reservation" method="POST">
+        <@form.form action="/booking/new" method="post" modelAttribute="reservation">
         <input type="hidden" name="sessionId" value="${sessionId}"/>
         <input type="hidden" id="rowId" name="rowId" value="0"/>
-        <input type="hidden" id="placeId" name="place" value="0"/>
+        <div>
+        <@form.input type="hidden" path="place" value="0"/>
+        <@form.errors type="text" path="place"/>
+        </div>
         <div id="hallId" name="hall">
         <#list rows as row>
             <#assign rowNumber = row?index + 1>
+            <div class="flexbox">
             <div class="row">
                 <div class="col">${rowNumber}</div>
                 <#assign n = row.reservedPlaces?size + row.freePlaces?size>
@@ -33,6 +39,7 @@
                         <div class="col"><img src="/images/red.png" width="20" height="20" class="card-img-top"></div>
                     </#if>
                 </#list>
+            </div>
             </div>
         </#list>
         </div>
@@ -55,7 +62,7 @@
         <#if errorMessage?has_content>
             <div class="error">${errorMessage}</div>
         </#if>
-        </form>
+        </@form.form>
     </div>
 </body>
 </html>
@@ -71,6 +78,6 @@ function imageClick(placeNumber, rowNumber) {
     document.getElementById("green" + rowNumber + placeNumber).src="/images/red.png";
     selectedPlace = "green" + rowNumber + placeNumber;
     document.getElementById("rowId").value=rowNumber;
-    document.getElementById("placeId").value=placeNumber;
+    document.getElementById("place").value=placeNumber;
 }
 </script>

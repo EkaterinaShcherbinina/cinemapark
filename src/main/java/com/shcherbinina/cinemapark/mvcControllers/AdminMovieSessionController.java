@@ -4,11 +4,14 @@ import com.shcherbinina.cinemapark.dto.entity.AdminSessionDTO;
 import com.shcherbinina.cinemapark.dto.entity.MovieSessionDTO;
 import com.shcherbinina.cinemapark.dto.services.AdminMovieSessionService;
 import com.shcherbinina.cinemapark.dto.services.MovieSessionService;
+import com.shcherbinina.cinemapark.exceptions.validationExceptions.BusinessValidationException;
 import com.shcherbinina.cinemapark.utility.Utility;
+import com.shcherbinina.cinemapark.validation.payloadValidation.MovieSessionDTOValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,9 +20,11 @@ import java.util.List;
 @RequestMapping("/admin-session")
 public class AdminMovieSessionController {
     @Autowired
-    AdminMovieSessionService sessionService;
+    private AdminMovieSessionService sessionService;
     @Autowired
-    MovieSessionService movieSessionService;
+    private MovieSessionService movieSessionService;
+    @Autowired
+    private MovieSessionDTOValidator sessionValidator;
 
     @GetMapping("/sessions")
     public String getSessions(Model model) {
@@ -48,7 +53,11 @@ public class AdminMovieSessionController {
     }
 
     @PostMapping("/edit")
-    public String postEditSession(@ModelAttribute AdminSessionDTO session, Model model) {
+    public String postEditSession(
+            @ModelAttribute("session") @Validated(AdminSessionDTO.Update.class) AdminSessionDTO session,
+            BindingResult bindingResult) {
+        sessionValidator.validate(session, bindingResult);
+        if(bindingResult.hasErrors()) return "/sessionEdit";
         sessionService.updateMovieSession(session);
         return "redirect:/admin-session/sessions";
     }
@@ -60,10 +69,12 @@ public class AdminMovieSessionController {
     }
 
     @PostMapping("/new")
-    public String postNewHall(@ModelAttribute AdminSessionDTO sessionDTO,
-                              BindingResult bindingResult, Model model) {
-        //TODO: validation fields
-        sessionService.addMovieSession(sessionDTO);
+    public String postNewHall(
+            @ModelAttribute("session") @Validated(AdminSessionDTO.New.class) AdminSessionDTO session,
+            BindingResult bindingResult) throws BusinessValidationException {
+        sessionValidator.validate(session, bindingResult);
+        if(bindingResult.hasErrors()) return "/sessionEdit";
+        sessionService.addMovieSession(session);
         return "redirect:/admin";
     }
 }

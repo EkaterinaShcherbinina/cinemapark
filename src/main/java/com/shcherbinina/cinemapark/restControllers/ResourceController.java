@@ -1,7 +1,6 @@
 package com.shcherbinina.cinemapark.restControllers;
 
-import com.shcherbinina.cinemapark.dto.entity.MovieImageDTO;
-import com.shcherbinina.cinemapark.dto.services.MovieImageService;
+import com.shcherbinina.cinemapark.dto.services.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpHeaders;
@@ -19,13 +18,12 @@ import java.sql.SQLException;
 @RequestMapping("/resources")
 public class ResourceController {
     @Autowired
-    MovieImageService imageService;
+    MovieService movieService;
 
     @RequestMapping(value = "/getMovieImage/{id}", method = RequestMethod.GET)
     public ResponseEntity<byte[]> getMovieImage(@PathVariable int id) throws SQLException {
         HttpHeaders headers = new HttpHeaders();
-        MovieImageDTO imageDTO = imageService.getMovieImageDTOByImageId(id);
-        Blob image = imageDTO.getImage();
+        Blob image =  movieService.getImageByMovieId(id);
         byte[] bytes = image.getBytes(1, (int) image.length());
         headers.setCacheControl(CacheControl.noCache().getHeaderValue());
 

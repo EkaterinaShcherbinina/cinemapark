@@ -1,0 +1,60 @@
+body{
+  background-color:#f5f5f5;
+}
+
+#schedulTable{
+  width: 70%;
+  margin: auto;
+  background-color: #b2dfdb;
+}
+
+#centeredElement{
+  width: 70%;
+  margin: auto;
+}
+
+.collectionCenter{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 40%;
+  transform: translate(-50%, -50%);
+  background: #f0f0f0;
+}
+
+.containerPadding{
+  padding-top: 30px;
+}
+
+.flexbox {
+  display: flex;
+  flew-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+#noPadding {
+margin-left: 0;
+  left: 0;
+  right: 0;
+}
+
+.sectionMovieReview {
+  float: left;
+  margin: 0 1.5%;
+  width: 30%;
+}
+
+.timeSchedule {
+border-style: solid;
+border-radius: 4px;
+border-width: 1px;
+padding: 5px;
+width: 80px;
+text-align: center;
+}
+
+.textAlign {
+width: 80px;
+text-align: center;
+}

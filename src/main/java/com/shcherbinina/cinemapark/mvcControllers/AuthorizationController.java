@@ -3,7 +3,6 @@ package com.shcherbinina.cinemapark.mvcControllers;
 import com.shcherbinina.cinemapark.dto.entity.UserDTO;
 import com.shcherbinina.cinemapark.dto.services.UserService;
 import com.shcherbinina.cinemapark.exceptions.validationExceptions.BusinessValidationException;
-import com.shcherbinina.cinemapark.exceptions.validationExceptions.PayloadValidationException;
 import com.shcherbinina.cinemapark.validation.payloadValidation.UserDTOValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,16 +24,15 @@ public class AuthorizationController {
     @GetMapping("/sign-up")
     public String getSignUp(Model model) {
         model.addAttribute("user", new UserDTO());
-        return "signUp";
+        return "/signUp";
     }
 
     @PostMapping("/sign-up")
-    public String signUp(@ModelAttribute @Valid UserDTO user, BindingResult result, Model model)
-            throws PayloadValidationException {
-        userValidator.validate(user);
-        if (result.hasErrors()) {
-            model.addAttribute("error", "Invalid input data");
-            return "signUp";
+    public String signUp(@ModelAttribute("user") @Valid UserDTO user,
+                         BindingResult bindingResult, Model model) {
+        userValidator.validate(user, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "/signUp";
         }
         userService.addNewUser(user);
         return "redirect:/login";
@@ -49,7 +47,7 @@ public class AuthorizationController {
         return "signIn";
     }
 
-    @ExceptionHandler({PayloadValidationException.class, BusinessValidationException.class})
+    @ExceptionHandler({BusinessValidationException.class})
     public ModelAndView handlePayloadValidationException(HttpServletRequest req, Exception ex) {
         ModelAndView mav = new ModelAndView();
         mav.addObject("error", ex.getMessage());

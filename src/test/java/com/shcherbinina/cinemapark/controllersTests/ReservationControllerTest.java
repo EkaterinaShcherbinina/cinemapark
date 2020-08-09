@@ -56,7 +56,6 @@ public class ReservationControllerTest {
         reservationDTO.setRowId(2);
         reservationDTO.setPlace(1);
         reservationDTO.setSessionId(2);
-        reservationDTO.setUserId(1);
     }
 
     @Test

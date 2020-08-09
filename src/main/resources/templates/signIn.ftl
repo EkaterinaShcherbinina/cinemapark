@@ -6,22 +6,39 @@
     <#include "materializedConfig.ftl">
 </head>
 <body>
-  <#include "header.ftl">
-      <form action="/login/process" method="post">
-          <div><label> User Name: <input type="text" name="email"/> </label></div>
-          <div><label> Password: <input type="password" name="password"/> </label></div>
-          <div><input type="submit" value="Sign In"/></div>
-      </form>
-      <li><a href="/sign-up">Create your new account</a></li>
-       <div>
-            <#if error ??>
-                <p>Invalid username or password.</p>
-            </#if>
-            </div>
-       <div>
-            <#if logout ??>
-                <p>You have been logged out.</p>
-            </#if>
+ <#include "header.ftl">
+   <div class="container">
+     <form action="/login/process" method="post">
+       <div class="row">
+         <div class="col s4 offset-s4">
+           <div><label> User Name: <input type="text" name="email"/> </label></div>
+         </div>
        </div>
+       <div class="row">
+         <div class="col s4 offset-s4">
+           <div><label> Password: <input type="password" name="password"/> </label></div>
+         </div>
+       </div>
+       <div class="row">
+         <div class="col s4 offset-s4">
+           <#if error ??>
+             <p style="color:RED">Invalid username or password</p>
+           </#if>
+         </div>
+       </div>
+       <div class="row">
+         <div class="col s4 offset-s4">
+           <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+             <i class="material-icons right">send</i>
+           </button>
+         </div>
+       </div>
+       <div class="row">
+         <div class="col s4 offset-s4">
+           <a href="/sign-up" style="color:#004d40"><br>Create your new account</a>
+         </div>
+       </div>
+     </form>
+   </div>
 </body>
 </html>

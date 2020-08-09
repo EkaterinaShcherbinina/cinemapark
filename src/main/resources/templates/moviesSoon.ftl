@@ -9,25 +9,10 @@
     <#include "materializedConfig.ftl">
 </head>
 <body>
-      <#include "header.ftl">
-      <h1>Soon in the cinema</h1>
-    <div class="row">
-     <#list movies as movie>
-        <div class="col s12 m2">
-                <div class="card">
-                    <div class="card-image" width="50%" height="70%">
-                        <img src="/resources/getMovieImage/${movie.imageId}">
-                    </div>
-                    <div class="card-content">
-                        <span class="card-title">${movie.name}</span>
-                        <p>${movie.genre}</p>
-                    </div>
-                    <div class="card-action">
-                        <a href="#">This is a link</a>
-                    </div>
-                </div>
-        </div>
-         </#list>
-    </div>
+  <#include "header.ftl">
+  <div class="container">
+    <h4>Soon in the cinema</h4>
+    <#include "moviesTemplate.ftl">
+  </div>
 </body>
 </html>

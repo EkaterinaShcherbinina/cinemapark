@@ -3,8 +3,7 @@ package com.shcherbinina.cinemapark.dao.repository;
 import com.shcherbinina.cinemapark.dao.MovieDAO;
 import com.shcherbinina.cinemapark.dao.MovieSessionDAO;
 import com.shcherbinina.cinemapark.dao.entity.Movie;
-import com.shcherbinina.cinemapark.dao.entity.MovieImage;
-import com.shcherbinina.cinemapark.dto.entity.MovieDTO;
+import com.shcherbinina.cinemapark.utility.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -40,10 +39,7 @@ public class MovieRepository implements IMovieRepository {
     }
 
     @Override
-    public void addMovie(Movie movie, Blob image) {
-        MovieImage movieImage = new MovieImage();
-        movieImage.setImage(image);
-        movie.assignToImage(movieImage);
+    public void addMovie(Movie movie) {
         movieDAO.save(movie);
     }
 
@@ -73,5 +69,11 @@ public class MovieRepository implements IMovieRepository {
     @Override
     public Movie getBySecondaryKey(String key) {
         return movieDAO.findBySecondaryKey(key);
+    }
+
+    @Override
+    public Blob getImageByMovieId(int id) {
+        Movie movie = movieDAO.findById(id);
+        return movie.getImage();
     }
 }

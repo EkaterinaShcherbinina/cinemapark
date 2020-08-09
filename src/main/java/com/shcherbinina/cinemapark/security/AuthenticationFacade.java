@@ -33,4 +33,16 @@ public class AuthenticationFacade implements IAuthenticationFacade {
         }
         return 0;
     }
+
+    @Override
+    public String getCurrentUserName() {
+        String res;
+        try {
+            UserDTO userDTO = (UserDTO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            res = userDTO.getFirstName();
+        } catch (ClassCastException ex) {
+            res = null;
+        }
+        return res;
+    }
 }

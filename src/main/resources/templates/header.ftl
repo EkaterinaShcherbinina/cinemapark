@@ -7,7 +7,7 @@
 </ul>
 
 <nav>
-    <div class="nav-wrapper">
+    <div class="nav-wrapper teal darken-1">
         <a href="/cinemapark" class="brand-logo">Cinemapark</a>
         <ul class="right hide-on-med-and-down">
             <li><a href="/cinemapark">Movies</a></li>

@@ -1,3 +1,5 @@
+<#assign form=JspTaglibs["http://www.springframework.org/tags/form"]>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,44 +9,50 @@
 </head>
 <body>
   <#include "header.ftl">
-<div class="row">
-    <form class="col s12" action="/admin-hall/edit" id="hallDTO" name="hallDTO" method="POST">
-      <div class="row" id="content">
-              <div class="col s12">
-                Hall name:
-                 <div class="input-field inline">
-                 <input value="" id="hallName" name="hallName" type="text" class="validate">
-                  <label for="hallName">Name</label>
-                   </div>
-              </div>
-              <div class="col s12">
-                 Rows amount:
-                 <div class="input-field inline">
-                  <input value="" onblur="blurFunction()" id="rowsAmount" name="rowsAmount" type="text" class="validate">
-                  <label for="rowsAmount">Rows amount</label>
-                  </div>
+  <div class="container">
+    <@form.form action="/admin-hall/new" method="post" modelAttribute="hall">
+      <input type="hidden" id="hallId" name="id" value="${hall.id}"/>
+      <div class="row">
+        <div class="col s6">
+          Hall name:
+          <div class="input-field inline">
+            <@form.label path="hallName">Hall Name:</@form.label>
+            <@form.input path="hallName" value=""/>
+            <@form.errors path="hallName"/>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col s6">
+          Rows amount:
+          <div class="input-field inline">
+            <@form.label path="rowsAmount">Rows amount:</@form.label>
+            <@form.input path="rowsAmount" onblur="blurFunction()" id="rowsAmount" value=""/>
+            <@form.errors path="rowsAmount"/>
+          </div>
+        </div>
+      </div>
+      <div id="content">
+        <#assign size = hall.rowsAmount>
+        <#list 0..<size as i>
+          <#assign rowNumber = i + 1>
+            <div class="row" id="item${rowNumber}">
+              <div class="col s6">
+                Places amount in the ${rowNumber} row:
+                <div class="input-field inline">
+                  <@form.label path="placesAmountInRow[${i}]">Places amount</@form.label>
+                  <@form.input path="placesAmountInRow[${i}]" value=""/>
+                  <@form.errors path="placesAmountInRow[${i}]"/>
                 </div>
-                <#assign size = hall.rowsAmount>
-                <#list 0..<size as i>
-                    <#assign rowNumber = i + 1>
-                     <#if i < hall.placesAmountInRow?size>
-                        <#assign placesAmount = hall.placesAmountInRow[i]>
-                     <#else> <#assign placesAmount = "">
-                     </#if>
-                     <div class="col s12" id="item${rowNumber}">
-                      Places amount in the ${rowNumber} row:
-                      <div class="input-field inline">
-                      <input value="${placesAmount}" id="placesAmountInRow" name="placesAmountInRow" type="text" class="validate">
-                      <label for="placesAmountInRow">Places amount</label>
-                     </div>
-                    </div>
-                   </#list>
-           </div>
-            <button class="btn waves-effect waves-light" type="submit" name="action">Submit
-               <i class="material-icons right">send</i>
-             </button>
-      </form>
-   </div>
+              </div>
+            </div>
+        </#list>
+      </div>
+      <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+          <i class="material-icons right">send</i>
+      </button>
+    </@form.form>
+  </div>
 </body>
 </html>
 
@@ -62,12 +70,17 @@ function blurFunction() {
     } else if(inputAmount > sizeValue) {
         var count = inputAmount - sizeValue;
         for(let i = 0; i < count; i++) {
+
+            var row = document.createElement('div');
+            row.className = "row";
+            document.getElementById("content").appendChild(row);
+
             var firstDiv = document.createElement('div');
-            firstDiv.className = "col s12";
+            firstDiv.className = "col s6";
             let value = Number(sizeValue) + i + 1;
             firstDiv.setAttribute("id", "item" + value);
             firstDiv.innerHTML="Places amount in the " + value + " row:";
-            document.getElementById("content").appendChild(firstDiv);
+            row.appendChild(firstDiv);
 
             var secondDiv = document.createElement('div');
             secondDiv.className = "input-field inline";

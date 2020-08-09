@@ -7,37 +7,51 @@
 </head>
 <body>
   <#include "header.ftl">
-    <img src="/resources/getMovieImage/${movie.imageId}" width="225" height="400" class="card-img-top">
-        <div class="card-body">
-            <td><br>${movie.name}</td>
-            <td><br>${movie.description}</td>
-            <td><br>${movie.actors}</td>
-            <td><br>${movie.duration}</td>
-            <td><br>${movie.genre}</td>
-            <td><br>${movie.producer}</td>
+  <div class="container" style="padding-top: 30px;">
+    <section class="sectionMovieReview">
+      <img src="/resources/getMovieImage/${movie.id}" width="200" height="300">
+    </section>
+    <section class="sectionMovieReview">
+      <h5>${movie.name} (${movie.productionYear})</h5>
+      <p>${movie.genre}  ${movie.duration}</p>
+      <p><b>Description:</b> ${movie.description}</p>
+      <p><b>Actors:</b> ${movie.actors}</p>
+      <p><b>Producer:</b> ${movie.producer}</p>
+    </section>
+  </div>
+  <section style="width: 100%; padding-top: 20px">
+    <div class="container">
+      <form action="/movie/schedule" method="POST">
+        <div class="row" style="margin: auto;">
+          <div class="input-field col s2">
+            <label for="date_inline">Schedule</label>
+            <input id="date_inline" type="text" name="schedule" class="datepicker">
+            <input type="hidden" name="movieId" value="${movie.id}"/>
+            <input type="submit" id="sendButton" style="display: none;" />
+          </div>
         </div>
-<form action="/movie/schedule" id="movieBooking" name="reservation" method="POST">
-         <div class="row">
-                    <div class="input-field col s2 offset-s1">
-                        <label for="date_inline">Schedule</label>
-                        <input id="date_inline" type="text" name="schedule" class="datepicker">
-                        <input type="hidden" name="movieId" value="${movie.secondaryKey}"/>
-                        <input type="submit" id="sendButton" style="display: none;" />
-                    </div>
+      </form>
+      <div class="divider"></div>
+        <div class="row" style="background-color: #eeeeee;margin: auto;">
+          <#if sessions?has_content>
+            <#list sessions as session>
+              <a href="/booking/session${session.id}" style="color: #000000">
+                <div class="col">
+                  <p class="timeSchedule">
+                    ${session.time}
+                  </p>
+                  <p class="textAlign">${session.cinemaHall.hallName}</p>
+                  <p class="textAlign">${session.cost} $</p>
                 </div>
-                </form>
-                            <#if sessions?has_content>
-                            <ul>
-                                <#list sessions as session>
-                                         <p>${session.cinemaHall.hallName}</p>
-                                         <p>${session.time}</p>
-                                         <p>${session.cost}</p>
-                                </#list>
-                            </ul>
-                            <#else>
-                                <p>No sessions available at this time</p>
-                            </#if>
-
+              </a>
+            </#list>
+          <#else>
+            No sessions available at this time
+          </#if>
+        </div>
+        <div class="divider"></div>
+      </div>
+    </section>
 </body>
 </html>
   <script type="text/javascript">

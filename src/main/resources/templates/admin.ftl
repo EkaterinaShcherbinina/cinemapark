@@ -7,19 +7,28 @@
 </head>
 <body>
   <#include "header.ftl">
-   <div class="container">
-   <div class="row">
-        <a class="waves-effect waves-light btn" id="movie" href="/admin-movie/movies">Movie service</a>
-        <label for="movie">Movie service for edit and adding new movies</label>
-    </div>
-    <div class="row">
-        <a class="waves-effect waves-light btn" id="hall" href="/admin-hall/halls">Hall service</a>
-        <label for="hall">Hall service for edit and adding new halls</label>
-    </div>
-    <div class="row">
-        <a class="waves-effect waves-light btn" id="session" href="/admin-session/sessions">Movie session service</a>
-        <label for="session">Movie session service for edit and adding new sessions</label>
-     </div>
-  </div>
+  <ul class="collection collectionCenter">
+      <a href="/admin-movie/movies"
+      <li class="collection-item avatar">
+        <i class="material-icons circle">local_movies</i>
+        <span class="title">Movie service</span>
+        <p>Select this service to manage movies</p>
+      </li>
+      </a>
+      <a href="/admin-hall/halls"
+      <li class="collection-item avatar">
+        <i class="material-icons circle green">event_seat</i>
+        <span class="title">Cinema hall service</span>
+        <p>Select this service to manage cinema halls</p>
+      </li>
+      </a>
+      <a href="/admin-session/sessions"
+      <li class="collection-item avatar">
+        <i class="material-icons circle red">movie_filter</i>
+        <span class="title">Movie session service</span>
+        <p>Select this service to manage movie sessions</p>
+      </li>
+      </a>
+    </ul>
 </body>
 </html>
