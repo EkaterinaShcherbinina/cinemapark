@@ -1,23 +1,24 @@
 package com.shcherbinina.cinemapark.validation.payloadValidation;
 
 import com.shcherbinina.cinemapark.dto.entity.ReservationDTO;
-import com.shcherbinina.cinemapark.exceptions.validationExceptions.PayloadValidationException;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
 @Component
-public class ReservationDTOValidator implements IPayloadValidation{
-    private final String placeNotChosenError = "Please choose a place";
-    private final String invalidData = "Invalid input reservation data";
+public class ReservationDTOValidator implements Validator {
+    private final String placeNotChosenError = "Place should be chosen";
 
     @Override
-    public void validate(Object dto) throws PayloadValidationException {
-        ReservationDTO reservationDTO = (ReservationDTO) dto;
-        if (reservationDTO.getPlace() == 0 || reservationDTO.getRowId() == 0) {
-            throw new PayloadValidationException(placeNotChosenError);
-        }
+    public boolean supports(Class<?> aClass) {
+        return ReservationDTO.class.equals(aClass);
+    }
 
-        if(reservationDTO.getSessionId() == 0 || reservationDTO.getUserId() == 0) {
-            throw new PayloadValidationException(invalidData);
+    @Override
+    public void validate(Object o, Errors errors) {
+        ReservationDTO reservationDTO = (ReservationDTO) o;
+        if (reservationDTO.getPlace() == 0 || reservationDTO.getRowId() == 0) {
+            errors.rejectValue("place", "", placeNotChosenError);
         }
     }
 }

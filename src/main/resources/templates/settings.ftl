@@ -16,14 +16,14 @@
             <h4>About me</h4>
             <span class="title">${user.firstName} ${user.lastName}</span>
           </li>
-          <a href="/account/edit-account" <li class="collection-item">Edit</li></a>
+          <a href="/account/edit-name" <li class="collection-item">Edit</li></a>
       </ul>
      </div>
      <div class="col s6">
       <ul class="collection with-header">
            <li class="collection-header">
             <h4>Contact preferences</h4>
-            <span class="title">${user.email}</span>
+            <span class="title">${email.email}</span>
            </li>
            <a href="/account/edit-email" <li class="collection-item">Edit</li></a>
       </ul>

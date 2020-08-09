@@ -1,23 +1,17 @@
 package com.shcherbinina.cinemapark.mvcControllers;
 
-import com.shcherbinina.cinemapark.dto.DTOConverter;
-import com.shcherbinina.cinemapark.dto.entity.AccountEditDTO;
-import com.shcherbinina.cinemapark.dto.entity.UserDTO;
-import com.shcherbinina.cinemapark.dto.entity.UserHistoryDTO;
+import com.shcherbinina.cinemapark.dto.entity.*;
 import com.shcherbinina.cinemapark.dto.services.AccountService;
 import com.shcherbinina.cinemapark.dto.services.UserService;
 import com.shcherbinina.cinemapark.exceptions.validationExceptions.PayloadValidationException;
-import com.shcherbinina.cinemapark.security.AuthProvider;
-import com.shcherbinina.cinemapark.security.AuthenticationFacade;
 import com.shcherbinina.cinemapark.utility.Utility;
+import com.shcherbinina.cinemapark.validation.payloadValidation.UserEmailValidator;
+import com.shcherbinina.cinemapark.validation.payloadValidation.UserPasswordDTOValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -29,11 +23,9 @@ public class UserAccountController {
     @Autowired
     private UserService userService;
     @Autowired
-    private AuthProvider authProvider;
+    UserPasswordDTOValidator passwordValidator;
     @Autowired
-    private DTOConverter dtoConverter;
-    @Autowired
-    private AuthenticationFacade authenticationFacade;
+    private UserEmailValidator emailValidator;
 
     @GetMapping
     public String getAccount(Model model) {
@@ -44,60 +36,57 @@ public class UserAccountController {
 
     @GetMapping("/settings")
     public String settingsAccount(Model model) {
-        AccountEditDTO user = userService.getUserAccountById(Utility.getCurrentUserId());
-        model.addAttribute("user", user);
+        UserNameDTO nameDTO = userService.getUserNameById(Utility.getCurrentUserId());
+        UserEmailDTO email = userService.getUserEmailById(Utility.getCurrentUserId());
+        model.addAttribute("user", nameDTO);
+        model.addAttribute("email", email);
         return "settings";
     }
 
-    @GetMapping("/edit-account")
+    @GetMapping("/edit-name")
     public String editAccount(Model model) {
-        AccountEditDTO user = userService.getUserAccountById(Utility.getCurrentUserId());
+        UserNameDTO user = userService.getUserNameById(Utility.getCurrentUserId());
         model.addAttribute("user", user);
         return "editAccount";
     }
 
-    @PostMapping("/edit-account")
-    public String postEditAccount(@ModelAttribute AccountEditDTO userDTO) {
-        userService.updateUserAccount(userDTO);
-        authProvider.updateUserName(userDTO);
+    @PostMapping("/edit-name")
+    public String postEditAccount(@ModelAttribute("user") @Valid UserNameDTO userDTO,
+                                  BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) return "/editAccount";
+        userService.updateUserName(userDTO);
         return "redirect:/account";
     }
 
     @GetMapping("/edit-password")
     public String editPassword(Model model) {
-        AccountEditDTO user = userService.getUserAccountById(Utility.getCurrentUserId());
-        model.addAttribute("user", user);
+        model.addAttribute("password", new UserPasswordDTO());
         return "editPassword";
     }
 
     @PostMapping("/edit-password")
-    public String postEditPassword(@ModelAttribute AccountEditDTO userDTO) {
-        UserDTO user = userService.getById(authenticationFacade.getCurrentUserId());
+    public String postEditPassword(@ModelAttribute("password") @Valid UserPasswordDTO userPasswordDTO,
+                                   BindingResult bindingResult) {
+        passwordValidator.validate(userPasswordDTO, bindingResult);
 
-        //TODO: password validation
-        if (!authProvider.checkIfValidOldPassword(user.getPassword(), userDTO.getOldPassword())) {
-            //throw new InvalidOldPasswordException();
-        }
-
-        userService.updateUserAccount(userDTO);
-        authProvider.updateUserPassword(userDTO);
+        if(bindingResult.hasErrors()) return "/editPassword";
+        userService.updateUserPassword(userPasswordDTO);
         return "redirect:/account";
     }
 
     @GetMapping("/edit-email")
     public String editEmail(Model model) {
-        AccountEditDTO user = userService.getUserAccountById(Utility.getCurrentUserId());
-        model.addAttribute("user", user);
+        UserEmailDTO email = userService.getUserEmailById(Utility.getCurrentUserId());
+        model.addAttribute("email", email);
         return "editEmail";
     }
 
     @PostMapping("/edit-email")
-    public String postEditEmail(@ModelAttribute @Valid AccountEditDTO userDTO, BindingResult bindingResult) throws PayloadValidationException {
-        UserDTO user = userService.getById(authenticationFacade.getCurrentUserId());
-         if(bindingResult.hasErrors()) throw new PayloadValidationException("Invalid email");
+    public String postEditEmail(@ModelAttribute("email") @Valid UserEmailDTO email, BindingResult bindingResult) throws PayloadValidationException {
+        emailValidator.validate(email, bindingResult);
+        if(bindingResult.hasErrors()) return "/editEmail";
 
-        userService.updateUserAccount(userDTO);
-        authProvider.updateUserEmail(userDTO);
+        userService.updateUserEmail(email);
         return "redirect:/account";
     }
 }

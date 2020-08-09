@@ -37,7 +37,7 @@ public class WithdrawingMoneyValidatorTest {
     public void setUp() {
         sessionDTO1 = new AdminSessionDTO();
         sessionDTO1.setId(1);
-        sessionDTO1.setCost(20.0);
+        sessionDTO1.setCost("20.0");
 
         userDTO1 = new UserDTO();
         userDTO1.setId(1);
@@ -49,7 +49,6 @@ public class WithdrawingMoneyValidatorTest {
 
         reservationDTO = new ReservationDTO();
         reservationDTO.setId(1);
-        reservationDTO.setUserId(1);
         reservationDTO.setSessionId(1);
     }
 

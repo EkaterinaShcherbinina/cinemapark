@@ -5,21 +5,28 @@ import com.shcherbinina.cinemapark.dto.services.UserService;
 import com.shcherbinina.cinemapark.exceptions.validationExceptions.PayloadValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
 @Component
-public class UserDTOValidator implements IPayloadValidation{
+public class UserDTOValidator implements Validator {
     @Autowired
     private UserService userService;
 
-    private final String userExistMessage = "User with the same name already exists";
-    private final String emptyFieldMessage = "Fill in all the fields";
+    private final String userExistMessage = "User with the same email already exists";
 
     @Override
-    public void validate(Object dto) throws PayloadValidationException {
-        UserDTO user = (UserDTO) dto;
+    public boolean supports(Class<?> aClass) {
+        return UserDTO.class.equals(aClass);
+    }
 
-        if(userService.getByEmail(((UserDTO) dto).getEmail()) != null) {
-            throw new PayloadValidationException(userExistMessage);
-        }
+    @Override
+    public void validate(Object o, Errors errors) {
+        UserDTO userDTO = (UserDTO) o;
+        UserDTO user = userService.getByEmail(userDTO.getEmail());
+        if(user != null)
+            errors.rejectValue("email", "", userExistMessage);
+
+        // add exception
     }
 }

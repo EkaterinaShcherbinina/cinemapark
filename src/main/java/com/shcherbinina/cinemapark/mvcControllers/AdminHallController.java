@@ -1,20 +1,15 @@
 package com.shcherbinina.cinemapark.mvcControllers;
 
 import com.shcherbinina.cinemapark.dto.entity.CinemaHallDTO;
-import com.shcherbinina.cinemapark.dto.entity.MovieDTO;
 import com.shcherbinina.cinemapark.dto.services.CinemaHallService;
-import com.shcherbinina.cinemapark.utility.Utility;
+import com.shcherbinina.cinemapark.validation.payloadValidation.HallDTOValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import javax.sql.rowset.serial.SerialBlob;
-import java.io.IOException;
-import java.sql.Blob;
-import java.sql.SQLException;
 import java.util.List;
 
 @Controller
@@ -22,6 +17,8 @@ import java.util.List;
 public class AdminHallController {
     @Autowired
     private CinemaHallService hallService;
+    @Autowired
+    private HallDTOValidator hallValidator;
 
     @GetMapping("/halls")
     public String getHalls(Model model) {
@@ -31,16 +28,17 @@ public class AdminHallController {
     }
 
     @GetMapping("/edit{id}")
-    public String editMovie(@PathVariable("id") int id, Model model) {
+    public String editHall(@PathVariable("id") int id, Model model) {
         CinemaHallDTO hall = hallService.getHallById(id);
         model.addAttribute("hall", hall);
         return "hallEdit";
     }
 
     @PostMapping("/edit")
-    public String postEditMovie(@ModelAttribute CinemaHallDTO hallDTO,
-                                BindingResult bindingResult, Model model) {
-        //TODO: validation fields
+    public String postEditHall(@ModelAttribute("hall") @Validated(CinemaHallDTO.Update.class) CinemaHallDTO hallDTO,
+                                BindingResult bindingResult) {
+        hallValidator.validate(hallDTO, bindingResult);
+        if(bindingResult.hasErrors()) return "/hallEdit";
 
         hallService.updateCinemaHall(hallDTO);
         return "redirect:/admin";
@@ -53,9 +51,11 @@ public class AdminHallController {
     }
 
     @PostMapping("/new")
-    public String postNewHall(@ModelAttribute CinemaHallDTO cinemaHallDTO,
-                               BindingResult bindingResult, Model model) {
-        //TODO: validation fields
+    public String postNewHall(@ModelAttribute("hall") @Validated(CinemaHallDTO.New.class) CinemaHallDTO cinemaHallDTO,
+                               BindingResult bindingResult) {
+        hallValidator.validate(cinemaHallDTO, bindingResult);
+        if(bindingResult.hasErrors()) return "/newHall";
+
         hallService.addNewCinemaHall(cinemaHallDTO);
         return "redirect:/admin";
     }

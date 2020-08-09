@@ -6,14 +6,8 @@ import com.shcherbinina.cinemapark.dto.entity.RowDTO;
 import com.shcherbinina.cinemapark.dto.services.AccountService;
 import com.shcherbinina.cinemapark.dto.services.ReservationService;
 import com.shcherbinina.cinemapark.exceptions.validationExceptions.BusinessValidationException;
-import com.shcherbinina.cinemapark.exceptions.validationExceptions.PayloadValidationException;
-import com.shcherbinina.cinemapark.utility.Utility;
 import com.shcherbinina.cinemapark.validation.payloadValidation.ReservationDTOValidator;
-//import com.shcherbinina.cinemapark.validation.validationErrors.ReservationErrors;
-//import com.shcherbinina.cinemapark.validation.validationErrors.ValidationError;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -22,8 +16,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
-import javax.validation.Validator;
 import java.util.List;
 
 @Controller
@@ -41,21 +33,25 @@ public class BookingController {
         List<RowDTO> rowDTOs = reservationService.getHallLayout(Integer.valueOf(id));
         model.addAttribute("rows", rowDTOs);
         model.addAttribute("sessionId", id);
+        model.addAttribute("reservation", new ReservationDTO());
         return "booking";
     }
 
-    @RequestMapping(value = "/new", method = RequestMethod.POST)
+    @PostMapping("/new")
     @Transactional
-    public String postReservation(@ModelAttribute ReservationDTO reservationDTO,
-                                  BindingResult bindingResult, Model model)
-            throws PayloadValidationException, BusinessValidationException {
-        reservationDTO.setUserId(8); //TODO: workaround for user, will be fixed after adding spring security
-        reservationValidator.validate(reservationDTO);
+    public String postReservation(@ModelAttribute("reservation") ReservationDTO reservationDTO,
+        BindingResult bindingResult, Model model) throws BusinessValidationException {
 
-        if(reservationDTO.getIsPaid())
+        if(bindingResult.hasErrors()) {
+            List<RowDTO> rowDTOs = reservationService.getHallLayout(reservationDTO.getSessionId());
+            model.addAttribute("rows", rowDTOs);
+            model.addAttribute("sessionId", reservationDTO.getSessionId());
+            return "/booking";
+        }
+
+        if(reservationDTO.isPaid())
         accountService.getMoney(reservationDTO);
 
-        if(reservationDTO.getId() == 0)
         reservationService.addNewReservation(reservationDTO);
 
         BookedDTO booked = reservationService.getBookedPlace(reservationDTO);
@@ -64,7 +60,7 @@ public class BookingController {
         return "reservation";
     }
 
-    @ExceptionHandler({PayloadValidationException.class, BusinessValidationException.class})
+    @ExceptionHandler({BusinessValidationException.class})
     public ModelAndView handlePayloadValidationException(HttpServletRequest req, Exception ex) {
         ModelAndView mav = new ModelAndView();
         mav.addObject("exception", ex.getMessage());

@@ -1,156 +1,57 @@
 package com.shcherbinina.cinemapark.dto.entity;
 
-import com.shcherbinina.cinemapark.dao.entity.MovieImage;
+import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 
+@Data
 public class MovieDTO {
+    public interface New {
+    }
 
+    interface Exist {
+    }
+
+    public interface Update extends Exist {
+    }
+
+    @NegativeOrZero(message = "Id must be 0", groups = {New.class})
+    @Positive(message = "Id mustn't be 0", groups = {Update.class})
     private int id;
 
-    @NotBlank
-    @NotNull
+    @NotEmpty(message = "SecondaryKey shouldn't be empty", groups = {Update.class})
     private String secondaryKey;
 
-    @NotBlank
-    @NotNull
+    @NotEmpty(message = "Movie name shouldn't be empty", groups = {New.class, Update.class})
     private String name;
 
-    @NotBlank
-    @NotNull
-    private int imageId;
-
-    @NotBlank
-    @NotNull
+    @NotEmpty(message = "Actors field shouldn't be empty", groups = {New.class, Update.class})
     private String actors;
 
-    @NotBlank
-    private int duration;
+    @NotEmpty(message = "Duration field shouldn't be empty", groups = {New.class, Update.class})
+    private String duration;
 
-    @NotBlank
-    @NotNull
+    @NotEmpty(message = "Description shouldn't be empty", groups = {New.class, Update.class})
     private String description;
 
-    @NotBlank
+    /*@NotBlank
     @Min(value=1)
-    @Max(value=10)
-    private double rating;
+    @Max(value=10)*/
+    @NotEmpty(groups = {New.class, Update.class})
+    private String rating;
 
-    @NotBlank
-    @NotNull
+    @NotEmpty(message = "Genre shouldn't be empty", groups = {New.class, Update.class})
     private String genre;
 
-    @NotBlank
-    @NotNull
+    @NotEmpty(message = "Producer field shouldn't be empty", groups = {New.class, Update.class})
     private String producer;
 
-    @NotBlank
-    @NotNull
+    @NotEmpty(message = "Production year field shouldn't be empty", groups = {New.class, Update.class})
     private String productionYear;
 
-    @NotBlank
-    @NotNull
+    @NotEmpty(message = "Premiere date field shouldn't be empty", groups = {New.class, Update.class})
     private String premiereDate;
 
-    public MovieDTO() {
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getSecondaryKey() {
-        return secondaryKey;
-    }
-
-    public void setSecondaryKey(String secondaryKey) {
-        this.secondaryKey = secondaryKey;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
-    }
-
-    public String getActors() {
-        return actors;
-    }
-
-    public void setActors(String actors) {
-        this.actors = actors;
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public double getRating() {
-        return rating;
-    }
-
-    public void setRating(double rating) {
-        this.rating = rating;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    public String getProducer() {
-        return producer;
-    }
-
-    public void setProducer(String producer) {
-        this.producer = producer;
-    }
-
-    public String getProductionYear() {
-        return productionYear;
-    }
-
-    public void setProductionYear(String production_year) {
-        this.productionYear = production_year;
-    }
-
-    public String getPremiereDate() {
-        return premiereDate;
-    }
-
-    public void setPremiereDate(String premiereDate) {
-        this.premiereDate = premiereDate;
-    }
+    private MultipartFile image;
 }

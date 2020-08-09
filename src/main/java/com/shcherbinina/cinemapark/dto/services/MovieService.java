@@ -5,6 +5,7 @@ import com.shcherbinina.cinemapark.dao.repository.MovieRepository;
 import com.shcherbinina.cinemapark.dto.DTOConverter;
 import com.shcherbinina.cinemapark.dto.entity.MovieDTO;
 import com.shcherbinina.cinemapark.dto.entity.MovieThumbnailDTO;
+import com.shcherbinina.cinemapark.utility.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,8 +20,6 @@ public class MovieService implements IMovieService {
     private MovieRepository movieRepository;
     @Autowired
     private DTOConverter dtoConverter;
-    @Autowired
-    private MovieImageService imageService;
 
     @Override
     public List<MovieThumbnailDTO> getMoviesNowInCinema() {
@@ -54,15 +53,23 @@ public class MovieService implements IMovieService {
     }
 
     @Override
-    public void addNewMovie(MovieDTO movieDTO, Blob image) {
-        movieRepository.addMovie(dtoConverter.convertToMovie(movieDTO), image);
+    public MovieDTO getMovieByName(String movieName) {
+        return dtoConverter.convertToMovieDTO(movieRepository.getMovieByName(movieName));
     }
 
     @Override
-    public void updateMovie(MovieDTO movieDTO, Blob image) {
-        if(image != null) {
-            imageService.updateMovieImage(movieDTO.getId(), image);
-        }
+    public Blob getImageByMovieId(int id) {
+        return movieRepository.getImageByMovieId(id);
+    }
+
+    @Override
+    public void addNewMovie(MovieDTO movieDTO) {
+        movieDTO.setSecondaryKey(Utility.createStringWithDash(movieDTO.getName()));
+        movieRepository.addMovie(dtoConverter.convertToMovie(movieDTO));
+    }
+
+    @Override
+    public void updateMovie(MovieDTO movieDTO) {
         movieRepository.updateMovie(dtoConverter.convertToMovie(movieDTO));
     }
 }

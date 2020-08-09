@@ -20,34 +20,34 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler({RuntimeException.class})
     public ResponseEntity<Object> handleRunTimeException(RuntimeException e) {
-        return new ResponseEntity<>(new ApiError(e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new ApiError(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
                                                                   HttpHeaders headers, HttpStatus status, WebRequest request) {
-        ApiError badRequestError = new ApiError(badRequest);
+        ApiError badRequestError = new ApiError(badRequest, status);
         return new ResponseEntity(badRequestError, status);
     }
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers, HttpStatus status, WebRequest request) {
-        ApiError badRequestError = new ApiError(badRequest);
+        ApiError badRequestError = new ApiError(badRequest, status);
         return new ResponseEntity(badRequestError, status);
     }
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     protected ResponseEntity<Object> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException ex,
                                                                       WebRequest request) {
-        ApiError error = new ApiError(pageNotFound);
+        ApiError error = new ApiError(pageNotFound, HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 
     @Override
     protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers,
                                                                    HttpStatus status, WebRequest request) {
-        ApiError error = new ApiError(pageNotFound);
+        ApiError error = new ApiError(pageNotFound, status);
         return new ResponseEntity<>(error, status);
     }
 }

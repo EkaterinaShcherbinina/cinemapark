@@ -7,31 +7,39 @@
 </head>
 <body>
   <#include "header.ftl">
-  <aside style="float:left; width:300px;">
-      <ul class="collection with-header">
-          <li class="collection-header"><h4>Hello, User!</h4></li>
-          <a href="/account/settings" <li class="collection-item">Settings</li></a>
-          <a href="#!" <li class="collection-item">Add money</li></a>
-      </ul>
-  </aside>
-  <main>
-      <section style="height:200px;">
-          <h5>Your history</h5>
-          <div class="row">
-                <div class="col s12 m6 l3">Purchased tickets: ${history.purchasedTickets}</div>
-                <div class="col s12 m6 l3">Total spent money: ${history.totalSpend} $</div>
-          </div>
-      </section>
+    <div class="row">
+      <div class="col s12">
+        <ul class="collection with-header" style="float:left; width:300px;">
+          <li class="collection-header"><h4>Hello, ${userInfo.firstName}!</h4></li>
+            <a href="/account/settings" <li class="collection-item" style="height:43px;">Settings</li></a>
+            <a href="#!" <li class="collection-item" style="height:43px;">Add money</li></a>
+        </ul>
+        <ul class="collection with-header">
+          <li class="collection-header"><h4>Your History</h4></li>
+          <li class="collection-item" style="height:86px;">
+            <div class="row">
+              <p>
+                <div class="col s3">Purchased tickets: ${history.purchasedTickets}</div>
+                <div class="col s3">Total spent money: ${history.totalSpend} $</div>
+              </p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <main>
       <section>
-      <h1>Your watched movies</h1>
+      <div class="watchedMovies" style="text-align:center;">
+        <h5>Your watched movies</h5></div>
+        <div class="container">
               <div class="row">
                 <#if history.movies??>
                   <#list history.movies as movie>
-                      <div class="col s12 m2">
+                      <div class="col s3">
                           <a href="/movie/${movie.secondaryKey}">
                           <div class="card">
-                              <div class="card-image" width="50%" height="70%">
-                                  <img src="/resources/getMovieImage/${movie.imageId}">
+                              <div class="card-image" style="width: 100px;margin: auto;padding-top: 10px;">
+                                  <img src="/resources/getMovieImage/${movie.id}">
                               </div>
                               <div class="card-content">
                                   <span class="card-title">${movie.name}</span>
@@ -43,6 +51,7 @@
                   </#list>
                 <#else> <p>No watched movies</p>
                 </#if>
+              </div>
               </div>
            </section>
  		</main>

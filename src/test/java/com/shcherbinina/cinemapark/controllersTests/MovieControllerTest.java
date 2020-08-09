@@ -1,6 +1,5 @@
 package com.shcherbinina.cinemapark.controllersTests;
 
-import com.shcherbinina.cinemapark.dto.entity.MovieImageDTO;
 import com.shcherbinina.cinemapark.dto.entity.MovieThumbnailDTO;
 import com.shcherbinina.cinemapark.restControllers.MovieController;
 import com.shcherbinina.cinemapark.dto.entity.MovieDTO;
@@ -14,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,11 +32,10 @@ public class MovieControllerTest {
         movieExpected = new MovieDTO();
         movieExpected.setId(1);
         movieExpected.setName("Before we go");
-        movieExpected.setImageId(1);
         movieExpected.setActors("Chris Evans, Alice Eve");
-        movieExpected.setDuration(95);
+        movieExpected.setDuration("95");
         movieExpected.setDescription("Chris Evans and Alice Eve star as two strangers whose chance encounter in Grand Central Terminal sparks a nighttime adventure through New York City that will change their lives forever.");
-        movieExpected.setRating(6.5);
+        movieExpected.setRating("6.5");
         movieExpected.setGenre("drama");
         movieExpected.setProducer("Chris Evans");
         movieExpected.setProductionYear("2015");
@@ -48,8 +45,7 @@ public class MovieControllerTest {
         MovieThumbnailDTO dto1 = new MovieThumbnailDTO();
         dto1.setId(1);
         dto1.setName("Before we go");
-        dto1.setImageId(1);
-        dto1.setDuration(95);
+        dto1.setDuration("95");
         dto1.setDescription("Chris Evans and Alice Eve star as two strangers whose chance encounter in Grand Central Terminal sparks a nighttime adventure through New York City that will change their lives forever.");
         dto1.setRating(6.5);
         dto1.setGenre("drama");
@@ -57,8 +53,7 @@ public class MovieControllerTest {
         MovieThumbnailDTO dto2 = new MovieThumbnailDTO();
         dto1.setId(2);
         dto1.setName("Grace of Monaco");
-        dto1.setImageId(1);
-        dto1.setDuration(102);
+        dto1.setDuration("102");
         dto1.setDescription("Academy Award®-winner Nicole Kidman captures the beauty and elegance of Grace Kelly in this true story of her transition from Hollywood starlet to Princess of Monaco. During a political dispute between Monaco's Prince Rainier III (Academy Award®-nominee Tim Roth) and France's Charles De Gaulle, Kelly's identity and marriage hang in the balance.");
         dto1.setRating(6.5);
         dto1.setGenre("drama");

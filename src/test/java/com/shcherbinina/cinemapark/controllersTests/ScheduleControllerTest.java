@@ -31,7 +31,7 @@ public class ScheduleControllerTest {
 
         AdminSessionDTO dto1 = new AdminSessionDTO();
         dto1.setId(1);
-        dto1.setCost(25.00);
+        dto1.setCost("25.00");
         dto1.setMovieName("07-12-2020");
         dto1.setWishDate("2020-11-14T14:05:00");
         dto1.setHallName("Relax");
@@ -40,7 +40,7 @@ public class ScheduleControllerTest {
 
         AdminSessionDTO dto2 = new AdminSessionDTO();
         dto2.setId(2);
-        dto2.setCost(25.00);
+        dto2.setCost("25.00");
         dto2.setMovieName("07-17-2020");
         dto2.setWishDate("2020-08-14T14:05:00");
         dto2.setHallName("3D");

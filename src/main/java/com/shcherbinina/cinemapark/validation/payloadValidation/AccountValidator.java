@@ -1,16 +1,20 @@
 package com.shcherbinina.cinemapark.validation.payloadValidation;
 
-import com.shcherbinina.cinemapark.dto.entity.AccountDTO;
-import com.shcherbinina.cinemapark.exceptions.validationExceptions.PayloadValidationException;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
 @Component
-public class AccountValidator implements IPayloadValidation {
+public class AccountValidator implements Validator {
     private final String invalidAmountOfMoney = "Invalid amount of money";
 
     @Override
-    public void validate(Object dto) throws PayloadValidationException {
-        AccountDTO accountDTO = (AccountDTO) dto;
-        if(accountDTO.getAmountMoney() < 0) throw new PayloadValidationException(invalidAmountOfMoney);
+    public boolean supports(Class<?> aClass) {
+        return false;
+    }
+
+    @Override
+    public void validate(Object o, Errors errors) {
+
     }
 }

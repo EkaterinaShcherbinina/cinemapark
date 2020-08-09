@@ -6,12 +6,14 @@ import com.shcherbinina.cinemapark.dto.services.AccountService;
 import com.shcherbinina.cinemapark.dto.services.ReservationService;
 import com.shcherbinina.cinemapark.exceptions.validationExceptions.BusinessValidationException;
 import com.shcherbinina.cinemapark.exceptions.validationExceptions.PayloadValidationException;
+import com.shcherbinina.cinemapark.validation.ValidationHelper;
 import com.shcherbinina.cinemapark.validation.payloadValidation.ReservationDTOValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,14 +41,15 @@ import java.util.List;
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> postReservation(@RequestBody ReservationDTO reservationDTO) throws PayloadValidationException, BusinessValidationException {
-        reservationDTOValidator.validate(reservationDTO);
+    public ResponseEntity<Object> postReservation(@Validated(ReservationDTO.New.class) @RequestBody ReservationDTO reservationDTO,
+                                                  BindingResult bindingResult) throws PayloadValidationException, BusinessValidationException {
 
-        if(reservationDTO.getIsPaid())
+        ValidationHelper.checkErrors(bindingResult);
+
+        if(reservationDTO.isPaid())
             accountService.getMoney(reservationDTO);
 
-        if(reservationDTO.getId() == 0)
-            reservationService.addNewReservation(reservationDTO);
+        reservationService.addNewReservation(reservationDTO);
         return new ResponseEntity<>("Saved successfully", HttpStatus.CREATED);
     }
 
@@ -56,8 +59,10 @@ import java.util.List;
         return new ResponseEntity<>("Deleted successfully", HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Object> updateProduct(@RequestBody ReservationDTO reservationDTO) {
+    @RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Object> updateProduct(@Validated(ReservationDTO.Update.class)@RequestBody ReservationDTO reservationDTO,
+                                                BindingResult bindingResult) throws PayloadValidationException {
+        ValidationHelper.checkErrors(bindingResult);
         reservationService.updateReservation(reservationDTO);
         return new ResponseEntity<>("Updated successfully", HttpStatus.OK);
     }

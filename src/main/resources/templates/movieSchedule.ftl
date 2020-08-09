@@ -6,42 +6,52 @@
     <#include "materializedConfig.ftl">
 </head>
 <body>
-    <#include "header.ftl">
+  <#include "header.ftl">
     <form action="/movie-schedule/schedule" id="schedule" name="schedule" method="POST">
-             <div class="row"> Choose the date:
-                        <div class="input-field col s2 offset-s1">
-                            <label for="date_inline">Schedule</label>
-                            <input id="date_inline" type="text" name="date" class="datepicker">
-                            <input type="submit" id="sendButton" style="display: none;" />
-                        </div>
-                    </div>
-                    </form>
-
+      <div class="container">
+        <div class="row">
+          <div class="input-field col s3">
+            <h5>Choose the date:</h5>
+          </div>
+          <div class="input-field col s2">
+            <label for="date_inline">Schedule</label>
+            <input id="date_inline" type="text" name="date" class="datepicker">
+            <input type="submit" id="sendButton" style="display: none;" />
+          </div>
+        </div>
+        </div>
+    </form>
     <#if sessions?has_content>
-    <ul>
-    <table class="highlight">
+      <ul>
+        <table class="highlight centered" id="centeredElement">
+          <thead>
+            <tr style="text-align: center">
+              <th>Movie</th>
+              <th>Time session</th>
+              <th>Price</th>
+              <th>Hall</th>
+            </tr>
+        </thead>
         <#list sessions as session>
-            <tbody>
-                <tr>
-                        <td>
-                            <img src="/resources/getMovieImage/${session.movie.imageId}" width="125" height="200" class="card-img-top">
-                            <p>${session.movie.name}</p>
-                            <a href="/booking/session${session.id}">
-                             <button class="btn waves-effect waves-light" type="submit" name="session">To book
-                            </button>
-                            </a>
-                        </td>
-                        <td>${session.time}</td>
-                        <td>${session.cost}</td>
-                        <td>${session.cinemaHall.id}</td>
-                </tr>
-                </tbody>
-              </form>
+          <tbody>
+            <tr>
+              <td class="colSchedule">
+                <img src="/resources/getMovieImage/${session.movie.id}" width="90" height="130" class="card-img-top">
+                <p>${session.movie.name}</p>
+                <a href="/booking/session${session.id}">
+                  <button class="btn waves-effect waves-light">To book</button>
+                </a>
+              </td>
+              <td class="colSchedule">${session.time}</td>
+              <td class="colSchedule">${session.cost}$</td>
+              <td class="colSchedule">${session.cinemaHall.hallName}</td>
+            </tr>
+          </tbody>
         </#list>
-         </table>
-    </ul>
+        </table>
+      </ul>
     <#else>
-        <p>No sessions available at this time</p>
+        <p id="centeredElement">No sessions available at this time</p>
     </#if>
 </body>
 </html>

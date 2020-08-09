@@ -1,13 +1,9 @@
 package com.shcherbinina.cinemapark.utility;
 
 import com.shcherbinina.cinemapark.dto.entity.UserDTO;
-import com.shcherbinina.cinemapark.dto.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import java.sql.Time;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -36,17 +32,6 @@ public class Utility {
             list.add(val);
         }
         return  list;
-    }
-
-    public static String getCurrentUserName() {
-        String res;
-        try {
-            UserDTO userDTO = (UserDTO)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            res = userDTO.getFirstName();
-        } catch (ClassCastException ex) {
-            res = null;
-        }
-        return res;
     }
 
     public static int getCurrentUserId() {
@@ -123,4 +108,9 @@ public class Utility {
         }
         return timeFormat12.format(date);
     }
+
+    public static String createStringWithDash(String name) {
+        return name.replaceAll("\\s+", "-").toLowerCase();
+    }
+
 }

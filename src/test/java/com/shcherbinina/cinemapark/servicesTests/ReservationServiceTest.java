@@ -64,7 +64,7 @@ public class ReservationServiceTest {
 
         movieSession = new MovieSession();
         movieSession.setMovie(new Movie());
-        movieSession.setCinemaHall(new CinemaHall(2));
+        movieSession.setCinemaHall(new CinemaHall());
 
         rows = new ArrayList<>();
         RowCinemaHall row1 = new RowCinemaHall(1, 7);

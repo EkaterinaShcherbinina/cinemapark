@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ReservationService implements IReservationService {
@@ -97,7 +98,7 @@ public class ReservationService implements IReservationService {
     @Override
     public List<ReservationDTO> getAllByUserId(int id) {
         List<Reservation> reservations = reservationRepository.getAllByUserId(id);
-        return null;
+        return reservations.stream().map(res -> dtoConverter.convertToReservationDTO(res)).collect(Collectors.toList());
     }
 
     @Override
@@ -113,7 +114,7 @@ public class ReservationService implements IReservationService {
         booked.setHallName(session.getCinemaHall().getHallName());
         booked.setDate(session.getDate());
         booked.setTime(session.getTime());
-        booked.setStatus(reservation.getIsPaid());
+        booked.setStatus(reservation.isPaid());
 
         return booked;
     }

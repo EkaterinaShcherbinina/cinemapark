@@ -12,6 +12,8 @@ public interface IMovieService {
     List<MovieThumbnailDTO> getMoviesSoonInCinema();
     List<MovieDTO> getAllMovies();
     MovieDTO getMovieById(int id);
-    void addNewMovie(MovieDTO movieDTO, Blob image);
-    void updateMovie(MovieDTO movieDTO, Blob image);
+    MovieDTO getMovieByName(String movieName);
+    Blob getImageByMovieId(int id);
+    void addNewMovie(MovieDTO movieDTO);
+    void updateMovie(MovieDTO movieDTO);
 }

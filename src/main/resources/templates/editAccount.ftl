@@ -1,3 +1,5 @@
+<#assign form=JspTaglibs["http://www.springframework.org/tags/form"]>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,40 +9,40 @@
 </head>
 <body>
   <#include "header.ftl">
-<div class="row">
-    <form class="col s12" action="/account/edit-account" id="userDTO" name="userDTO" method="POST">
-    <input type="hidden" id="id" name="id" value="${user.id}"/>
+<@form.form action="/account/edit-name" method="post" modelAttribute="user">
     <div class="container">
         <h4>Edit settings</h4>
         <span class="title">About me</span>
-      <div class="row" id="content">
+      <div class="row">
               <div class="col s6">
                 First name:
                  <div class="input-field inline">
-                 <input value="${user.firstName}" id="firstName" name="firstName" type="text" class="validate">
-                  <label for="firstName">first name</label>
+                 <@form.label path="firstName">first name</@form.label>
+                 <@form.input path="firstName" value="${user.firstName}"/>
+                 <@form.errors path="firstName"/>
                    </div>
               </div>
               <div class="col s6">
                  Last name:
                   <div class="input-field inline">
-                   <input value="${user.lastName}" id="lastName" name="lastName" type="text" class="validate">
-                   <label for="lastName">last name</label>
+                  <@form.label path="lastName">last name</@form.label>
+                 <@form.input path="lastName" value="${user.lastName}"/>
+                   <@form.errors path="lastName"/>
                     </div>
                   </div>
-           </div>
+               </div>
+               <div class="row">
              <div class="col s6">
              <button class="btn waves-effect waves-light" type="submit" name="action">Save
                           <i class="material-icons right">send</i>
              </button>
            </div>
             <div class="col s6">
-              <button class="btn waves-effect waves-light" href="/account/settings" type="button" name="action">Cancel
-                           <i class="material-icons right">cancel</i>
-             </button>
-             </div>
+              <a class="waves-effect waves-light btn" href="/account/settings">
+                  <i class="material-icons right">cancel</i>Cancel</a>
            </div>
-      </form>
-   </div>
+           </div>
+        </div>
+     </@form.form>
 </body>
 </html>

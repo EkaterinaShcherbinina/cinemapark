@@ -29,7 +29,7 @@ public class AccountValidatorTest {
         accountDTO2 = new AccountDTO(1, -10.0);
     }
 
-    @Test
+   /* @Test
     public void validateTest_happy() throws PayloadValidationException {
         validator.validate(accountDTO1);
     }
@@ -40,5 +40,5 @@ public class AccountValidatorTest {
             validator.validate(accountDTO2);
         });
         Assert.assertNotNull(thrown.getMessage());
-    }
+    }*/
 }

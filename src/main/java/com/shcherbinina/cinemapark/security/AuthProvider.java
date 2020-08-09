@@ -1,18 +1,14 @@
 package com.shcherbinina.cinemapark.security;
 
-import com.shcherbinina.cinemapark.dto.entity.AccountEditDTO;
-import com.shcherbinina.cinemapark.dto.entity.UserDTO;
+import com.shcherbinina.cinemapark.dto.entity.*;
 import com.shcherbinina.cinemapark.dto.services.UserService;
-import com.shcherbinina.cinemapark.utility.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -48,7 +44,7 @@ public class AuthProvider implements AuthenticationProvider {
         return aClass.equals(UsernamePasswordAuthenticationToken.class);
     }
 
-    public void updateUserName(AccountEditDTO userDTO) {
+    public void updateUserName(UserNameDTO userDTO) {
         UserDTO user = authenticationFacade.getCurrentUser();
         if(user != null) {
             user.setFirstName(userDTO.getFirstName());
@@ -56,14 +52,14 @@ public class AuthProvider implements AuthenticationProvider {
         }
     }
 
-    public void updateUserEmail(AccountEditDTO userDTO) {
+    public void updateUserEmail(UserEmailDTO email) {
         UserDTO user = authenticationFacade.getCurrentUser();
         if(user != null) {
-            user.setEmail(userDTO.getEmail());
+            user.setEmail(email.getEmail());
         }
     }
 
-    public void updateUserPassword(AccountEditDTO userDTO) {
+    public void updateUserPassword(UserPasswordDTO userDTO) {
         UserDTO user = authenticationFacade.getCurrentUser();
         if(user != null) {
             user.setPassword(userDTO.getNewPassword());

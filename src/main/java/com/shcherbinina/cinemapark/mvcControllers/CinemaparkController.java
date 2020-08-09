@@ -1,10 +1,8 @@
 package com.shcherbinina.cinemapark.mvcControllers;
 
 import com.shcherbinina.cinemapark.dto.entity.MovieThumbnailDTO;
-import com.shcherbinina.cinemapark.dto.entity.UserInfo;
 import com.shcherbinina.cinemapark.dto.services.AccountService;
 import com.shcherbinina.cinemapark.dto.services.MovieService;
-import com.shcherbinina.cinemapark.utility.Utility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

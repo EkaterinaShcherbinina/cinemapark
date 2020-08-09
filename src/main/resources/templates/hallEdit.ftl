@@ -1,3 +1,5 @@
+<#assign form=JspTaglibs["http://www.springframework.org/tags/form"]>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,44 +9,51 @@
 </head>
 <body>
   <#include "header.ftl">
-<div class="row">
-    <form class="col s12" action="/admin-hall/edit" id="hallDTO" name="hallDTO" method="POST">
-    <input type="hidden" id="hallId" name="id" value="${hall.id}"/>
-      <div class="row" id="content">
-              <div class="col s12">
-                Hall name:
-                 <div class="input-field inline">
-                 <input value="${hall.hallName}" id="hallName" name="hallName" type="text" class="validate">
-                  <label for="hallName">Name</label>
-                   </div>
-              </div>
-              <div class="col s12">
-                 Rows amount:
-                 <div class="input-field inline">
-                  <input value="${hall.rowsAmount}" onblur="blurFunction()" id="rowsAmount" name="rowsAmount" type="text" class="validate">
-                  <label for="rowsAmount">Rows amount</label>
-                  </div>
-                </div>
-                <#assign size = hall.rowsAmount>
-                <#list 0..<size as i>
-                    <#assign rowNumber = i + 1>
-                     <#if i < hall.placesAmountInRow?size>
-                        <#assign placesAmount = hall.placesAmountInRow[i]>
-                     <#else> <#assign placesAmount = "">
-                     </#if>
-                     <div class="col s12" id="item${rowNumber}">
-                      Places amount in the ${rowNumber} row:
-                      <div class="input-field inline">
-                      <input value="${placesAmount}" id="placesAmountInRow" name="placesAmountInRow" type="text" class="validate">
-                      <label for="placesAmountInRow">Places amount</label>
-                     </div>
-                    </div>
-                   </#list>
+     <div class="container containerPadding">
+       <@form.form action="/admin-hall/edit" method="post" modelAttribute="hall">
+         <input type="hidden" id="hallId" name="id" value="${hall.id}"/>
+         <div class="row">
+           <div class="col s6">
+             Hall name:
+             <div class="input-field inline">
+               <@form.label path="hallName">Hall Name:</@form.label>
+               <@form.input path="hallName" value="${hall.hallName}"/>
+               <@form.errors path="hallName"/>
+             </div>
            </div>
+         </div>
+         <div class="row">
+           <div class="col s6">
+             Rows amount:
+             <div class="input-field inline">
+               <@form.label path="rowsAmount">Rows amount:</@form.label>
+               <@form.input path="rowsAmount" onblur="blurFunction()" id="rowsAmount" value="${hall.rowsAmount}"/>
+               <@form.errors path="rowsAmount"/>
+             </div>
+           </div>
+         </div>
+         <#assign size = hall.rowsAmount>
+         <#list 0..<size as i>
+         <#assign rowNumber = i + 1>
+         <#if i < hall.placesAmountInRow?size && hall.placesAmountInRow[i] ??>
+           <#assign placesAmount = hall.placesAmountInRow[i]>
+         <#else> <#assign placesAmount = "">
+         </#if>
+         <div class="row">
+           <div class="col s6" id="item${rowNumber}">
+             Places amount in the ${rowNumber} row:
+             <div class="input-field inline">
+               <@form.label path="placesAmountInRow[${i}]">Places amount</@form.label>
+               <@form.input path="placesAmountInRow[${i}]" value="${placesAmount}"/>
+               <@form.errors path="placesAmountInRow[${i}]"/>
+             </div>
+           </div>
+         </div>
+         </#list>
             <button class="btn waves-effect waves-light" type="submit" name="action">Update
                <i class="material-icons right">send</i>
              </button>
-      </form>
+      </@form.form>
    </div>
 </body>
 </html>

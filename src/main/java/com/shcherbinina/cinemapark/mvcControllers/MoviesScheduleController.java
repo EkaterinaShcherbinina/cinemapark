@@ -1,7 +1,5 @@
 package com.shcherbinina.cinemapark.mvcControllers;
 
-import com.shcherbinina.cinemapark.dto.entity.AdminSessionDTO;
-import com.shcherbinina.cinemapark.dto.entity.MovieDTO;
 import com.shcherbinina.cinemapark.dto.entity.MovieSessionDTO;
 import com.shcherbinina.cinemapark.dto.services.MovieSessionService;
 import com.shcherbinina.cinemapark.utility.Utility;

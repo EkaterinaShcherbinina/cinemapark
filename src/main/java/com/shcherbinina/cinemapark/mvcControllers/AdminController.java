@@ -1,8 +1,6 @@
 package com.shcherbinina.cinemapark.mvcControllers;
 
-import com.shcherbinina.cinemapark.utility.Utility;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -11,9 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
 
     @GetMapping
-    public String getAdmin(Model model)
+    public String getAdmin()
     {
-        model.addAttribute("userInfo", Utility.getCurrentUserName());
         return "admin";
     }
 }

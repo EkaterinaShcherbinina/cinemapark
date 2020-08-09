@@ -25,17 +25,16 @@ CREATE TABLE user (
     id mediumint(8) unsigned NOT NULL auto_increment,
     secondaryKey varchar(255) default NULL,
     name varchar(255) default NULL,
-    imageId mediumint default NULL,
+    image LONGBLOB default NULL,
     actors varchar(255) default NULL,
-    duration mediumint default NULL,
+    duration varchar(255) default NULL,
     description varchar(255) default NULL,
     rating double default NULL,
     genre varchar(255) default NULL,
     producer varchar(255) default NULL,
     productionYear varchar(255) default NULL,
     premiereDate DATE default NULL,
-    PRIMARY KEY (id),
-    CONSTRAINT imageForeignKey FOREIGN KEY (imageId) REFERENCES movieImage (id)
+    PRIMARY KEY (id)
   );
 
   CREATE TABLE cinemaHall (

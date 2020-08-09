@@ -55,7 +55,6 @@ public class AccountServiceTest {
         accountDTO1 = new AccountDTO(4, 20.0);
 
         reservationDTO1 = new ReservationDTO();
-        reservationDTO1.setUserId(4);
         reservationDTO1.setSessionId(2);
 
         session = new MovieSession();
@@ -81,7 +80,7 @@ public class AccountServiceTest {
 
         sessionDTO = new AdminSessionDTO();
         userDTO = new UserDTO();
-        sessionDTO.setCost(50.0);
+        sessionDTO.setCost("50.0");
         userDTO.setAccount(10.0);
     }
 

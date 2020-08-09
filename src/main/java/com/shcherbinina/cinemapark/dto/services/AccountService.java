@@ -1,6 +1,5 @@
 package com.shcherbinina.cinemapark.dto.services;
 
-import com.shcherbinina.cinemapark.dao.entity.Movie;
 import com.shcherbinina.cinemapark.dao.entity.MovieSession;
 import com.shcherbinina.cinemapark.dao.entity.Reservation;
 import com.shcherbinina.cinemapark.dao.entity.User;
@@ -10,6 +9,7 @@ import com.shcherbinina.cinemapark.dto.DTOConverter;
 import com.shcherbinina.cinemapark.dto.entity.*;
 import com.shcherbinina.cinemapark.exceptions.validationExceptions.BusinessValidationException;
 import com.shcherbinina.cinemapark.exceptions.validationExceptions.PayloadValidationException;
+import com.shcherbinina.cinemapark.utility.Utility;
 import com.shcherbinina.cinemapark.validation.businessValidation.WithdrawingMoneyValidator;
 import com.shcherbinina.cinemapark.validation.payloadValidation.AccountValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class AccountService implements  IAccountService{
 
     @Override
     public void sendMoney(AccountDTO dto) throws PayloadValidationException {
-        accountValidator.validate(dto);
+        //accountValidator.validate(dto);
 
         User user = userRepository.getUserById(dto.getUserId());
         double userAccount = user.getAccount();
@@ -50,7 +50,7 @@ public class AccountService implements  IAccountService{
     public void getMoney(ReservationDTO dto) throws BusinessValidationException {
         validator.validate(dto);
 
-        User user = userRepository.getUserById(dto.getUserId());
+        User user = userRepository.getUserById(Utility.getCurrentUserId());
         MovieSession session = sessionRepository.getMovieSessionById(dto.getSessionId());
         user.setAccount(user.getAccount() - session.getCost());
         userRepository.updateUser(user);
@@ -75,12 +75,11 @@ public class AccountService implements  IAccountService{
 
     private List<MovieThumbnailDTO> getHistoryMovies(int userId) {
         User user = userRepository.getUserById(userId);
-        List<MovieThumbnailDTO> movies = user.getReservations().stream()
+        return user.getReservations().stream()
                 .map(res -> res.getMovieSession().getMovie())
                 .distinct()
                 .map(m -> dtoConverter.convertToMovieThumbnailDTO(m))
                 .collect(Collectors.toList());
-        return movies;
     }
 
     private int getPurchasedTickets(int userId) {
@@ -90,8 +89,8 @@ public class AccountService implements  IAccountService{
 
     private BigDecimal getTotalTicketsPrice(int userId) {
         User user = userRepository.getUserById(userId);
-        double sum = user.getReservations().stream().map(res -> res.getMovieSession())
-                .mapToDouble(session -> session.getCost())
+        double sum = user.getReservations().stream().map(Reservation::getMovieSession)
+                .mapToDouble(MovieSession::getCost)
                 .sum();
         return BigDecimal.valueOf(sum);
     }
