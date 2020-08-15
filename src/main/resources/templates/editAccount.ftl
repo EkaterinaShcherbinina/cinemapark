@@ -19,7 +19,7 @@
                  <div class="input-field inline">
                  <@form.label path="firstName">first name</@form.label>
                  <@form.input path="firstName" value="${user.firstName}"/>
-                 <@form.errors path="firstName"/>
+                 <@form.errors class="errorRed" path="firstName"/>
                    </div>
               </div>
               <div class="col s6">
@@ -27,7 +27,7 @@
                   <div class="input-field inline">
                   <@form.label path="lastName">last name</@form.label>
                  <@form.input path="lastName" value="${user.lastName}"/>
-                   <@form.errors path="lastName"/>
+                   <@form.errors class="errorRed" path="lastName"/>
                     </div>
                   </div>
                </div>

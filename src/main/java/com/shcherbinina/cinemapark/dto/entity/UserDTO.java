@@ -4,6 +4,7 @@ import com.shcherbinina.cinemapark.dao.entity.Role;
 import lombok.Data;
 
 import javax.validation.constraints.*;
+import java.math.BigDecimal;
 import java.util.Set;
 
 @Data
@@ -19,6 +20,6 @@ public class UserDTO {
     @NotBlank
     @Email
     private String email;
-    private double account;
+    private BigDecimal account;
     private Set<Role> roles;
 }

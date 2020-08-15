@@ -3,6 +3,7 @@ package com.shcherbinina.cinemapark.dao.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -29,7 +30,7 @@ public class User {
     private String email;
 
     @Column(name = "account", nullable = false)
-    private double account;
+    private BigDecimal account;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Reservation> reservations;
@@ -43,7 +44,7 @@ public class User {
     public User() {
     }
 
-    public User(int id, String firstName, String lastName, String password, String email, double account) {
+    public User(int id, String firstName, String lastName, String password, String email, BigDecimal account) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

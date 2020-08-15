@@ -17,7 +17,7 @@
         <input type="hidden" id="rowId" name="rowId" value="0"/>
         <div>
         <@form.input type="hidden" path="place" value="0"/>
-        <@form.errors type="text" path="place"/>
+        <@form.errors class="errorRed" type="text" path="place"/>
         </div>
         <div id="hallId" name="hall">
         <#list rows as row>

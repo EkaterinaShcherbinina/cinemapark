@@ -1,6 +1,6 @@
 package com.shcherbinina.cinemapark.controllersTests;
 
-import com.shcherbinina.cinemapark.dto.entity.AccountDTO;
+import com.shcherbinina.cinemapark.dto.entity.MoneyAccountDTO;
 import com.shcherbinina.cinemapark.dto.services.AccountService;
 import com.shcherbinina.cinemapark.exceptions.validationExceptions.PayloadValidationException;
 import com.shcherbinina.cinemapark.restControllers.AccountController;
@@ -11,6 +11,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.math.BigDecimal;
+
 @RunWith(MockitoJUnitRunner.class)
 public class UserAccountControllerTest {
     @Mock
@@ -19,11 +21,12 @@ public class UserAccountControllerTest {
     @InjectMocks
     private AccountController accountController;
 
-    private AccountDTO accountDTO;
+    private MoneyAccountDTO moneyAccountDTO;
 
     @Before
     public void setUp() {
-        accountDTO = new AccountDTO(4, 20.0);
+        moneyAccountDTO = new MoneyAccountDTO();
+        moneyAccountDTO.setAmountMoney("20.0");
     }
 
     @Test

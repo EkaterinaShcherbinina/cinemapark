@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
+import java.math.BigDecimal;
 import java.sql.Time;
 import java.util.Date;
 
@@ -36,7 +37,7 @@ public class ReservationRepositoryTest {
         reservation.setRowId(8);
         reservation.setPlace(1);
         reservation.setUser(new User(1, "first", "last", "password",
-                "aaa.com", 0.00));
+                "aaa.com", new BigDecimal(0.00)));
         reservation.setMovieSession(new MovieSession(1, new Date(1), new Time(0),
                 100.0, new CinemaHall(1, 3, "1"), movie));
 
@@ -45,7 +46,7 @@ public class ReservationRepositoryTest {
         reservationExpected.setRowId(8);
         reservationExpected.setPlace(1);
         reservationExpected.setUser(new User(1, "first", "last", "password",
-                "aaa.com", 0.00));
+                "aaa.com", new BigDecimal(0.00)));
         reservationExpected.setMovieSession(new MovieSession( 1, new Date(1), new Time(0),
                 100.0, new CinemaHall(1, 3, "1"), movie));
     }

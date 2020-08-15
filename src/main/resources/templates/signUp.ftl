@@ -20,28 +20,28 @@
           <div class="input-field col s6 offset-s3">
             <@form.label path="firstName">First Name:</@form.label>
             <@form.input path="firstName"/>
-            <@form.errors path="firstName"/>
+            <@form.errors class="errorRed" path="firstName"/>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6 offset-s3">
             <@form.label path="lastName">Last Name:</@form.label>
             <@form.input path="lastName"/>
-            <@form.errors path="lastName"/>
+            <@form.errors class="errorRed" path="lastName"/>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6 offset-s3">
             <@form.label path="email">Email:</@form.label>
             <@form.input path="email"/>
-            <@form.errors path="email"/>
+            <@form.errors class="errorRed" path="email"/>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6 offset-s3">
             <@form.label path="firstName">Password:</@form.label>
             <@form.password path="password"/>
-            <@form.errors path="password"/>
+            <@form.errors class="errorRed" path="password"/>
           </div>
         </div>
         <div class="row">

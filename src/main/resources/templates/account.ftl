@@ -12,7 +12,7 @@
         <ul class="collection with-header" style="float:left; width:300px;">
           <li class="collection-header"><h4>Hello, ${userInfo.firstName}!</h4></li>
             <a href="/account/settings" <li class="collection-item" style="height:43px;">Settings</li></a>
-            <a href="#!" <li class="collection-item" style="height:43px;">Add money</li></a>
+            <a href="/account/get-balance" <li class="collection-item" style="height:43px;">My balance</li></a>
         </ul>
         <ul class="collection with-header">
           <li class="collection-header"><h4>Your History</h4></li>

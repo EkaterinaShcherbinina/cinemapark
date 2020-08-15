@@ -19,7 +19,7 @@
          <div class="input-field inline">
          <@form.label path="oldPassword">current password</@form.label>
          <@form.input path="oldPassword" value=""/>
-         <@form.errors path="oldPassword"/>
+         <@form.errors class="errorRed" path="oldPassword"/>
          </div>
      </div>
      </div>
@@ -29,7 +29,7 @@
            <div class="input-field inline">
                <@form.label path="newPassword">new password</@form.label>
                <@form.input path="newPassword" value=""/>
-                <@form.errors path="newPassword"/>
+                <@form.errors class="errorRed" path="newPassword"/>
             </div>
             </div>
          </div>

@@ -19,7 +19,7 @@
             <div class="input-field inline">
               <@form.label path="movieName">Movie name</@form.label>
               <@form.input path="movieName" value="${session.movieName}"/>
-              <@form.errors path="movieName"/>
+              <@form.errors class="errorRed" path="movieName"/>
             </div>
           </div>
           <div class="col s12">
@@ -27,7 +27,7 @@
             <div class="input-field inline">
               <@form.label path="hallName">Movie name</@form.label>
               <@form.input path="hallName" value="${session.hallName}"/>
-              <@form.errors path="hallName"/>
+              <@form.errors class="errorRed" path="hallName"/>
             </div>
           </div>
           <div class="col s12">
@@ -35,7 +35,7 @@
             <div class="input-field inline">
               <@form.label path="cost">Cost</@form.label>
               <@form.input path="cost" value="${session.cost}"/>
-              <@form.errors path="cost"/>
+              <@form.errors class="errorRed" path="cost"/>
             </div>
           </div>
           <div class="col s12">
@@ -43,7 +43,7 @@
             <div class="input-field inline">
               <@form.label path="wishDate">date</@form.label>
               <@form.input class="datepicker" path="wishDate"/>
-              <@form.errors path="wishDate"/>
+              <@form.errors class="errorRed" path="wishDate"/>
             </div>
           </div>
           <div class="col s12">
@@ -51,7 +51,7 @@
             <div class="input-field inline">
               <@form.label path="time">time</@form.label>
               <@form.input class="timepicker" path="time"/>
-              <@form.errors path="time"/>
+              <@form.errors class="errorRed" path="time"/>
             </div>
           </div>
         </div>

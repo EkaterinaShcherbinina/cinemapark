@@ -18,7 +18,7 @@
           <div class="input-field inline">
             <@form.label path="hallName">Hall Name:</@form.label>
             <@form.input path="hallName" value=""/>
-            <@form.errors path="hallName"/>
+            <@form.errors class="errorRed" path="hallName"/>
           </div>
         </div>
       </div>
@@ -28,7 +28,7 @@
           <div class="input-field inline">
             <@form.label path="rowsAmount">Rows amount:</@form.label>
             <@form.input path="rowsAmount" onblur="blurFunction()" id="rowsAmount" value=""/>
-            <@form.errors path="rowsAmount"/>
+            <@form.errors class="errorRed" path="rowsAmount"/>
           </div>
         </div>
       </div>
@@ -42,7 +42,7 @@
                 <div class="input-field inline">
                   <@form.label path="placesAmountInRow[${i}]">Places amount</@form.label>
                   <@form.input path="placesAmountInRow[${i}]" value=""/>
-                  <@form.errors path="placesAmountInRow[${i}]"/>
+                  <@form.errors class="errorRed" path="placesAmountInRow[${i}]"/>
                 </div>
               </div>
             </div>

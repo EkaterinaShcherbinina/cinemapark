@@ -22,7 +22,7 @@
        <div class="row">
          <div class="col s4 offset-s4">
            <#if error ??>
-             <p style="color:RED">Invalid username or password</p>
+             <p class="errorRed">Invalid username or password</p>
            </#if>
          </div>
        </div>

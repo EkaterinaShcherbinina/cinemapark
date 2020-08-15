@@ -20,7 +20,7 @@
          <div class="input-field inline">
          <@form.label path="email">email</@form.label>
          <@form.input path="email" value="${email.email}"/>
-         <@form.errors path="email"/>
+         <@form.errors class="errorRed" path="email"/>
          </div>
      </div>
      </div>

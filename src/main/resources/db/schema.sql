@@ -1,10 +1,10 @@
 CREATE TABLE user (
     id mediumint(8) unsigned NOT NULL auto_increment,
-    firstName varchar(255) default NULL,
-    lastName varchar(255) default NULL,
-    password varchar(100) default NULL,
-    email varchar(255) default NULL,
-    account double default NULL,
+    firstName varchar(255) NOT NULL,
+    lastName varchar(255) NOT NULL,
+    password varchar(100) NOT NULL,
+    email varchar(255) NOT NULL,
+    account DECIMAL NOT NULL,
     PRIMARY KEY (id)
   );
 

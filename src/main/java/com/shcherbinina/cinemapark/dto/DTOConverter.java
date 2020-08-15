@@ -67,6 +67,7 @@ public class DTOConverter {
         if(dto == null) return null;
 
         User user = new User();
+        user.setId(dto.getId());
         user.setFirstName(dto.getFirstName());
         user.setLastName(dto.getLastName());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
