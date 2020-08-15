@@ -2,8 +2,8 @@ package com.shcherbinina.cinemapark.restControllers;
 
 import com.shcherbinina.cinemapark.dto.entity.ReservationDTO;
 import com.shcherbinina.cinemapark.dto.entity.RowDTO;
-import com.shcherbinina.cinemapark.dto.services.AccountService;
 import com.shcherbinina.cinemapark.dto.services.ReservationService;
+import com.shcherbinina.cinemapark.dto.services.UserService;
 import com.shcherbinina.cinemapark.exceptions.validationExceptions.BusinessValidationException;
 import com.shcherbinina.cinemapark.exceptions.validationExceptions.PayloadValidationException;
 import com.shcherbinina.cinemapark.validation.ValidationHelper;
@@ -25,7 +25,7 @@ import java.util.List;
     @Autowired
     ReservationService reservationService;
     @Autowired
-    AccountService accountService;
+    UserService userService;
     @Autowired
     ReservationDTOValidator reservationDTOValidator;
 
@@ -47,7 +47,7 @@ import java.util.List;
         ValidationHelper.checkErrors(bindingResult);
 
         if(reservationDTO.isPaid())
-            accountService.getMoney(reservationDTO);
+            userService.getMoney(reservationDTO);
 
         reservationService.addNewReservation(reservationDTO);
         return new ResponseEntity<>("Saved successfully", HttpStatus.CREATED);

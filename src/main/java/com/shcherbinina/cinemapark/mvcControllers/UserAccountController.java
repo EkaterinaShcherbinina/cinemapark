@@ -4,7 +4,9 @@ import com.shcherbinina.cinemapark.dto.entity.*;
 import com.shcherbinina.cinemapark.dto.services.AccountService;
 import com.shcherbinina.cinemapark.dto.services.UserService;
 import com.shcherbinina.cinemapark.exceptions.validationExceptions.PayloadValidationException;
+import com.shcherbinina.cinemapark.security.AuthenticationFacade;
 import com.shcherbinina.cinemapark.utility.Utility;
+import com.shcherbinina.cinemapark.validation.payloadValidation.MoneyAccountDTOValidator;
 import com.shcherbinina.cinemapark.validation.payloadValidation.UserEmailValidator;
 import com.shcherbinina.cinemapark.validation.payloadValidation.UserPasswordDTOValidator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,10 @@ public class UserAccountController {
     UserPasswordDTOValidator passwordValidator;
     @Autowired
     private UserEmailValidator emailValidator;
+    @Autowired
+    private AuthenticationFacade authenticationFacade;
+    @Autowired
+    private MoneyAccountDTOValidator accountValidator;
 
     @GetMapping
     public String getAccount(Model model) {
@@ -76,7 +82,7 @@ public class UserAccountController {
 
     @GetMapping("/edit-email")
     public String editEmail(Model model) {
-        UserEmailDTO email = userService.getUserEmailById(Utility.getCurrentUserId());
+        UserEmailDTO email = userService.getUserEmailById(authenticationFacade.getCurrentUserId());
         model.addAttribute("email", email);
         return "editEmail";
     }
@@ -88,5 +94,27 @@ public class UserAccountController {
 
         userService.updateUserEmail(email);
         return "redirect:/account";
+    }
+
+    @GetMapping("/get-balance")
+    public String getMoneyAccount(Model model) {
+        MoneyAccountDTO moneyAccount = userService.getMoneyAccount();
+        model.addAttribute("moneyAccount", moneyAccount);
+        return "moneyAccount";
+    }
+
+    @GetMapping("/add-money")
+    public String getAddMoney(Model model) {
+        model.addAttribute("moneyAccount", new MoneyAccountDTO());
+        return "addMoney";
+    }
+
+    @PostMapping("/add-money")
+    public String postAddMoney(@ModelAttribute("moneyAccount") @Valid MoneyAccountDTO moneyAccount, BindingResult bindingResult) {
+        accountValidator.validate(moneyAccount, bindingResult);
+        if(bindingResult.hasErrors()) return "/addMoney";
+
+        userService.addMoney(moneyAccount);
+        return "redirect:/account/get-balance";
     }
 }

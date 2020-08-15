@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 
 @Component
@@ -63,6 +64,13 @@ public class AuthProvider implements AuthenticationProvider {
         UserDTO user = authenticationFacade.getCurrentUser();
         if(user != null) {
             user.setPassword(userDTO.getNewPassword());
+        }
+    }
+
+    public void updateUserAccount(BigDecimal userAccount) {
+        UserDTO user = authenticationFacade.getCurrentUser();
+        if(user != null) {
+            user.setAccount(userAccount);
         }
     }
 

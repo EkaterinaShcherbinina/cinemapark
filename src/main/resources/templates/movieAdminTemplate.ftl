@@ -18,56 +18,56 @@
           <div class="input-field col s6">
             <@form.label path="name">Movie Name:</@form.label>
             <@form.input path="name" value="${(movie.name?has_content)?then(movie.name,'')}"/>
-            <@form.errors path="name"/>
+            <@form.errors class="errorRed" path="name"/>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
             <@form.label path="description">Movie description:</@form.label>
             <@form.input path="description" value="${(movie.description?has_content)?then(movie.description,'')}"/>
-            <@form.errors path="description"/>
+            <@form.errors class="errorRed" path="description"/>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
             <@form.label path="actors">Actors:</@form.label>
             <@form.input path="actors" value="${(movie.actors?has_content)?then(movie.actors,'')}"/>
-            <@form.errors path="actors"/>
+            <@form.errors class="errorRed" path="actors"/>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
             <@form.label path="duration">Duration:</@form.label>
             <@form.input path="duration" value="${(movie.duration?has_content)?then(movie.duration,'')}"/>
-            <@form.errors path="duration"/>
+            <@form.errors class="errorRed" path="duration"/>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
             <@form.label path="genre">Genre:</@form.label>
             <@form.input path="genre" value="${(movie.genre?has_content)?then(movie.genre,'')}"/>
-            <@form.errors path="genre"/>
+            <@form.errors class="errorRed" path="genre"/>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
             <@form.label path="producer">Producer:</@form.label>
             <@form.input path="producer" value="${(movie.producer?has_content)?then(movie.producer,'')}"/>
-            <@form.errors path="producer"/>
+            <@form.errors class="errorRed" path="producer"/>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
             <@form.label path="productionYear">Production year:</@form.label>
             <@form.input path="productionYear" value="${(movie.productionYear?has_content)?then(movie.productionYear,'')}"/>
-            <@form.errors path="productionYear"/>
+            <@form.errors class="errorRed" path="productionYear"/>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s6">
             <@form.label path="premiereDate">Premiere date:</@form.label>
             <@form.input path="premiereDate" class="datepicker"/>
-            <@form.errors path="premiereDate"/>
+            <@form.errors class="errorRed" path="premiereDate"/>
           </div>
         </div>
         <#if movie.id != 0>
@@ -82,7 +82,7 @@
             <div class="btn">
               <span>Add file</span>
               <@form.input type="file" name="image" id="image"/>
-              <@form.errors path="image"/>
+              <@form.errors class="errorRed" path="image"/>
             </div>
             <div class="file-path-wrapper">
               <input class="file-path validate" type="text">

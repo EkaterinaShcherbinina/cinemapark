@@ -7,13 +7,14 @@ import com.shcherbinina.cinemapark.dto.services.AdminMovieSessionService;
 import com.shcherbinina.cinemapark.dto.services.UserService;
 import com.shcherbinina.cinemapark.exceptions.validationExceptions.BusinessValidationException;
 import com.shcherbinina.cinemapark.utility.Utility;
-import com.sun.xml.bind.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
+
 @Component
 public class WithdrawingMoneyValidator implements IBusinessValidation {
-    private String message = "Insufficient funds in the account";
+    private String message = "There are not enough funds in your account. Top up your balance and try again";
 
     @Autowired
     private AdminMovieSessionService sessionService;
@@ -25,6 +26,7 @@ public class WithdrawingMoneyValidator implements IBusinessValidation {
         ReservationDTO reservationDTO = (ReservationDTO) dto;
         AdminSessionDTO session = sessionService.getById(reservationDTO.getSessionId());
         UserDTO user = userService.getById(Utility.getCurrentUserId());
-        if(user.getAccount() - Double.parseDouble(session.getCost()) < 0) throw new BusinessValidationException(message);
+
+        if(user.getAccount().subtract(new BigDecimal(session.getCost())).signum() < 0) throw new BusinessValidationException(message);
     }
 }
