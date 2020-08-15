@@ -41,7 +41,7 @@ public class DTOConverter {
         dto.setId(reservation.getId());
         dto.setPlace(reservation.getPlace());
         dto.setRowId(reservation.getRowId());
-        dto.setPaid(reservation.isPaid());
+        dto.setIsPaid(Boolean.valueOf(reservation.isPaid()));
         dto.setSessionId(reservation.getMovieSession().getId());
 
         return dto;
@@ -50,13 +50,13 @@ public class DTOConverter {
     public Reservation convertToReservation(ReservationDTO dto) {
         if(dto == null) return null;
 
-        User user = userRepository.getUserById(Utility.getCurrentUserId());
+        User user = userRepository.getUserById(authenticationFacade.getCurrentUserId());
         MovieSession movieSession = movieSessionRepository.getMovieSessionById(dto.getSessionId());
 
         Reservation reservation = new Reservation();
         reservation.setPlace(dto.getPlace());
         reservation.setRowId(dto.getRowId());
-        reservation.setPaid(dto.isPaid());
+        reservation.setPaid(dto.getIsPaid());
         reservation.assignToUser(user);
         reservation.assignToMovieSession(movieSession);
 

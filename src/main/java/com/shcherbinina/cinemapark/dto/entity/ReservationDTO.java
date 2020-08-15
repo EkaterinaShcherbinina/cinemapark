@@ -3,6 +3,7 @@ package com.shcherbinina.cinemapark.dto.entity;
 import lombok.Data;
 
 import javax.validation.constraints.NegativeOrZero;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
 
 @Data
@@ -22,5 +23,6 @@ public class ReservationDTO {
     private int place;
     @Positive(message = "sessionId must be > 0", groups = {MovieDTO.New.class, MovieDTO.Update.class})
     private int sessionId;
-    private boolean isPaid;
+    @NotEmpty
+    private Boolean isPaid;
 }

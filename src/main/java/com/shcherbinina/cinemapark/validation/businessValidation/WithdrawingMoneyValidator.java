@@ -27,6 +27,6 @@ public class WithdrawingMoneyValidator implements IBusinessValidation {
         AdminSessionDTO session = sessionService.getById(reservationDTO.getSessionId());
         UserDTO user = userService.getById(Utility.getCurrentUserId());
 
-        if(user.getAccount().subtract(new BigDecimal(session.getCost())).signum() < 0) throw new BusinessValidationException(message);
+        if(user.getAccount().subtract(new BigDecimal(session.getCost())).signum() <= 0) throw new BusinessValidationException(message);
     }
 }

@@ -1,5 +1,5 @@
-
 <#assign form=JspTaglibs["http://www.springframework.org/tags/form"]>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,51 +11,56 @@
     <link rel="stylesheet" type="text/css" href="/css/placeCenter.css">
     <#include "header.ftl">
     <div class="container">
-        <h5>Please choose a place</h5>
-        <@form.form action="/booking/new" method="post" modelAttribute="reservation">
+      <h5>Please choose a place</h5>
+      <@form.form action="/booking/new" method="post" modelAttribute="reservation">
         <input type="hidden" name="sessionId" value="${sessionId}"/>
         <input type="hidden" id="rowId" name="rowId" value="0"/>
         <div>
-        <@form.input type="hidden" path="place" value="0"/>
-        <@form.errors class="errorRed" type="text" path="place"/>
+          <@form.input type="hidden" path="place" value="0"/>
+          <@form.errors class="errorRed" type="text" path="place"/>
         </div>
         <div id="hallId" name="hall">
         <#list rows as row>
-            <#assign rowNumber = row?index + 1>
+          <#assign rowNumber = row?index + 1>
             <div class="flexbox">
-            <div class="row">
+              <div class="row" style="margin: auto; padding-top: 10px;">
                 <div class="col">${rowNumber}</div>
                 <#assign n = row.reservedPlaces?size + row.freePlaces?size>
                 <#list 0..<n as i>
-                    <#assign placeNumber = i?index + 1>
-                    <#if row.freePlaces?seq_contains(placeNumber)?string("yes", "no") == "yes">
-                        <div class="col">
-                        <div class="placeContainer" onclick="imageClick(${placeNumber}, ${rowNumber})">
-                                <img src="/images/green.png" id="green${rowNumber}${placeNumber}" width="20" height="20" class="card-img-top">
-                                <div class="centered">${placeNumber}</div>
-                        </div>
-                        </div>
-                    <#else>
-                        <div class="col"><img src="/images/red.png" width="20" height="20" class="card-img-top"></div>
-                    </#if>
+                  <#assign placeNumber = i?index + 1>
+                  <#if row.freePlaces?seq_contains(placeNumber)?string("yes", "no") == "yes">
+                    <div class="col">
+                      <div class="placeContainer" onclick="imageClick(${placeNumber}, ${rowNumber})">
+                        <img src="/images/green.png" id="green${rowNumber}${placeNumber}" width="20" height="20" class="card-img-top">
+                        <div class="centered">${placeNumber}</div>
+                      </div>
+                    </div>
+                  <#else>
+                    <div class="col"><img src="/images/red.png" width="20" height="20" class="card-img-top"></div>
+                  </#if>
                 </#list>
-            </div>
+              </div>
             </div>
         </#list>
         </div>
+        <@security.authorize access="isAuthenticated()">
         <h5>Do you want to deduct money from your account?</h5>
         <p>
-        <label>
-            <input name="isPaid" type="radio" value="true"/>
+          <label>
+            <@form.radiobutton path="isPaid" value="true"/>
             <span>yes</span>
-        </label>
+          </label>
         </p>
         <p>
-        <label>
-            <input name="isPaid" type="radio" value="false" checked/>
+          <label>
+            <@form.radiobutton path="isPaid" value="false" checked="checked"/>
             <span>no</span>
-        </label>
+          </label>
         </p>
+        </@security.authorize>
+        <@security.authorize access="! isAuthenticated()">
+          <input type="hidden" id="isPaid" name="isPaid" value="false"/>
+        </@security.authorize>
         <button class="btn waves-effect waves-light" type="submit" name="action">Submit
             <i class="material-icons right">send</i>
         </button>

@@ -46,7 +46,7 @@ import java.util.List;
 
         ValidationHelper.checkErrors(bindingResult);
 
-        if(reservationDTO.isPaid())
+        if(reservationDTO.getIsPaid())
             userService.getMoney(reservationDTO);
 
         reservationService.addNewReservation(reservationDTO);

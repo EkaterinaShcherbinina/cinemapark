@@ -26,7 +26,6 @@ public class Reservation {
     @JoinColumn(name = "sessionId", nullable = false)
     private MovieSession movieSession;
 
-
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "userId")
     private User user;

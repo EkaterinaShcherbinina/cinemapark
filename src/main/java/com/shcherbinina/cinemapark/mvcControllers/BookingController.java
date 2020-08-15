@@ -42,6 +42,7 @@ public class BookingController {
     @Transactional
     public String postReservation(@ModelAttribute("reservation") ReservationDTO reservationDTO,
         BindingResult bindingResult, Model model) throws BusinessValidationException {
+        reservationValidator.validate(reservationDTO, bindingResult);
 
         if(bindingResult.hasErrors()) {
             List<RowDTO> rowDTOs = reservationService.getHallLayout(reservationDTO.getSessionId());
@@ -50,7 +51,7 @@ public class BookingController {
             return "/booking";
         }
 
-        if(reservationDTO.isPaid())
+        if(reservationDTO.getIsPaid())
         userService.getMoney(reservationDTO);
 
         reservationService.addNewReservation(reservationDTO);
