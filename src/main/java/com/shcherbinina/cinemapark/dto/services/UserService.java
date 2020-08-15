@@ -108,5 +108,6 @@ public class UserService implements IUserService {
         BigDecimal moneyAccount = user.getAccount().subtract(BigDecimal.valueOf(session.getCost()));
         user.setAccount(moneyAccount);
         userRepository.updateUser(user);
+        authProvider.updateUserAccount(moneyAccount);
     }
 }
