@@ -13,7 +13,7 @@
         <h5>Available movies</h5>
       </div>
       <div class="col s2 offset-s3">
-        <a class="waves-effect waves-light btn" href="/admin-movie/new">
+        <a class="waves-effect waves-light btn" href="/admin-movie">
           <i class="material-icons right">add</i>Add new</a>
       </div>
     </div>

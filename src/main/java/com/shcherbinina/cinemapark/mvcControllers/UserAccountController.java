@@ -96,25 +96,25 @@ public class UserAccountController {
         return "redirect:/account";
     }
 
-    @GetMapping("/get-balance")
+    @GetMapping("/balance")
     public String getMoneyAccount(Model model) {
         MoneyAccountDTO moneyAccount = userService.getMoneyAccount();
         model.addAttribute("moneyAccount", moneyAccount);
         return "moneyAccount";
     }
 
-    @GetMapping("/add-money")
+    @GetMapping("/money")
     public String getAddMoney(Model model) {
         model.addAttribute("moneyAccount", new MoneyAccountDTO());
         return "addMoney";
     }
 
-    @PostMapping("/add-money")
+    @PostMapping("/money")
     public String postAddMoney(@ModelAttribute("moneyAccount") @Valid MoneyAccountDTO moneyAccount, BindingResult bindingResult) {
         accountValidator.validate(moneyAccount, bindingResult);
         if(bindingResult.hasErrors()) return "/addMoney";
 
         userService.addMoney(moneyAccount);
-        return "redirect:/account/get-balance";
+        return "redirect:/account/balance";
     }
 }

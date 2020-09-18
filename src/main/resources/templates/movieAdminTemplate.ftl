@@ -10,7 +10,7 @@
 <body>
   <#include "header.ftl">
     <div class="container">
-      <@form.form action="${(movie.id == 0)?then('/admin-movie/new','/admin-movie/edit')}" method="post" modelAttribute="movie" enctype="multipart/form-data">
+      <@form.form action="${(movie.id == 0)?then('/admin-movie','/admin-movie/edit')}" method="post" modelAttribute="movie" enctype="multipart/form-data">
         <div class="row">
           <input value="${movie.id}" id="id" name="id" type="hidden">
           <input value="${(movie.secondaryKey?has_content)?then(movie.secondaryKey,'')}" id="secondaryKey" name="secondaryKey" type="hidden">
@@ -73,7 +73,7 @@
         <#if movie.id != 0>
         <div class="row">
           <div class="input-field col s6">
-            <img src="/resources/getMovieImage/${movie.id}" width="125" height="200" class="card-img-top">
+            <img src="/resources/movieImage/${movie.id}" width="125" height="200" class="card-img-top">
           </div>
         </div>
         </#if>

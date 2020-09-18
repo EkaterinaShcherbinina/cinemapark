@@ -38,7 +38,7 @@ public class BookingController {
         return "booking";
     }
 
-    @PostMapping("/new")
+    @PostMapping()
     @Transactional
     public String postReservation(@ModelAttribute("reservation") ReservationDTO reservationDTO,
         BindingResult bindingResult, Model model) throws BusinessValidationException {

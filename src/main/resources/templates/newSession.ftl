@@ -10,7 +10,7 @@
 </head>
 <body>
   <#include "header.ftl">
-  <@form.form action="/admin-session/new" method="post" modelAttribute="session">
+  <@form.form action="/admin-session" method="post" modelAttribute="session">
     <div class="container">
       <div class="row">
         <div class="col s12">

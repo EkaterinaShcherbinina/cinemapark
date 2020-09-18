@@ -40,7 +40,7 @@ import java.util.List;
         return reservationService.getReservationById(Integer.valueOf(id));
     }
 
-    @RequestMapping(value = "/new", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> postReservation(@Validated(ReservationDTO.New.class) @RequestBody ReservationDTO reservationDTO,
                                                   BindingResult bindingResult) throws PayloadValidationException, BusinessValidationException {
 
@@ -59,7 +59,7 @@ import java.util.List;
         return new ResponseEntity<>("Deleted successfully", HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> updateProduct(@Validated(ReservationDTO.Update.class)@RequestBody ReservationDTO reservationDTO,
                                                 BindingResult bindingResult) throws PayloadValidationException {
         ValidationHelper.checkErrors(bindingResult);

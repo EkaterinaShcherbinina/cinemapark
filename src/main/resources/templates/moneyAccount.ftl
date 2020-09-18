@@ -13,7 +13,7 @@
           <div class="row">
               <div class="col s4"><h4>My Balance</h4></div>
               <div class="col s3 offset-s5">
-              <a class="waves-effect waves-light btn" href="/account/add-money">Add money</a>
+              <a class="waves-effect waves-light btn" href="/account/money">Add money</a>
             </div>
             </div>
           </li>

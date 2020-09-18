@@ -36,7 +36,7 @@
           <tbody>
             <tr>
               <td class="colSchedule">
-                <img src="/resources/getMovieImage/${session.movie.id}" width="90" height="130" class="card-img-top">
+                <img src="/resources/movieImage/${session.movie.id}" width="90" height="130" class="card-img-top">
                 <p>${session.movie.name}</p>
                 <a href="/booking/session${session.id}">
                   <button class="btn waves-effect waves-light">To book</button>

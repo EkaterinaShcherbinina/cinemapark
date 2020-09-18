@@ -7,7 +7,7 @@
 </head>
 <body>
 <div style="padding-left: 50px">
-<h3>Page not found</h3>
+<h3>Error</h3>
  <p>
   Status:<br/>${exception.status}
   </p>

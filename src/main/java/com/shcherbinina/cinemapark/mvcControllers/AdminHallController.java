@@ -35,7 +35,7 @@ public class AdminHallController {
     }
 
     @PostMapping("/edit")
-    public String postEditHall(@ModelAttribute("hall") @Validated(CinemaHallDTO.Update.class) CinemaHallDTO hallDTO,
+    public String createEditHall(@ModelAttribute("hall") @Validated(CinemaHallDTO.Update.class) CinemaHallDTO hallDTO,
                                 BindingResult bindingResult) {
         hallValidator.validate(hallDTO, bindingResult);
         if(bindingResult.hasErrors()) return "/hallEdit";
@@ -44,14 +44,14 @@ public class AdminHallController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/new")
+    @GetMapping()
     public String newHall(Model model) {
         model.addAttribute("hall", new CinemaHallDTO());
         return "newHall";
     }
 
-    @PostMapping("/new")
-    public String postNewHall(@ModelAttribute("hall") @Validated(CinemaHallDTO.New.class) CinemaHallDTO cinemaHallDTO,
+    @PostMapping()
+    public String createNewHall(@ModelAttribute("hall") @Validated(CinemaHallDTO.New.class) CinemaHallDTO cinemaHallDTO,
                                BindingResult bindingResult) {
         hallValidator.validate(cinemaHallDTO, bindingResult);
         if(bindingResult.hasErrors()) return "/newHall";

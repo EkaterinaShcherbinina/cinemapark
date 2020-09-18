@@ -46,13 +46,13 @@ public class AdminMovieController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/new")
+    @GetMapping()
     public String newMovie(Model model) {
         model.addAttribute("movie", new MovieDTO());
         return "movieAdminTemplate";
     }
 
-    @PostMapping("/new")
+    @PostMapping()
     public String postNewMovie(@ModelAttribute("movie") @Validated(MovieDTO.New.class) MovieDTO movieDTO,
                                BindingResult bindingResult) {
         movieValidator.validate(movieDTO, bindingResult);

@@ -12,7 +12,7 @@
     <#include "header.ftl">
     <div class="container">
       <h5>Please choose a place</h5>
-      <@form.form action="/booking/new" method="post" modelAttribute="reservation">
+      <@form.form action="/booking" method="post" modelAttribute="reservation">
         <input type="hidden" name="sessionId" value="${sessionId}"/>
         <input type="hidden" id="rowId" name="rowId" value="0"/>
         <div>
