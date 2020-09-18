@@ -21,7 +21,7 @@ public class AdminCinemaHallController {
     @Autowired
     private HallDTOValidator hallValidator;
 
-    @RequestMapping(value = "/new", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> postMovie(
             @RequestBody @Validated(CinemaHallDTO.Update.class) CinemaHallDTO cinemaHallDTO,
             BindingResult bindingResult) throws PayloadValidationException {
@@ -37,7 +37,7 @@ public class AdminCinemaHallController {
         return new ResponseEntity<>("Deleted successfully", HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> updateProduct(
             @RequestBody @Validated(CinemaHallDTO.New.class) CinemaHallDTO cinemaHallDTO,
             BindingResult bindingResult) throws PayloadValidationException {

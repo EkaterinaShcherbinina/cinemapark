@@ -10,7 +10,7 @@
 <body>
   <#include "header.ftl">
   <div class="container">
-    <@form.form action="/admin-hall/new" method="post" modelAttribute="hall">
+    <@form.form action="/admin-hall" method="post" modelAttribute="hall">
       <input type="hidden" id="hallId" name="id" value="${hall.id}"/>
       <div class="row">
         <div class="col s6">

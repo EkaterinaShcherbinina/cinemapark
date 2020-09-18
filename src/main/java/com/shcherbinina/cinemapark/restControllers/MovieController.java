@@ -30,19 +30,19 @@ public class MovieController {
         return movieService.getMovieBySecondaryKey(id);
     }
 
-    @RequestMapping(value="/get-all-now", method = RequestMethod.GET)
+    @RequestMapping(value="/all-now", method = RequestMethod.GET)
     public List<MovieThumbnailDTO> getMovies() {
         List<MovieThumbnailDTO> movies = movieService.getMoviesNowInCinema();
         return movies;
     }
 
-    @RequestMapping(value="/get-all-soon", method = RequestMethod.GET)
+    @RequestMapping(value="/all-soon", method = RequestMethod.GET)
     public List<MovieThumbnailDTO> getMoviesSoon() {
         List<MovieThumbnailDTO> movies = movieService.getMoviesSoonInCinema();
         return movies;
     }
 
-    @RequestMapping(value = "/new", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Object> postMovie(@RequestBody @Validated(MovieDTO.New.class) MovieDTO movieDTO,
                                             BindingResult bindingResult) throws PayloadValidationException {
         ValidationHelper.checkErrors(bindingResult);
@@ -50,7 +50,7 @@ public class MovieController {
         return new ResponseEntity<>("Saved successfully", HttpStatus.CREATED);
     }
 
-    @RequestMapping(value = "/update", method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+    @RequestMapping(method = RequestMethod.PUT, consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
     public ResponseEntity<Object> updateMovie(@RequestBody @Validated(MovieDTO.Update.class) MovieDTO movieDTO,
                                               BindingResult bindingResult) throws PayloadValidationException {
         ValidationHelper.checkErrors(bindingResult);

@@ -9,7 +9,7 @@
 </head>
 <body>
   <#include "header.ftl">
-  <@form.form action="/account/add-money" method="post" modelAttribute="moneyAccount">
+  <@form.form action="/account/money" method="post" modelAttribute="moneyAccount">
     <div class="container containerPadding">
       <div class="row">
         <div class="col s4 offset-s4">

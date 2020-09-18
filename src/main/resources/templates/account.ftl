@@ -12,7 +12,7 @@
         <ul class="collection with-header" style="float:left; width:300px;">
           <li class="collection-header"><h4>Hello, ${userInfo.firstName}!</h4></li>
             <a href="/account/settings" <li class="collection-item" style="height:43px;">Settings</li></a>
-            <a href="/account/get-balance" <li class="collection-item" style="height:43px;">My balance</li></a>
+            <a href="/account/balance" <li class="collection-item" style="height:43px;">My balance</li></a>
         </ul>
         <ul class="collection with-header">
           <li class="collection-header"><h4>Your History</h4></li>
@@ -39,7 +39,7 @@
                           <a href="/movie/${movie.secondaryKey}">
                           <div class="card">
                               <div class="card-image" style="width: 100px;margin: auto;padding-top: 10px;">
-                                  <img src="/resources/getMovieImage/${movie.id}">
+                                  <img src="/resources/movieImage/${movie.id}">
                               </div>
                               <div class="card-content">
                                   <span class="card-title">${movie.name}</span>

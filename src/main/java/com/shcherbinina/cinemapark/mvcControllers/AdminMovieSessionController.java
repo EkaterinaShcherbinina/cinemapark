@@ -62,13 +62,13 @@ public class AdminMovieSessionController {
         return "redirect:/admin-session/sessions";
     }
 
-    @GetMapping("/new")
+    @GetMapping()
     public String newSession(Model model) {
         model.addAttribute("session", new AdminSessionDTO());
         return "newSession";
     }
 
-    @PostMapping("/new")
+    @PostMapping()
     public String postNewHall(
             @ModelAttribute("session") @Validated(AdminSessionDTO.New.class) AdminSessionDTO session,
             BindingResult bindingResult) throws BusinessValidationException {

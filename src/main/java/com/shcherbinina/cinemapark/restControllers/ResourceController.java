@@ -20,8 +20,8 @@ public class ResourceController {
     @Autowired
     MovieService movieService;
 
-    @RequestMapping(value = "/getMovieImage/{id}", method = RequestMethod.GET)
-    public ResponseEntity<byte[]> getMovieImage(@PathVariable int id) throws SQLException {
+    @RequestMapping(value = "/movieImage/{id}", method = RequestMethod.GET)
+    public ResponseEntity<byte[]> movieImage(@PathVariable int id) throws SQLException {
         HttpHeaders headers = new HttpHeaders();
         Blob image =  movieService.getImageByMovieId(id);
         byte[] bytes = image.getBytes(1, (int) image.length());

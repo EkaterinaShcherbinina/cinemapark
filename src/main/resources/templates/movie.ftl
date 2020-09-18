@@ -9,7 +9,7 @@
   <#include "header.ftl">
   <div class="container" style="padding-top: 30px;">
     <section class="sectionMovieReview">
-      <img src="/resources/getMovieImage/${movie.id}" width="200" height="300">
+      <img src="/resources/movieImage/${movie.id}" width="200" height="300">
     </section>
     <section class="sectionMovieReview">
       <h5>${movie.name} (${movie.productionYear})</h5>

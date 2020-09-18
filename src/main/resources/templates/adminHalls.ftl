@@ -13,7 +13,7 @@
         <h5>Available halls</h5>
       </div>
       <div class="col s2 offset-s3">
-        <a class="waves-effect waves-light btn" href="/admin-hall/new">
+        <a class="waves-effect waves-light btn" href="/admin-hall">
             <i class="material-icons right">add</i>Add new</a>
       </div>
     </div>
