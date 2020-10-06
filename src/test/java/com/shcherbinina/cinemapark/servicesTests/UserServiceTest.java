@@ -76,14 +76,14 @@ public class UserServiceTest {
         sessionDTO = new AdminSessionDTO();
         userDTO = new UserDTO();
         sessionDTO.setCost("50.0");
-        userDTO.setAccount(new BigDecimal(10.0));
+        userDTO.setAmountMoney(new BigDecimal(10.0));
     }
 
     @Test
     public void sendMoneyTest_validAmount_happy() throws PayloadValidationException {
         Mockito.when(userRepository.getUserById(4)).thenReturn(user1);
 
-        userService.addMoney(moneyAccountDTO1);
+        userService.topUpAccount(moneyAccountDTO1);
 
         Mockito.verify(userRepository).getUserById(4);
         Mockito.verify(userRepository).updateUser(user1);
@@ -94,7 +94,7 @@ public class UserServiceTest {
         Mockito.when(userRepository.getUserById(4)).thenReturn(user2);
         Mockito.when(sessionRepository.getMovieSessionById(2)).thenReturn(session);
 
-        userService.getMoney(reservationDTO1);
+        userService.withdrawMoney(reservationDTO1);
 
         Mockito.verify(userRepository).getUserById(4);
         Mockito.verify(userRepository).updateUser(user2);

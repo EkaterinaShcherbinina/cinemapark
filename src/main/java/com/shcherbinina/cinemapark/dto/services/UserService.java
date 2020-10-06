@@ -8,7 +8,6 @@ import com.shcherbinina.cinemapark.dao.repository.UserRepository;
 import com.shcherbinina.cinemapark.dto.DTOConverter;
 import com.shcherbinina.cinemapark.dto.entity.*;
 import com.shcherbinina.cinemapark.exceptions.validationExceptions.BusinessValidationException;
-import com.shcherbinina.cinemapark.exceptions.validationExceptions.PayloadValidationException;
 import com.shcherbinina.cinemapark.security.AuthProvider;
 import com.shcherbinina.cinemapark.security.AuthenticationFacade;
 import com.shcherbinina.cinemapark.utility.Utility;
@@ -66,7 +65,7 @@ public class UserService implements IUserService {
     @Override
     public MoneyAccountDTO getMoneyAccount() {
         MoneyAccountDTO accountDTO =  new MoneyAccountDTO();
-        accountDTO.setAmountMoney(authenticationFacade.getCurrentUser().getAccount().toString());
+        accountDTO.setAmountMoney(authenticationFacade.getCurrentUser().getAmountMoney().toString());
 
         return accountDTO;
     }
@@ -90,17 +89,17 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void addMoney(MoneyAccountDTO dto) {
+    public void topUpAccount(MoneyAccountDTO dto) {
         UserDTO user = authenticationFacade.getCurrentUser();
-        BigDecimal userAccount = user.getAccount().add(new BigDecimal(dto.getAmountMoney()));
-        user.setAccount(userAccount);
+        BigDecimal userAccount = user.getAmountMoney().add(new BigDecimal(dto.getAmountMoney()));
+        user.setAmountMoney(userAccount);
 
         userRepository.updateUser(dtoConverter.convertToUser(user));
         authProvider.updateUserAccount(userAccount);
     }
 
     @Override
-    public void getMoney(ReservationDTO dto) throws BusinessValidationException {
+    public void withdrawMoney(ReservationDTO dto) throws BusinessValidationException {
         moneyValidator.validate(dto);
 
         User user = userRepository.getUserById(Utility.getCurrentUserId());

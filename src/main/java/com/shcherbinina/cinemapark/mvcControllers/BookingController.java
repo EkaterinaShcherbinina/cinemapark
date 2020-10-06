@@ -3,7 +3,6 @@ package com.shcherbinina.cinemapark.mvcControllers;
 import com.shcherbinina.cinemapark.dto.entity.BookedDTO;
 import com.shcherbinina.cinemapark.dto.entity.ReservationDTO;
 import com.shcherbinina.cinemapark.dto.entity.RowDTO;
-import com.shcherbinina.cinemapark.dto.services.AccountService;
 import com.shcherbinina.cinemapark.dto.services.ReservationService;
 import com.shcherbinina.cinemapark.dto.services.UserService;
 import com.shcherbinina.cinemapark.exceptions.validationExceptions.BusinessValidationException;
@@ -52,7 +51,7 @@ public class BookingController {
         }
 
         if(reservationDTO.getIsPaid())
-        userService.getMoney(reservationDTO);
+        userService.withdrawMoney(reservationDTO);
 
         reservationService.addNewReservation(reservationDTO);
 

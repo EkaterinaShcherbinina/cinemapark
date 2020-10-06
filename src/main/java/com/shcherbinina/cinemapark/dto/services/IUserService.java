@@ -14,6 +14,6 @@ public interface IUserService {
     void updateUserName(UserNameDTO userDTO);
     void updateUserPassword(UserPasswordDTO userDTO);
     void updateUserEmail(UserEmailDTO email);
-    void addMoney(MoneyAccountDTO dto);
-    void getMoney(ReservationDTO dto) throws BusinessValidationException;
+    void topUpAccount(MoneyAccountDTO dto);
+    void withdrawMoney(ReservationDTO dto) throws BusinessValidationException;
 }

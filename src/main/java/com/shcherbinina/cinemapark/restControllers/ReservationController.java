@@ -47,7 +47,7 @@ import java.util.List;
         ValidationHelper.checkErrors(bindingResult);
 
         if(reservationDTO.getIsPaid())
-            userService.getMoney(reservationDTO);
+            userService.withdrawMoney(reservationDTO);
 
         reservationService.addNewReservation(reservationDTO);
         return new ResponseEntity<>("Saved successfully", HttpStatus.CREATED);

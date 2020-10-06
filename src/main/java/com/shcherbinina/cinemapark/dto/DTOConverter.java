@@ -72,7 +72,7 @@ public class DTOConverter {
         user.setLastName(dto.getLastName());
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
         user.setEmail(dto.getEmail());
-        user.setAccount(dto.getAccount());
+        user.setAccount(dto.getAmountMoney());
         user.setRoles(dto.getRoles());
 
         return user;
@@ -87,7 +87,7 @@ public class DTOConverter {
         dto.setLastName(user.getLastName());
         dto.setPassword(user.getPassword());
         dto.setEmail(user.getEmail());
-        dto.setAccount(user.getAccount());
+        dto.setAmountMoney(user.getAccount());
         dto.setRoles(user.getRoles());
 
         return dto;
