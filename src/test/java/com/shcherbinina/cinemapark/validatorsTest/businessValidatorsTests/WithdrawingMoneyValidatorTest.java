@@ -43,11 +43,11 @@ public class WithdrawingMoneyValidatorTest {
 
         userDTO1 = new UserDTO();
         userDTO1.setId(1);
-        userDTO1.setAccount(new BigDecimal(30.0));
+        userDTO1.setAmountMoney(new BigDecimal(30.0));
 
         userDTO2 = new UserDTO();
         userDTO2.setId(1);
-        userDTO2.setAccount(new BigDecimal(10.0));
+        userDTO2.setAmountMoney(new BigDecimal(10.0));
 
         reservationDTO = new ReservationDTO();
         reservationDTO.setId(1);

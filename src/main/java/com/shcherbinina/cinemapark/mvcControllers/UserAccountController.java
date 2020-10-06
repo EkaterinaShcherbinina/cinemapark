@@ -114,7 +114,7 @@ public class UserAccountController {
         accountValidator.validate(moneyAccount, bindingResult);
         if(bindingResult.hasErrors()) return "/addMoney";
 
-        userService.addMoney(moneyAccount);
+        userService.topUpAccount(moneyAccount);
         return "redirect:/account/balance";
     }
 }

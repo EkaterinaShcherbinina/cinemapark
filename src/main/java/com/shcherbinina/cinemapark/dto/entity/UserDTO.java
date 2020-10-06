@@ -20,6 +20,6 @@ public class UserDTO {
     @NotBlank
     @Email
     private String email;
-    private BigDecimal account;
+    private BigDecimal amountMoney;
     private Set<Role> roles;
 }

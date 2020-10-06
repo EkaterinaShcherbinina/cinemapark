@@ -70,7 +70,7 @@ public class AuthProvider implements AuthenticationProvider {
     public void updateUserAccount(BigDecimal userAccount) {
         UserDTO user = authenticationFacade.getCurrentUser();
         if(user != null) {
-            user.setAccount(userAccount);
+            user.setAmountMoney(userAccount);
         }
     }
 
