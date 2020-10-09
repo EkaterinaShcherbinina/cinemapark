@@ -1,4 +1,4 @@
-package com.shcherbinina.cinemapark.dao.repository;
+package com.shcherbinina.cinemapark.dao;
 
 import com.shcherbinina.cinemapark.dao.entity.Movie;
 import com.shcherbinina.cinemapark.dto.entity.MovieDTO;
@@ -7,7 +7,7 @@ import java.sql.Blob;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface IMovieRepository {
+public interface IMovieDao {
     List<Movie> getAllMovies();
     Movie getMovieById(int id);
     Movie getMovieByName(String name);

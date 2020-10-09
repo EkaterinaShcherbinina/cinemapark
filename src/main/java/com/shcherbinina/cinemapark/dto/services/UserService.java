@@ -3,8 +3,8 @@ package com.shcherbinina.cinemapark.dto.services;
 import com.shcherbinina.cinemapark.dao.entity.MovieSession;
 import com.shcherbinina.cinemapark.dao.entity.Role;
 import com.shcherbinina.cinemapark.dao.entity.User;
-import com.shcherbinina.cinemapark.dao.repository.MovieSessionRepository;
-import com.shcherbinina.cinemapark.dao.repository.UserRepository;
+import com.shcherbinina.cinemapark.dao.MovieSessionDao;
+import com.shcherbinina.cinemapark.dao.UserDao;
 import com.shcherbinina.cinemapark.dto.DTOConverter;
 import com.shcherbinina.cinemapark.dto.entity.*;
 import com.shcherbinina.cinemapark.exceptions.validationExceptions.BusinessValidationException;
@@ -21,9 +21,9 @@ import java.util.Collections;
 @Service
 public class UserService implements IUserService {
     @Autowired
-    UserRepository userRepository;
+    UserDao userRepository;
     @Autowired
-    MovieSessionRepository sessionRepository;
+    MovieSessionDao sessionRepository;
     @Autowired
     private DTOConverter dtoConverter;
     @Autowired

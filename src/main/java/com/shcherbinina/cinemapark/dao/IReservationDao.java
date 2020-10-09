@@ -1,4 +1,4 @@
-package com.shcherbinina.cinemapark.dao.repository;
+package com.shcherbinina.cinemapark.dao;
 
 import com.shcherbinina.cinemapark.dao.entity.Reservation;
 import com.shcherbinina.cinemapark.dto.entity.ReservationDTO;
@@ -7,7 +7,7 @@ import com.shcherbinina.cinemapark.dto.entity.RowDTO;
 import java.util.List;
 import java.util.Map;
 
-public interface IReservationRepository {
+public interface IReservationDao {
     List<Reservation> getReservationsBySessionId(int sessionId);
     void addReservation(Reservation reservation);
     void updateReservation(Reservation reservation);

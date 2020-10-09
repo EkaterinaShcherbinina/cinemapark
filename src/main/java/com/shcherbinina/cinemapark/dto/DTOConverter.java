@@ -1,10 +1,10 @@
 package com.shcherbinina.cinemapark.dto;
 
 import com.shcherbinina.cinemapark.dao.entity.*;
-import com.shcherbinina.cinemapark.dao.repository.CinemaHallRepository;
-import com.shcherbinina.cinemapark.dao.repository.MovieRepository;
-import com.shcherbinina.cinemapark.dao.repository.MovieSessionRepository;
-import com.shcherbinina.cinemapark.dao.repository.UserRepository;
+import com.shcherbinina.cinemapark.dao.CinemaHallDao;
+import com.shcherbinina.cinemapark.dao.MovieDao;
+import com.shcherbinina.cinemapark.dao.MovieSessionDao;
+import com.shcherbinina.cinemapark.dao.UserDao;
 import com.shcherbinina.cinemapark.dto.entity.*;
 import com.shcherbinina.cinemapark.security.AuthenticationFacade;
 import com.shcherbinina.cinemapark.utility.Utility;
@@ -22,13 +22,13 @@ import java.util.Arrays;
 @Component
 public class DTOConverter {
     @Autowired
-    private UserRepository userRepository;
+    private UserDao userRepository;
     @Autowired
-    private MovieSessionRepository movieSessionRepository;
+    private MovieSessionDao movieSessionRepository;
     @Autowired
-    private CinemaHallRepository cinemaHallRepository;
+    private CinemaHallDao cinemaHallRepository;
     @Autowired
-    private MovieRepository movieRepository;
+    private MovieDao movieRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired

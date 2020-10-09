@@ -1,7 +1,7 @@
 package com.shcherbinina.cinemapark.dto.services;
 
 import com.shcherbinina.cinemapark.dao.entity.MovieSession;
-import com.shcherbinina.cinemapark.dao.repository.MovieSessionRepository;
+import com.shcherbinina.cinemapark.dao.MovieSessionDao;
 import com.shcherbinina.cinemapark.dto.DTOConverter;
 import com.shcherbinina.cinemapark.dto.entity.AdminSessionDTO;
 import com.shcherbinina.cinemapark.exceptions.validationExceptions.BusinessValidationException;
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @Service
 public class AdminMovieSessionService implements IAdminMovieSessionService {
     @Autowired
-    MovieSessionRepository sessionRepository;
+    MovieSessionDao sessionRepository;
     @Autowired
     private DTOConverter dtoConverter;
     @Autowired

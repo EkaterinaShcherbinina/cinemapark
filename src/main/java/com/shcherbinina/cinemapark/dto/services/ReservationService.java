@@ -1,10 +1,10 @@
 package com.shcherbinina.cinemapark.dto.services;
 
 import com.shcherbinina.cinemapark.dao.entity.*;
-import com.shcherbinina.cinemapark.dao.repository.CinemaHallRepository;
-import com.shcherbinina.cinemapark.dao.repository.MovieSessionRepository;
-import com.shcherbinina.cinemapark.dao.repository.ReservationRepository;
-import com.shcherbinina.cinemapark.dao.repository.RowRepository;
+import com.shcherbinina.cinemapark.dao.CinemaHallDao;
+import com.shcherbinina.cinemapark.dao.MovieSessionDao;
+import com.shcherbinina.cinemapark.dao.ReservationDao;
+import com.shcherbinina.cinemapark.dao.RowDao;
 import com.shcherbinina.cinemapark.dto.DTOConverter;
 import com.shcherbinina.cinemapark.dto.entity.BookedDTO;
 import com.shcherbinina.cinemapark.dto.entity.ReservationDTO;
@@ -22,13 +22,13 @@ import java.util.stream.Collectors;
 @Service
 public class ReservationService implements IReservationService {
     @Autowired
-    private MovieSessionRepository movieSessionRepository;
+    private MovieSessionDao movieSessionRepository;
     @Autowired
-    private CinemaHallRepository cinemaHallRepository;
+    private CinemaHallDao cinemaHallRepository;
     @Autowired
-    private ReservationRepository reservationRepository;
+    private ReservationDao reservationRepository;
     @Autowired
-    private RowRepository rowRepository;
+    private RowDao rowRepository;
     @Autowired
     private DTOConverter dtoConverter;
 

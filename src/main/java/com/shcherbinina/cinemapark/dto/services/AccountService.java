@@ -3,8 +3,8 @@ package com.shcherbinina.cinemapark.dto.services;
 import com.shcherbinina.cinemapark.dao.entity.MovieSession;
 import com.shcherbinina.cinemapark.dao.entity.Reservation;
 import com.shcherbinina.cinemapark.dao.entity.User;
-import com.shcherbinina.cinemapark.dao.repository.MovieSessionRepository;
-import com.shcherbinina.cinemapark.dao.repository.UserRepository;
+import com.shcherbinina.cinemapark.dao.MovieSessionDao;
+import com.shcherbinina.cinemapark.dao.UserDao;
 import com.shcherbinina.cinemapark.dto.DTOConverter;
 import com.shcherbinina.cinemapark.dto.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +20,9 @@ public class AccountService implements  IAccountService{
     @Autowired
     private DTOConverter dtoConverter;
     @Autowired
-    private UserRepository userRepository;
+    private UserDao userRepository;
     @Autowired
-    private MovieSessionRepository sessionRepository;
+    private MovieSessionDao sessionRepository;
     @Autowired
     private ReservationService reservationService;
 
