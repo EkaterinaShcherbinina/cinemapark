@@ -1,7 +1,7 @@
 package com.shcherbinina.cinemapark.dto.services;
 
 import com.shcherbinina.cinemapark.dao.entity.CinemaHall;
-import com.shcherbinina.cinemapark.dao.repository.CinemaHallRepository;
+import com.shcherbinina.cinemapark.dao.CinemaHallDao;
 import com.shcherbinina.cinemapark.dto.DTOConverter;
 import com.shcherbinina.cinemapark.dto.entity.CinemaHallDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Service
 public class CinemaHallService implements ICinemaHallService {
     @Autowired
-    private CinemaHallRepository cinemaHallRepository;
+    private CinemaHallDao cinemaHallRepository;
     @Autowired
     private DTOConverter dtoConverter;
 

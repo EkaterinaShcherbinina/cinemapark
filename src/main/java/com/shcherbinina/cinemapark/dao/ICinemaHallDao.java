@@ -1,11 +1,11 @@
-package com.shcherbinina.cinemapark.dao.repository;
+package com.shcherbinina.cinemapark.dao;
 
 import com.shcherbinina.cinemapark.dao.entity.CinemaHall;
 import com.shcherbinina.cinemapark.dto.entity.CinemaHallDTO;
 
 import java.util.List;
 
-public interface ICinemaHallRepository {
+public interface ICinemaHallDao {
     CinemaHall getCinemaHallById(int hallId);
     CinemaHall getCinemaHallByName(String name);
     List<CinemaHall> getAllCinemaHalls();

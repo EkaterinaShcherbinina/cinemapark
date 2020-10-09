@@ -1,7 +1,7 @@
 package com.shcherbinina.cinemapark.dto.services;
 
 import com.shcherbinina.cinemapark.dao.entity.MovieSession;
-import com.shcherbinina.cinemapark.dao.repository.MovieSessionRepository;
+import com.shcherbinina.cinemapark.dao.MovieSessionDao;
 import com.shcherbinina.cinemapark.dto.DTOConverter;
 import com.shcherbinina.cinemapark.dto.entity.MovieSessionDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Service
 public class MovieSessionService implements IMovieSessionService{
     @Autowired
-    MovieSessionRepository sessionRepository;
+    MovieSessionDao sessionRepository;
     @Autowired
     private DTOConverter dtoConverter;
 

@@ -1,8 +1,8 @@
 package com.shcherbinina.cinemapark.servicesTests;
 
-import com.shcherbinina.cinemapark.dao.ReservationDAO;
-import com.shcherbinina.cinemapark.dao.entity.*;
 import com.shcherbinina.cinemapark.dao.repository.ReservationRepository;
+import com.shcherbinina.cinemapark.dao.entity.*;
+import com.shcherbinina.cinemapark.dao.ReservationDao;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,10 +17,10 @@ import java.util.Date;
 
 public class ReservationRepositoryTest {
     @Mock
-    private ReservationDAO reservationDAO;
+    private ReservationRepository reservationRepository;
 
     @InjectMocks
-    private ReservationRepository reservationRepository;
+    private ReservationDao reservationDao;
 
     private Reservation reservation;
     private Reservation reservationExpected;
@@ -53,24 +53,24 @@ public class ReservationRepositoryTest {
 
     @Test
     public void getReservationById_validId_happy() {
-        Mockito.when(reservationDAO.findById(1))
+        Mockito.when(reservationRepository.findById(1))
                 .thenReturn(reservation);
 
-        Reservation actual = reservationRepository.getReservationById(1);
+        Reservation actual = reservationDao.getReservationById(1);
 
-        Mockito.verify(reservationDAO).findById(Mockito.eq(1));
+        Mockito.verify(reservationRepository).findById(Mockito.eq(1));
 
         Assert.assertEquals(actual, reservationExpected);
     }
 
     @Test
     public void getReservationById_invalidId_unhappy() {
-        Mockito.when(reservationDAO.findById(Mockito.anyInt()))
+        Mockito.when(reservationRepository.findById(Mockito.anyInt()))
                 .thenReturn(null);
 
-        Reservation actual = reservationRepository.getReservationById(Mockito.anyInt());
+        Reservation actual = reservationDao.getReservationById(Mockito.anyInt());
 
-        Mockito.verify(reservationDAO).findById(Mockito.anyInt());
+        Mockito.verify(reservationRepository).findById(Mockito.anyInt());
 
         Assert.assertNull(actual);
     }

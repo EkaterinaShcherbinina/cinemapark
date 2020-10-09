@@ -2,8 +2,8 @@ package com.shcherbinina.cinemapark.servicesTests;
 
 import com.shcherbinina.cinemapark.dao.entity.MovieSession;
 import com.shcherbinina.cinemapark.dao.entity.User;
-import com.shcherbinina.cinemapark.dao.repository.MovieSessionRepository;
-import com.shcherbinina.cinemapark.dao.repository.UserRepository;
+import com.shcherbinina.cinemapark.dao.MovieSessionDao;
+import com.shcherbinina.cinemapark.dao.UserDao;
 import com.shcherbinina.cinemapark.dto.entity.MoneyAccountDTO;
 import com.shcherbinina.cinemapark.dto.entity.AdminSessionDTO;
 import com.shcherbinina.cinemapark.dto.entity.ReservationDTO;
@@ -25,9 +25,9 @@ import java.math.BigDecimal;
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
     @Mock
-    private UserRepository userRepository;
+    private UserDao userRepository;
     @Mock
-    private MovieSessionRepository sessionRepository;
+    private MovieSessionDao sessionRepository;
     @Mock
     private WithdrawingMoneyValidator validator;
 

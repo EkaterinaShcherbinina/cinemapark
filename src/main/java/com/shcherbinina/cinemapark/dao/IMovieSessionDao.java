@@ -1,10 +1,10 @@
-package com.shcherbinina.cinemapark.dao.repository;
+package com.shcherbinina.cinemapark.dao;
 
 import com.shcherbinina.cinemapark.dao.entity.MovieSession;
 
 import java.util.List;
 
-public interface IMovieSessionRepository {
+public interface IMovieSessionDao {
     List<MovieSession> getAllMovieSessions();
     MovieSession getMovieSessionById(int sessionId);
     void addMovieSession(MovieSession movieSession);

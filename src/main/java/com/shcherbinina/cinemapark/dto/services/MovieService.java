@@ -1,7 +1,7 @@
 package com.shcherbinina.cinemapark.dto.services;
 
 import com.shcherbinina.cinemapark.dao.entity.Movie;
-import com.shcherbinina.cinemapark.dao.repository.MovieRepository;
+import com.shcherbinina.cinemapark.dao.MovieDao;
 import com.shcherbinina.cinemapark.dto.DTOConverter;
 import com.shcherbinina.cinemapark.dto.entity.MovieDTO;
 import com.shcherbinina.cinemapark.dto.entity.MovieThumbnailDTO;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @Service
 public class MovieService implements IMovieService {
     @Autowired
-    private MovieRepository movieRepository;
+    private MovieDao movieRepository;
     @Autowired
     private DTOConverter dtoConverter;
 

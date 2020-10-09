@@ -1,10 +1,10 @@
 package com.shcherbinina.cinemapark.servicesTests;
 
 import com.shcherbinina.cinemapark.dao.entity.*;
-import com.shcherbinina.cinemapark.dao.repository.CinemaHallRepository;
-import com.shcherbinina.cinemapark.dao.repository.MovieSessionRepository;
-import com.shcherbinina.cinemapark.dao.repository.ReservationRepository;
-import com.shcherbinina.cinemapark.dao.repository.RowRepository;
+import com.shcherbinina.cinemapark.dao.CinemaHallDao;
+import com.shcherbinina.cinemapark.dao.MovieSessionDao;
+import com.shcherbinina.cinemapark.dao.ReservationDao;
+import com.shcherbinina.cinemapark.dao.RowDao;
 import com.shcherbinina.cinemapark.dto.entity.RowDTO;
 import com.shcherbinina.cinemapark.dto.services.ReservationService;
 import org.junit.Assert;
@@ -19,13 +19,13 @@ import java.util.*;
 
 public class ReservationServiceTest {
     @Mock
-    private MovieSessionRepository movieSessionRepository;
+    private MovieSessionDao movieSessionRepository;
     @Mock
-    private ReservationRepository reservationRepository;
+    private ReservationDao reservationRepository;
     @Mock
-    private CinemaHallRepository cinemaHallRepository;
+    private CinemaHallDao cinemaHallRepository;
     @Mock
-    private RowRepository rowRepository;
+    private RowDao rowRepository;
 
     @InjectMocks
     private ReservationService reservationService;
