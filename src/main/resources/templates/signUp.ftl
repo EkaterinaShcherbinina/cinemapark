@@ -11,6 +11,7 @@
   <#include "header.ftl">
       <div class="container">
         <@form.form action="/sign-up" method="post" modelAttribute="user">
+        <input type="hidden" name="amountMoney" value="0.00"/>
         <div class="row">
           <div class="input-field col s6 offset-s3">
             <h5>Create your account</h5>

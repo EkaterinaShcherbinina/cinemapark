@@ -4,7 +4,7 @@ CREATE TABLE user (
     lastName varchar(255) NOT NULL,
     password varchar(100) NOT NULL,
     email varchar(255) NOT NULL,
-    account DECIMAL NOT NULL,
+    account DECIMAL(10,2) NOT NULL,
     PRIMARY KEY (id)
   );
 
