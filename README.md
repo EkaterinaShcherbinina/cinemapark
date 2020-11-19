@@ -7,9 +7,9 @@
 
 To login in the app:
 Admin
-user name: admin
-password: admin
+- user name: admin
+- password: admin
 
 User
-user name: sagittis@sed.org
-password: 1
+- user name: sagittis@sed.org
+- password: 1
