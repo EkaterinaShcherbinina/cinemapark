@@ -2,8 +2,13 @@
 
 <!-- Dropdown -->
 <ul id="dropdown" class="dropdown-content">
-    <li><a href="/account">Account</a></li>
-    <li><a href="/logout">Logout</a></li>
+    <@security.authorize access="hasAuthority('ADMIN')">
+        <li><a href="/logout">Logout</a></li>
+    </@security.authorize>
+    <@security.authorize access="hasAuthority('USER')">
+        <li><a href="/account">Account</a></li>
+        <li><a href="/logout">Logout</a></li>
+    </@security.authorize>
 </ul>
 
 <nav>
