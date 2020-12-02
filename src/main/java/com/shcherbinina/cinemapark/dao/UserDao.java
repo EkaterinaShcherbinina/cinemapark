@@ -22,19 +22,16 @@ public class UserDao implements IUserDao {
     }
 
     @Override
-    @Transactional
     public void addUser(User user) {
         userRepository.save(user);
     }
 
     @Override
-    @Transactional
     public void deleteUser(int userId) {
         userRepository.deleteById(userId);
     }
 
     @Override
-    @Transactional
     public void updateUser(User user) {
         userRepository.save(user);
     }

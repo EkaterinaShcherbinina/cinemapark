@@ -38,7 +38,6 @@ public class ReservationDao implements IReservationDao {
     }
 
     @Override
-    @Transactional
     public void addReservation(Reservation reservation) {
         reservationRepository.save(reservation);
     }
